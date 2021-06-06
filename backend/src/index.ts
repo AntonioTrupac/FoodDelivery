@@ -12,6 +12,7 @@ import { redis } from './redis';
 import { LoginResolver } from './modules/user/Login';
 import { MeResolver } from './modules/user/Me';
 import { ConfirmUserResolver } from './modules/user/ConfirmUser';
+import {graphqlUploadExpress} from "graphql-upload";
 
 dotenv.config();
 const { PORT } = process.env;
@@ -30,10 +31,14 @@ const main = async () => {
 
    const apolloServer = new ApolloServer({
       schema,
-      context: ({ req }: any) => ({ req }), // we can acess session data based on req
+      context: ({ req, res }: any) => ({ req, res }), // we can acess session data based on req
+      introspection: true,
+      uploads: false //disable apollo upload property
    });
 
    const app = express();
+
+   app.use(graphqlUploadExpress({maxFileSize: 10000000, maxFiles: 10 }))
 
    const RedisStore = connectRedis(session);
 
