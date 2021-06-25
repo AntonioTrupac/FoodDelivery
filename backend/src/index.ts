@@ -13,6 +13,8 @@ import { LoginResolver } from './modules/user/Login';
 import { MeResolver } from './modules/user/Me';
 import { ConfirmUserResolver } from './modules/user/ConfirmUser';
 import {graphqlUploadExpress} from "graphql-upload";
+import * as fs from "fs";
+import {printSchema} from "graphql";
 
 dotenv.config();
 const { PORT } = process.env;
@@ -28,6 +30,14 @@ const main = async () => {
          return !!req.session.userId;
       },
    });
+
+   fs.writeFile(__dirname + '/../../common/gql/generated.schema.graphql', `${printSchema(schema)}`, err => {
+      if(err) {
+         return console.log(err);
+      }
+
+      console.log('The file was saved');
+   })
 
    const apolloServer = new ApolloServer({
       schema,

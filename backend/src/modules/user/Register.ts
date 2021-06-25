@@ -1,6 +1,5 @@
 import {
    Arg,
-   Authorized,
    Mutation,
    Query,
    Resolver,

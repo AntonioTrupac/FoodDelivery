@@ -1,10 +1,23 @@
 import React from 'react';
-import './App.css';
+import {
+   BrowserRouter as Router,
+   Switch,
+   Route,
+} from "react-router-dom";
+// import {Login} from "./pages/user/Login";
+// import {Register} from "./pages/user/Register";
+import {LandingPage} from "./pages/LandingPage";
+
 
 function App() {
   return (
-    <div className="App">
-      Hello
+    <div>
+      <Router>
+         <Switch>
+            <Route exact path='/' component={LandingPage} />
+            {/*<Route path={}*/}
+         </Switch>
+      </Router>
     </div>
   );
 }
