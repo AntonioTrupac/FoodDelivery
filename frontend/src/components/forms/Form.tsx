@@ -1,11 +1,15 @@
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import {GoogleButton} from "../button/GoogleButton";
 import google from "../../images/flat-color-icons_google.png";
+import {Login} from "../../pages/user/Login";
+import {Register} from "../../pages/user/Register";
 
 export const Form: FC = (props) => {
+   const [mode, setMode] = useState<string>('register');
+
    return (
       <>
-      <h1 className='text-center text-[32px] text-[#333333] font-medium mb-[15px]'>Log in to App</h1>
+      <h1 className='text-center text-[32px] text-[#333333] font-medium mb-[15px]'>{ mode === 'register' ? 'Register to app' : 'Login to app'}</h1>
       <div className='text-center'>
          <GoogleButton
             className='border-[2px] w-[400px] h-[65px] mt-[25px] rounded-[40px] focus:ring-[3px] focus:border-none focus:outline-none'>
@@ -19,7 +23,10 @@ export const Form: FC = (props) => {
          <p>or</p>
       </div>
       <div>
-         {props.children}
+         { mode === 'register' ?
+            <Register mode={mode} setMode={setMode}/> :
+            <Login mode={mode} setMode={setMode} />
+         }
       </div>
       </>
    )

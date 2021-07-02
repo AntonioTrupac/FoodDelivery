@@ -1,16 +1,21 @@
-import React, { FC } from "react";
+import React, {FC, useState} from "react";
 import ReactDOM from "react-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import {Form} from "../forms/Form";
+import {Login} from "../../pages/user/Login";
+import {Register} from "../../pages/user/Register";
 
 type ModalProps = {
    isShown: boolean;
    hide: () => void;
-   modalContent: JSX.Element;
+   modalContent?: JSX.Element;
    headerText: string;
 }
 
 export const Modal: FC<ModalProps> = (props) => {
+
+
    const modal = (
       <>
          <div onClick={props.hide} className='fixed w-[100%] h-[100%] top-0 left-0 bg-[#ffdfc1] z-40 bg-opacity-50 backdrop-filter backdrop-blur-[4px]'/>
@@ -32,7 +37,7 @@ export const Modal: FC<ModalProps> = (props) => {
                   />
                </div>
                <div className='h-[100%] mb-[35px]'>
-                  <span>{props.modalContent}</span>
+                  <Form  />
                </div>
          </div>
          </div>

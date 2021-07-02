@@ -1,8 +1,14 @@
-import  React, {FC} from 'react';
+import React, {Dispatch, FC, SetStateAction} from 'react';
 import {Form, Formik, FormikProps} from "formik";
 import {CustomInput} from "../../components/input/CustomInput";
 import {Button} from "../../components/button/Button";
 import {Link} from "react-router-dom";
+import {Register} from "./Register";
+
+type LoginProps = {
+   mode: string;
+   setMode: Dispatch<SetStateAction<string>>;
+}
 
 type Values = {
    email: string;
@@ -14,7 +20,9 @@ const initialValues = {
    password: ''
 }
 
-export const Login: FC = () => {
+
+export const Login: FC<LoginProps> = (props) => {
+
    return (
       <div>
          <Formik
@@ -24,23 +32,23 @@ export const Login: FC = () => {
                actions.setSubmitting(false);
             }}
          >
-            {(props: FormikProps<Values>) => (
+            {(propsFormik: FormikProps<Values>) => (
                <Form>
                   <div className='flex flex-col justify-center items-center mt-[20px] w-[100%]'>
                      <CustomInput
                         name='email'
                         placeholder='Email'
-                        value={props.values.email}
+                        value={propsFormik.values.email}
                         type='text'
                         className='w-[320px] h-[50px] border-b-[1px] border-[#AFAEAE] mb-[10px] focus:outline-none'
-                        onChange={props.handleChange}/>
+                        onChange={propsFormik.handleChange}/>
                      <CustomInput
                         name='password'
                         type='password'
                         placeholder='Password'
-                        value={props.values.password}
+                        value={propsFormik.values.password}
                         className='w-[320px] h-[50px] border-b-[1px] border-[#AFAEAE] mb-[10px] focus:outline-none'
-                        onChange={props.handleChange}/>
+                        onChange={propsFormik.handleChange}/>
                      <Button
                         type='submit'
                         className='border-none bg-[#D8D8D8] text-[#FFFFFF] text-[24px] w-[400px] h-[65px] mt-[25px] rounded-[40px] focus:ring-[3px] focus:border-none focus:outline-none'
@@ -48,7 +56,10 @@ export const Login: FC = () => {
                         Log in
                      </Button>
                      <div className='mt-[30px] text-[18px]'>
-                        <p className='text-[#AFAEAE]'>New to App? <Link to='/register' ><span className='text-[#FEAE67]'>Sign Up</span></Link></p>
+                        <p className='text-[#AFAEAE]'>New to App? <a href='#' onClick={(e: any) => {
+                           e.preventDefault();
+                           props.setMode('register')
+                        }} className='text-[#FEAE67]'>Sign Up</a></p>
                      </div>
                   </div>
                </Form>

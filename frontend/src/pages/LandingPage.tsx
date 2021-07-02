@@ -4,6 +4,17 @@ import {Modal} from "../components/modal/Modal";
 import {Form} from "../components/forms/Form";
 import {Login} from "./user/Login";
 import {Register} from "./user/Register";
+import logo from '../images/LOGO.png'
+import pozadina from '../images/pozadina.jpg';
+
+const bgImageStyle = {
+   width: '100%',
+   backgroundImage: `url(${pozadina})`,
+   backgroundPosition: 'center center',
+   backgroundRepeat: 'no-repeat',
+   backgroundSize: 'cover',
+   backgroundColor: '#464646',
+}
 
 export const LandingPage: FC = () => {
    const [value, setValue] = useState('');
@@ -16,20 +27,20 @@ export const LandingPage: FC = () => {
 
    return (
       <>
-      <div className='h-screen grid grid-rows-3 z-10'>
+      <div className='h-screen grid grid-rows-3 z-10' style={bgImageStyle}>
          <div className='flex justify-between align-center'>
-         <div className='mt-[95px] ml-[100px] text-3xl w-[120px] h-[50px]'>
-            LOGO
-         </div>
-         <div className='mr-[100px]'>
-            <button
-               className='bg-[#FEAE67] rounded-[40px] w-[206px] h-[66px] text-3xl mt-20 focus:outline-none focus-visible:outline-none focus:ring-2 text-[#ffffff] capitalize'
-               onClick={toggle}
-            >
-               get started
-            </button>
+            <div className='mt-[60px] ml-[100px] text-3xl '>
+               <img src={logo} alt={logo} className='w-[110px] h-auto md:w-[140px] 2xl:w-[200px]' />
+            </div>
+            <div className='mr-[100px]'>
+               <button
+                  className='bg-[#FEAE67] rounded-[40px] w-[206px] h-[66px] text-3xl mt-20 focus:outline-none focus-visible:outline-none focus:ring-2 text-[#ffffff] capitalize'
+                  onClick={toggle}
+               >
+                  get started
+               </button>
 
-         </div>
+            </div>
          </div>
          <div className='flex flex-col items-start'>
             <p className='text-[36px] ml-[100px] capitalize'>
@@ -54,7 +65,6 @@ export const LandingPage: FC = () => {
       <Modal
          isShown={isShown}
          hide={toggle}
-         modalContent={<Form><Login /></Form>}
          headerText={'Login'}
       />
    </>
