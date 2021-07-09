@@ -2,7 +2,6 @@ import React, {Dispatch, FC, SetStateAction} from 'react';
 import {Form, Formik, FormikProps} from "formik";
 import {CustomInput} from "../../components/input/CustomInput";
 import {Button} from "../../components/button/Button";
-import {Link} from "react-router-dom";
 
 type RegisterProps = {
    mode: string;

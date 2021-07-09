@@ -1,9 +1,7 @@
 import React, {ChangeEvent, FC, useState} from 'react';
 import {useModal} from "../customHooks/useModal";
 import {Modal} from "../components/modal/Modal";
-import {Form} from "../components/forms/Form";
 import {Login} from "./user/Login";
-import {Register} from "./user/Register";
 import logo from '../images/LOGO.png'
 import pozadina from '../images/pozadina.jpg';
 
