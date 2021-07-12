@@ -1,7 +1,8 @@
-import React, {Dispatch, FC, SetStateAction} from 'react';
-import {Form, Formik, FormikProps} from "formik";
+import React, {Dispatch, FC, SetStateAction, useCallback} from 'react';
+import {Form, Formik, FormikProps, FormikValues} from "formik";
 import {CustomInput} from "../../components/input/CustomInput";
 import {Button} from "../../components/button/Button";
+import {useRegisterMutation, RegisterInput} from "../../generated";
 
 type RegisterProps = {
    mode: string;
@@ -25,14 +26,50 @@ const initialValues = {
 }
 
 export const Register: FC<RegisterProps> = (props) => {
+   const [register, {data, loading, error}] = useRegisterMutation();
+
+   const userInfo = useCallback((data: RegisterInput) => {
+         register({
+            variables: data
+         }).then((res) => {
+            const response = res.data?.register;
+            if(response){
+               console.log('OVO JE RESPONSE', response);
+            }
+         }).catch((err) => {
+            console.error('err', err.message);
+         })
+   }, [register]);
+
+   const saveData = useCallback((submittedValues : FormikValues) => {
+         if (submittedValues) {
+            console.log("%c \nREGISTERING USER\n", "color: red");
+            const { firstName, lastName, email, password, age } = submittedValues;
+            const data: RegisterInput = {
+               firstName,
+               lastName,
+               email,
+               password,
+               age
+            };
+            console.log('User info', data);
+            userInfo(data);
+         }
+   }, [userInfo])
+
+   const onSubmit = (values: FormikValues) => {
+      saveData(values);
+      alert(JSON.stringify(values, null, 2));
+      // actions.setSubmitting(false);
+   }
+   // TODO: PROMIJENI AGE da nije number nego da imas datum i
+   //  onda imas fju koja racuna age, dakle ne primaj number nego string
+   
    return (
       <div>
          <Formik
             initialValues={initialValues}
-            onSubmit={(values, actions) => {
-               alert(JSON.stringify(values, null, 2));
-               actions.setSubmitting(false);
-            }}
+            onSubmit={onSubmit}
          >
             {(propsFormik: FormikProps<Values>) => (
                <Form>
