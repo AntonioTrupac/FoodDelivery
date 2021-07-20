@@ -28,7 +28,7 @@ type CustomInputProps = {
    label?: React.ReactNode;
    className?: string;
    placeholder?: string;
-   value?: string;
+   value?: unknown;
    onBlur?: {
       (e: React.FocusEvent<any>): void;
       <T = any>(fieldOrEvent: T): T extends string ? (e: any) => void : void;

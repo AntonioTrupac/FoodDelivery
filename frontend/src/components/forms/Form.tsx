@@ -14,7 +14,7 @@ export const Form: FC = (props) => {
          <GoogleButton
             className='border-[2px] w-[400px] h-[65px] mt-[25px] rounded-[40px] focus:ring-[3px] focus:border-none focus:outline-none'>
             <div className='flex items-center'>
-               <img className='ml-[15px] ' src={google} alt={google}/>
+               <img className='ml-[15px]' src={google} alt={google}/>
                <p className='text-center relative left-12 text-[22px] text-[#333333] font-medium'>Continue with Google</p>
             </div>
          </GoogleButton>

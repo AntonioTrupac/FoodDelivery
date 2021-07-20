@@ -1,8 +1,10 @@
-import React, {Dispatch, FC, SetStateAction} from 'react';
-import {Form, Formik, FormikProps} from "formik";
+import React, {Dispatch, FC, SetStateAction, useCallback} from 'react';
+import {Form, Formik, FormikProps, FormikValues} from "formik";
 import {CustomInput} from "../../components/input/CustomInput";
 import {Button} from "../../components/button/Button";
-
+import {MutationLoginArgs, useLoginMutation} from "../../generated";
+import {useHistory} from 'react-router-dom';
+import {setAccessToken} from "../../accessToken";
 type LoginProps = {
    mode: string;
    setMode: Dispatch<SetStateAction<string>>;
@@ -18,17 +20,45 @@ const initialValues = {
    password: ''
 }
 
-
 export const Login: FC<LoginProps> = (props) => {
+   const history = useHistory();
+   const [login] = useLoginMutation();
 
+   const loginInfo = useCallback((data: MutationLoginArgs) => {
+      login({
+         variables: data
+      }).then((res) => {
+         if(res && res.data && res.data.login?.accessToken) {
+            console.log("LOGIN RESPONSE", res.data);
+            setAccessToken(res.data.login?.accessToken)
+            history.push('/home');
+         }
+      }).catch((err)=>{
+         console.error("ERR", err.message);
+      })
+   }, [history, login]);
+
+   const saveData = useCallback((submittedValues: FormikValues) => {
+      if(submittedValues) {
+         console.log("%c \nLOGGING USER IN\n", "color: red");
+         const {email, password} = submittedValues;
+         const data: MutationLoginArgs = {
+            email,
+            password
+         };
+         loginInfo(data);
+      }
+   }, [loginInfo])
+
+   const onSubmit = (values: FormikValues) => {
+      saveData(values);
+      alert(JSON.stringify(values, null, 2));
+   }
    return (
       <div>
          <Formik
             initialValues={initialValues}
-            onSubmit={(values, actions) => {
-               alert(JSON.stringify(values, null, 2));
-               actions.setSubmitting(false);
-            }}
+            onSubmit={onSubmit}
          >
             {(propsFormik: FormikProps<Values>) => (
                <Form>

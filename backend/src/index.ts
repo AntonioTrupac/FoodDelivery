@@ -4,17 +4,15 @@ import express from 'express';
 import { buildSchema } from 'type-graphql';
 import dotenv from 'dotenv';
 import { createConnection } from 'typeorm';
-import session from 'express-session';
-import connectRedis from 'connect-redis';
 import cors from 'cors';
-import { RegisterResolver } from './modules/user/Register';
-import { redis } from './redis';
-import { LoginResolver } from './modules/user/Login';
-import { MeResolver } from './modules/user/Me';
-import { ConfirmUserResolver } from './modules/user/ConfirmUser';
 import {graphqlUploadExpress} from "graphql-upload";
 import * as fs from "fs";
 import {printSchema} from "graphql";
+import cookieParser from "cookie-parser";
+import {verify} from "jsonwebtoken";
+import {User} from "./entity/User";
+import {createAccessToken, createRefreshToken} from "./modules/auth";
+import {sendRefreshToken} from "./utils/sendRefreshToken";
 
 dotenv.config();
 const { PORT } = process.env;
@@ -35,22 +33,18 @@ const main = async () => {
       if(err) {
          return console.log(err);
       }
-
       console.log('The file was saved');
    })
 
    const apolloServer = new ApolloServer({
       schema,
-      context: ({ req, res }: any) => ({ req, res }), // we can acess session data based on req
+      context: ({ req, res }: any) => ({ req, res }), // we can access session data based on req
       introspection: true,
       uploads: false //disable apollo upload property
    });
 
    const app = express();
-
-   app.use(graphqlUploadExpress({maxFileSize: 10000000, maxFiles: 10 }))
-
-   const RedisStore = connectRedis(session);
+   app.use(cookieParser());
 
    app.use(
       cors({
@@ -58,26 +52,66 @@ const main = async () => {
          origin: 'http://localhost:3000',
       })
    );
+   //refreshing the jwt token
+   app.post("/refresh_token", async (req, res) => {
+      const token = req.cookies.jid;
+      console.log('token', token);
+      console.log('SECRET', process.env.ACCESS_TOKEN_REFRESH)
+      if (!token) {
+         return res.send({ ok: false, accessToken: "" });
+      }
+
+      let payload: any = null;
+      try {
+         payload = verify(token, process.env.ACCESS_TOKEN_REFRESH!);
+         console.log('payload', payload);
+      } catch (err) {
+         console.log(err);
+         console.error(err.message);
+         return res.send({ ok: false, accessToken: "" });
+      }
+
+      // token is valid and
+      // we can send back an access token
+      const user = await User.findOne({ id: payload.userId });
+
+      if (!user) {
+         return res.send({ ok: false, accessToken: "" });
+      }
+
+      if (user.tokenVersion !== payload.tokenVersion) {
+         return res.send({ ok: false, accessToken: "" });
+      }
+
+      sendRefreshToken(res, createRefreshToken(user));
+
+      return res.send({ ok: true, accessToken: createAccessToken(user) });
+   });
+
+   app.use(graphqlUploadExpress({maxFileSize: 10000000, maxFiles: 10 }))
+
+   // const RedisStore = connectRedis(session);
+
 
    // has to be before apply middleware
-   app.use(
-      session({
-         store: new RedisStore({
-            client: redis as any,
-         }),
-         name: 'qid', // cookie name
-         secret: 'asidjije21933123', // TODO plejsaj ovo u env file tenkju
-         resave: false,
-         saveUninitialized: false, // to dvoje turn off da ne kreiramo novi session uvijek
-         cookie: {
-            httpOnly: true, // so js cant access it
-            secure: process.env.NODE_ENV === 'production',
-            maxAge: 1000 * 60 * 60 * 24 * 7 * 365, // 7 years how long cookie lasts
-         },
-      } as any)
-   );
+   // app.use(
+   //    session({
+   //       store: new RedisStore({
+   //          client: redis as any,
+   //       }),
+   //       name: 'qid', // cookie name
+   //       secret: 'asidjije21933123', // TODO plejsaj ovo u env file tenkju
+   //       resave: false,
+   //       saveUninitialized: false, // to dvoje turn off da ne kreiramo novi session uvijek
+   //       cookie: {
+   //          httpOnly: true, // so js cant access it
+   //          secure: process.env.NODE_ENV === 'production',
+   //          maxAge: 1000 * 60 * 60 * 24 * 7 * 365, // 7 years how long cookie lasts
+   //       },
+   //    } as any)
+   // );
 
-   apolloServer.applyMiddleware({ app });
+   apolloServer.applyMiddleware({ app, cors: false });
 
    app.listen(PORT, () => {
       console.log(`Running on localhost ${PORT} ⚡`);

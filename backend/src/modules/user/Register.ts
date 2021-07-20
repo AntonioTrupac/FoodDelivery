@@ -11,7 +11,7 @@ import { RegisterInput } from './registerValidation/RegisterInput';
 import { isAuth } from '../../middleware/isAuth';
 import { Logger } from '../../middleware/Logger';
 import { sendEmail } from '../../utils/sendEmail';
-import { createConfirmationUrl } from '../../utils/createConfirmationUrl';
+// import { createConfirmationUrl } from '../../utils/createConfirmationUrl';
 
 @Resolver()
 export class RegisterResolver {
@@ -21,11 +21,16 @@ export class RegisterResolver {
       return 'Hello World!';
    }
 
+   @Query(() => [User])
+   async users() {
+      return User.find();
+   }
+
    // graphql gets cranky if u dont have a single query
    @Mutation(() => User)
    async register(
       @Arg('data')
-      { firstName, lastName, email, password, age }: RegisterInput
+      { firstName, lastName, email, password, phoneNumber }: RegisterInput
    ): Promise<User> {
       const hashedPassword = await bcrypt.hash(password, 12);
 
@@ -34,10 +39,10 @@ export class RegisterResolver {
          lastName,
          email,
          password: hashedPassword,
-         age,
+         phoneNumber,
       }).save();
 
-      await sendEmail(email, await createConfirmationUrl(user.id));
+      // await sendEmail(email, await createConfirmationUrl(user.id));
 
       return user;
    }

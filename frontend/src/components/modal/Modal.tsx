@@ -27,7 +27,7 @@ export const Modal: FC<ModalProps> = (props) => {
                role='dialog'
                className='absolute top-[120px] z-50 bg-[#ffffff] w-[550px] h-auto rounded-[20px]'
             >
-               <div className='z-30 bg-[#ffffff] flex flex-row-reverse mr-[20px]'>
+               <div className='z-30 flex flex-row-reverse mr-[20px]'>
                   <FontAwesomeIcon
                      aria-label='Close'
                      data-dissmis='modal'
@@ -43,5 +43,8 @@ export const Modal: FC<ModalProps> = (props) => {
          </div>
       </>
    )
-   return props.isShown ? ReactDOM.createPortal(modal, document.body) : null;
+
+   const portalDiv = document.getElementById("modal");
+
+   return props.isShown && portalDiv ? ReactDOM.createPortal(modal, portalDiv) : null;
 }

@@ -11,4 +11,10 @@ export interface MyContext {
          userId?: any;
       };
    };
+   payload?: {
+      userId: string;
+      firstName: string;
+      lastName: string;
+      tokenVersion?: string;
+   };
 }

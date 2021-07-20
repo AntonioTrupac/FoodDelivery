@@ -1,20 +1,35 @@
 mutation Login($email: String!, $password: String!){
     login(email:$email, password:$password){
+        accessToken
+    }
+}
+
+mutation Register( $firstName: String!, $lastName: String! , $email: String!, $phoneNumber: Float!, $password: String!){
+    register(data: {firstName: $firstName, lastName: $lastName, email: $email, phoneNumber: $phoneNumber, password: $password}) {
         id,
         firstName,
         lastName,
         email,
-        age
+        phoneNumber
     }
 }
 
-mutation Register( $firstName: String!, $lastName: String! , $email: String!, $age: Float!, $password: String!){
-    register(data: {firstName: $firstName, lastName: $lastName, email: $email, age: $age, password: $password}) {
-        id,
-        firstName,
-        lastName,
-        email,
-        age
+query Me {
+    me {
+        ...UserFields
     }
 }
 
+query Users {
+    users {
+        ...UserFields
+    }
+}
+
+fragment UserFields on User {
+    email,
+    firstName,
+    lastName,
+    id
+    phoneNumber,
+}

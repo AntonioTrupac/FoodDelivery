@@ -12,7 +12,7 @@ type RegisterProps = {
 type Values = {
    firstName: string;
    lastName: string;
-   age: string;
+   phoneNumber: number;
    email: string;
    password: string;
 }
@@ -20,7 +20,7 @@ type Values = {
 const initialValues = {
    firstName: '',
    lastName: '',
-   age: '',
+   phoneNumber: 0,
    email: '',
    password: '',
 }
@@ -38,21 +38,21 @@ export const Register: FC<RegisterProps> = (props) => {
             }
          }).catch((err) => {
             console.error('err', err.message);
+            console.error(err)
          })
    }, [register]);
 
    const saveData = useCallback((submittedValues : FormikValues) => {
          if (submittedValues) {
             console.log("%c \nREGISTERING USER\n", "color: red");
-            const { firstName, lastName, email, password, age } = submittedValues;
+            const { firstName, lastName, email, password, phoneNumber } = submittedValues;
             const data: RegisterInput = {
                firstName,
                lastName,
                email,
                password,
-               age
+               phoneNumber
             };
-            console.log('User info', data);
             userInfo(data);
          }
    }, [userInfo])
@@ -60,11 +60,8 @@ export const Register: FC<RegisterProps> = (props) => {
    const onSubmit = (values: FormikValues) => {
       saveData(values);
       alert(JSON.stringify(values, null, 2));
-      // actions.setSubmitting(false);
    }
-   // TODO: PROMIJENI AGE da nije number nego da imas datum i
-   //  onda imas fju koja racuna age, dakle ne primaj number nego string
-   
+
    return (
       <div>
          <Formik
@@ -89,10 +86,10 @@ export const Register: FC<RegisterProps> = (props) => {
                         className='w-[320px] h-[50px] border-b-[1px] border-[#AFAEAE] mb-[10px] focus:outline-none'
                         onChange={propsFormik.handleChange}/>
                      <CustomInput
-                        name='age'
-                        type='text'
-                        placeholder='Age'
-                        value={propsFormik.values.age}
+                        name='phoneNumber'
+                        type='number'
+                        placeholder='Phone number'
+                        value={propsFormik.values.phoneNumber}
                         className='w-[320px] h-[50px] border-b-[1px] border-[#AFAEAE] mb-[10px] focus:outline-none'
                         onChange={propsFormik.handleChange}/>
                      <CustomInput

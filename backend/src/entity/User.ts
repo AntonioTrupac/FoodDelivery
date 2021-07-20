@@ -23,9 +23,6 @@ export class User extends BaseEntity {
    @Column({ nullable: true, length: 128 })
    password: string;
 
-   @Column({ nullable: true })
-   isActive: boolean;
-
    @Field()
    @Column({ nullable: true, length: 200 })
    firstName: string;
@@ -36,7 +33,7 @@ export class User extends BaseEntity {
 
    @Field()
    @Column({ nullable: true })
-   age: number;
+   phoneNumber: number;
 
    @Column({ nullable: true, length: 16 })
    salt: string;
@@ -46,4 +43,7 @@ export class User extends BaseEntity {
 
    @Column('bool', { default: true })
    confirmed: boolean;
+
+   @Column('int', {default: 0})
+   tokenVersion: number;
 }
