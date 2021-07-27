@@ -20,5 +20,5 @@ export class RegisterInput extends PasswordMixin(class {}) {
    email: string;
 
    @Field()
-   phoneNumber: number;
+   phoneNumber: string;
 }

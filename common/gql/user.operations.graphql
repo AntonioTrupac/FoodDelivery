@@ -4,7 +4,7 @@ mutation Login($email: String!, $password: String!){
     }
 }
 
-mutation Register( $firstName: String!, $lastName: String! , $email: String!, $phoneNumber: Float!, $password: String!){
+mutation Register( $firstName: String!, $lastName: String! , $email: String!, $phoneNumber: String!, $password: String!){
     register(data: {firstName: $firstName, lastName: $lastName, email: $email, phoneNumber: $phoneNumber, password: $password}) {
         id,
         firstName,

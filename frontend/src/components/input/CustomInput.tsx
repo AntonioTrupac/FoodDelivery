@@ -24,6 +24,7 @@ type CustomInputProps = {
       | "time"
       | "url"
       | "week";
+   pattern?: string;
    id?: string;
    label?: React.ReactNode;
    className?: string;
@@ -40,6 +41,7 @@ type CustomInputProps = {
       : (e: string | React.ChangeEvent<any>) => void;
    helperText?: string;
    errorClassName?: string;
+   autoComplete: string;
 }
 
 export const CustomInput: FC<CustomInputProps> = (props) => {

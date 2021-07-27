@@ -1,8 +1,8 @@
-import React, {Dispatch, FC, SetStateAction, useCallback} from 'react';
+import React, {Dispatch, FC, MouseEventHandler, SetStateAction, useCallback} from 'react';
 import {Form, Formik, FormikProps, FormikValues} from "formik";
 import {CustomInput} from "../../components/input/CustomInput";
 import {Button} from "../../components/button/Button";
-import {useRegisterMutation, RegisterInput} from "../../generated";
+import {RegisterInput, useRegisterMutation} from "../../generated";
 
 type RegisterProps = {
    mode: string;
@@ -12,7 +12,7 @@ type RegisterProps = {
 type Values = {
    firstName: string;
    lastName: string;
-   phoneNumber: number;
+   phoneNumber: string;
    email: string;
    password: string;
 }
@@ -20,7 +20,7 @@ type Values = {
 const initialValues = {
    firstName: '',
    lastName: '',
-   phoneNumber: 0,
+   phoneNumber: '',
    email: '',
    password: '',
 }
@@ -62,6 +62,11 @@ export const Register: FC<RegisterProps> = (props) => {
       alert(JSON.stringify(values, null, 2));
    }
 
+   const onClick = (e: any ): void => {
+      e.preventDefault();
+      props.setMode('login');
+   }
+
    return (
       <div>
          <Formik
@@ -70,53 +75,56 @@ export const Register: FC<RegisterProps> = (props) => {
          >
             {(propsFormik: FormikProps<Values>) => (
                <Form>
-                  <div className='flex flex-col justify-center items-center mt-[10px] w-[100%]'>
+                  <div className='register__container'>
                      <CustomInput
                         name='firstName'
                         type='text'
                         placeholder='First name'
                         value={propsFormik.values.firstName}
-                        className='w-[320px] h-[50px] border-b-[1px] border-[#AFAEAE] mb-[10px] focus:outline-none'
+                        className='input'
+                        autoComplete='off'
                         onChange={propsFormik.handleChange}/>
                      <CustomInput
                         name='lastName'
                         type='text'
                         placeholder='Last name'
+                        autoComplete='off'
                         value={propsFormik.values.lastName}
-                        className='w-[320px] h-[50px] border-b-[1px] border-[#AFAEAE] mb-[10px] focus:outline-none'
+                        className='input'
                         onChange={propsFormik.handleChange}/>
                      <CustomInput
                         name='phoneNumber'
-                        type='number'
+                        type='tel'
+                        pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                         placeholder='Phone number'
+                        autoComplete='off'
                         value={propsFormik.values.phoneNumber}
-                        className='w-[320px] h-[50px] border-b-[1px] border-[#AFAEAE] mb-[10px] focus:outline-none'
+                        className='input'
                         onChange={propsFormik.handleChange}/>
                      <CustomInput
                         name='email'
                         type='text'
                         placeholder='Email'
                         value={propsFormik.values.email}
-                        className='w-[320px] h-[50px] border-b-[1px] border-[#AFAEAE] mb-[10px] focus:outline-none'
+                        autoComplete='off'
+                        className='input'
                         onChange={propsFormik.handleChange}/>
                      <CustomInput
                         name='password'
                         type='password'
                         placeholder='Password'
+                        autoComplete='off'
                         value={propsFormik.values.password}
-                        className='w-[320px] h-[50px] border-b-[1px] border-[#AFAEAE] mb-[10px] focus:outline-none'
+                        className='input'
                         onChange={propsFormik.handleChange}/>
                      <Button
                         type='submit'
-                        className='border-none bg-[#D8D8D8] text-[#FFFFFF] w-[400px] h-[65px] mt-[25px] rounded-[40px] focus:ring-[3px] focus:border-none focus:outline-none'
+                        className='form__button'
                      >
                         Sign up
                      </Button>
-                     <div className='mt-[30px] text-[18px]'>
-                        <p className='text-[#AFAEAE]'>Have an account? <a href='#' onClick={(e: any) => {
-                           e.preventDefault();
-                           props.setMode('login')
-                        }} className='text-[#FEAE67]'>Log in</a></p>
+                     <div className='register__link'>
+                        <p className='text-[#AFAEAE]'>Have an account? <a href='#' onClick={onClick} className='text-[#FEAE67]'>Log in</a></p>
                      </div>
                   </div>
                </Form>

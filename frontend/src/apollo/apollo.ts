@@ -5,12 +5,6 @@ import {
 import {setContext} from "@apollo/client/link/context";
 import {getAccessToken} from "../accessToken";
 
-// export const client = new ApolloClient({
-//    uri: 'http://localhost:4000/graphql',
-//    cache: new InMemoryCache(),
-//    credentials: 'include',
-// });
-
 const httpLink = createHttpLink({
    uri: 'http://localhost:4000/graphql',
 });

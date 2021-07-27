@@ -62,28 +62,30 @@ export const Login: FC<LoginProps> = (props) => {
          >
             {(propsFormik: FormikProps<Values>) => (
                <Form>
-                  <div className='flex flex-col justify-center items-center mt-[20px] w-[100%]'>
+                  <div className='login__container'>
                      <CustomInput
                         name='email'
                         placeholder='Email'
                         value={propsFormik.values.email}
                         type='text'
-                        className='w-[320px] h-[50px] border-b-[1px] border-[#AFAEAE] mb-[10px] focus:outline-none'
+                        className='input'
+                        autoComplete='off'
                         onChange={propsFormik.handleChange}/>
                      <CustomInput
                         name='password'
                         type='password'
                         placeholder='Password'
+                        autoComplete='off'
                         value={propsFormik.values.password}
-                        className='w-[320px] h-[50px] border-b-[1px] border-[#AFAEAE] mb-[10px] focus:outline-none'
+                        className='input'
                         onChange={propsFormik.handleChange}/>
                      <Button
                         type='submit'
-                        className='border-none bg-[#D8D8D8] text-[#FFFFFF] text-[24px] w-[400px] h-[65px] mt-[25px] rounded-[40px] focus:ring-[3px] focus:border-none focus:outline-none'
+                        className='form__button'
                      >
                         Log in
                      </Button>
-                     <div className='mt-[30px] text-[18px]'>
+                     <div className='link__container'>
                         <p className='text-[#AFAEAE]'>New to App? <a href='#' onClick={(e: any) => {
                            e.preventDefault();
                            props.setMode('register')

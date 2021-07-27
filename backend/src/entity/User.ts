@@ -8,9 +8,6 @@ export class User extends BaseEntity {
    @PrimaryGeneratedColumn()
    id: number;
 
-   @Column({ nullable: true })
-   uid: string;
-
    @Field()
    name(@Root() parent: User): string {
       return `${parent.firstName} ${parent.lastName}`;
@@ -33,16 +30,13 @@ export class User extends BaseEntity {
 
    @Field()
    @Column({ nullable: true })
-   phoneNumber: number;
+   phoneNumber: string;
 
    @Column({ nullable: true, length: 16 })
    salt: string;
 
    @Column('timestamp', { default: () => 'CURRENT_TIMESTAMP' })
    createdAt: string;
-
-   @Column('bool', { default: true })
-   confirmed: boolean;
 
    @Column('int', {default: 0})
    tokenVersion: number;
