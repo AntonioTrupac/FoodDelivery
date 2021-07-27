@@ -1,0 +1,49 @@
+@layer components {
+    .landing__container {
+      @apply h-screen grid grid-rows-3 z-10;
+
+        .header__container {
+          @apply flex justify-between;
+
+            .image__container {
+                @apply mt-[60px] ml-[100px] text-3xl;
+
+                .bckg__image {
+                    @apply w-[110px] h-auto md:w-[140px] 2xl:w-[200px];
+                }
+            }
+
+            .button__container {
+                @apply mr-[100px];
+
+                .landing__button {
+                   @apply bg-[#FEAE67] rounded-[40px] w-[206px] h-[66px] text-3xl mt-20 focus:outline-none focus-visible:outline-none focus:ring-2 text-[#ffffff] capitalize;
+                }
+            }
+        }
+
+        .search__container {
+          @apply flex flex-col items-start;
+
+            .landing__paragraph {
+               @apply text-[36px] ml-[100px] capitalize;
+            }
+
+            .search__paragraph {
+                @apply text-[36px] ml-[100px] capitalize;
+            }
+
+            .input__container {
+                @apply relative mt-[20px];
+
+                .landing__input {
+                    @apply text-2xl pl-[10px] h-[72px] w-[554px] border-[2px] rounded-[20px] focus-visible:shadow-md focus:ring-2 border-gray-200 ml-[100px] relative  focus:outline-none;
+                }
+
+                .search__button {
+                    @apply w-[117px] h-[55px] bg-[#FFEEDE] rounded-[20px] absolute left-[528px] top-[9px] text-center capitalize text-2xl focus:ring-2 focus:outline-none;
+                }
+            }
+        }
+    }
+}

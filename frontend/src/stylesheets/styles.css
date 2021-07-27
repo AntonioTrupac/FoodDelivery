@@ -1,3 +1,12 @@
+@import "components/input.css";
+@import "components/landingPage.css";
+@import "components/login.css";
+@import "components/register.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.form__button {
+  @apply border-none bg-[#FEAE67] text-[#FFFFFF] text-[24px] w-[400px] h-[65px] mt-[25px] rounded-[40px] focus:ring-[3px] focus:border-none focus:outline-none;
+}

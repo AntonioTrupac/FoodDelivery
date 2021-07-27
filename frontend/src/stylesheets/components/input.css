@@ -1,0 +1,5 @@
+@layer components {
+    .input {
+        @apply w-[320px] h-[50px] border-b-[1px] border-[#AFAEAE] mb-[10px] focus:outline-none;
+    }
+}

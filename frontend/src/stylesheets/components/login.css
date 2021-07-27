@@ -1,0 +1,9 @@
+@layer components {
+  .login__container {
+    @apply flex flex-col justify-center items-center mt-[20px] w-[100%];
+
+    .link__container {
+      @apply mt-[30px] text-[18px];
+    }
+  }
+}

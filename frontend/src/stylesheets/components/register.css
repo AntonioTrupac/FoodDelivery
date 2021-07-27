@@ -1,0 +1,9 @@
+@layer components {
+  .register__container {
+      @apply flex flex-col justify-center items-center mt-[10px] w-[100%];
+
+      .register__link {
+        @apply mt-[30px] text-[18px];
+      }
+  }
+}
