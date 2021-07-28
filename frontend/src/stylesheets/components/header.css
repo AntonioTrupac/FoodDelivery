@@ -1,0 +1,5 @@
+@layer components {
+  .header-container {
+    @apply flex items-center justify-center;
+  }
+}

@@ -1,0 +1,21 @@
+@layer components {
+  .navbar-container {
+    @apply w-full p-2 bg-[#FEAE67] flex justify-between px-10;
+
+    .img-container {
+      @apply w-[3em];
+    }
+
+    .items {
+      @apply flex justify-center items-center;
+
+      .item {
+        @apply p-2 mx-2 text-lg hover:text-[#ffffff] flex justify-between;
+      }
+    }
+
+    .navbar-button {
+      @apply bg-[#ffffff] px-[1.2em] py-[0.5em] rounded-[0.75em] text-lg transition duration-500 ease-in-out hover:bg-[#000] hover:text-[#ffffff];
+    }
+  }
+}
