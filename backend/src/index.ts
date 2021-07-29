@@ -5,14 +5,14 @@ import { buildSchema } from 'type-graphql';
 import dotenv from 'dotenv';
 import { createConnection } from 'typeorm';
 import cors from 'cors';
-import {graphqlUploadExpress} from "graphql-upload";
-import * as fs from "fs";
-import {printSchema} from "graphql";
-import cookieParser from "cookie-parser";
-import {verify} from "jsonwebtoken";
-import {User} from "./entity/User";
-import {createAccessToken, createRefreshToken} from "./modules/auth";
-import {sendRefreshToken} from "./utils/sendRefreshToken";
+import { graphqlUploadExpress } from 'graphql-upload';
+import * as fs from 'fs';
+import { printSchema } from 'graphql';
+import cookieParser from 'cookie-parser';
+import { verify } from 'jsonwebtoken';
+import { User } from './entity/User';
+import { createAccessToken, createRefreshToken } from './modules/auth';
+import { sendRefreshToken } from './utils/sendRefreshToken';
 
 dotenv.config();
 const { PORT } = process.env;
@@ -29,18 +29,22 @@ const main = async () => {
       },
    });
 
-   fs.writeFile(__dirname + '/../../common/gql/generated.schema.graphql', `${printSchema(schema)}`, err => {
-      if(err) {
-         return console.log(err);
+   fs.writeFile(
+      __dirname + '/../../common/gql/generated.schema.graphql',
+      `${printSchema(schema)}`,
+      (err) => {
+         if (err) {
+            return console.log(err);
+         }
+         console.log('The file was saved');
       }
-      console.log('The file was saved');
-   })
+   );
 
    const apolloServer = new ApolloServer({
       schema,
       context: ({ req, res }: any) => ({ req, res }), // we can access session data based on req
       introspection: true,
-      uploads: false //disable apollo upload property
+      uploads: false, //disable apollo upload property
    });
 
    const app = express();
@@ -52,13 +56,14 @@ const main = async () => {
          origin: 'http://localhost:3000',
       })
    );
+
    //refreshing the jwt token
-   app.post("/refresh_token", async (req, res) => {
+   app.post('/refresh_token', async (req, res) => {
       const token = req.cookies.jid;
       console.log('token', token);
-      console.log('SECRET', process.env.ACCESS_TOKEN_REFRESH)
+      console.log('SECRET', process.env.ACCESS_TOKEN_REFRESH);
       if (!token) {
-         return res.send({ ok: false, accessToken: "" });
+         return res.send({ ok: false, accessToken: '' });
       }
 
       let payload: any = null;
@@ -68,7 +73,7 @@ const main = async () => {
       } catch (err) {
          console.log(err);
          console.error(err.message);
-         return res.send({ ok: false, accessToken: "" });
+         return res.send({ ok: false, accessToken: '' });
       }
 
       // token is valid and
@@ -76,11 +81,11 @@ const main = async () => {
       const user = await User.findOne({ id: payload.userId });
 
       if (!user) {
-         return res.send({ ok: false, accessToken: "" });
+         return res.send({ ok: false, accessToken: '' });
       }
 
       if (user.tokenVersion !== payload.tokenVersion) {
-         return res.send({ ok: false, accessToken: "" });
+         return res.send({ ok: false, accessToken: '' });
       }
 
       sendRefreshToken(res, createRefreshToken(user));
@@ -88,28 +93,7 @@ const main = async () => {
       return res.send({ ok: true, accessToken: createAccessToken(user) });
    });
 
-   app.use(graphqlUploadExpress({maxFileSize: 10000000, maxFiles: 10 }))
-
-   // const RedisStore = connectRedis(session);
-
-
-   // has to be before apply middleware
-   // app.use(
-   //    session({
-   //       store: new RedisStore({
-   //          client: redis as any,
-   //       }),
-   //       name: 'qid', // cookie name
-   //       secret: 'asidjije21933123', // TODO plejsaj ovo u env file tenkju
-   //       resave: false,
-   //       saveUninitialized: false, // to dvoje turn off da ne kreiramo novi session uvijek
-   //       cookie: {
-   //          httpOnly: true, // so js cant access it
-   //          secure: process.env.NODE_ENV === 'production',
-   //          maxAge: 1000 * 60 * 60 * 24 * 7 * 365, // 7 years how long cookie lasts
-   //       },
-   //    } as any)
-   // );
+   app.use(graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }));
 
    apolloServer.applyMiddleware({ app, cors: false });
 
