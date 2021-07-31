@@ -1,16 +1,10 @@
-import {
-   Arg,
-   Mutation,
-   Query,
-   Resolver,
-   UseMiddleware,
-} from 'type-graphql';
+import { Arg, Mutation, Query, Resolver, UseMiddleware } from 'type-graphql';
 import bcrypt from 'bcryptjs';
-import { User } from '../../entity/User';
-import { RegisterInput } from './registerValidation/RegisterInput';
-import { isAuth } from '../../middleware/isAuth';
-import { Logger } from '../../middleware/Logger';
-import { sendEmail } from '../../utils/sendEmail';
+import { User } from '../../../entity/User';
+import { RegisterInput } from '../registerValidation/RegisterInput';
+import { isAuth } from '../../../middleware/isAuth';
+import { Logger } from '../../../middleware/Logger';
+import { sendEmail } from '../../../utils/sendEmail';
 // import { createConfirmationUrl } from '../../utils/createConfirmationUrl';
 
 @Resolver()

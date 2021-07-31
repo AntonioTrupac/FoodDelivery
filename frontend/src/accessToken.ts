@@ -1,7 +1,11 @@
 export const setAccessToken = (token: string) => {
-  window.localStorage.setItem('jwt', token);
+   if (!token) {
+      return;
+   }
+   return window.localStorage.setItem('jwt', token);
 };
 
 export const getAccessToken = () => {
-  return window.localStorage.getItem('jwt');
+   const token = window.localStorage.getItem('jwt');
+   return token;
 };

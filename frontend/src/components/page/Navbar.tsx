@@ -1,10 +1,18 @@
 import { FC } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+
 import logo from '../../images/LOGO.png';
 
-export const Navbar: FC = () => {
-   const logout = () => {
-      localStorage.clear();
+type NavbarProps = {
+   fullName: string;
+};
+
+export const Navbar: FC<NavbarProps> = (props) => {
+   const history = useHistory();
+   const logOut = () => {
+      console.log('CLICKED');
+      window.localStorage.clear();
+      history.push('/landing-page');
    };
 
    return (
@@ -17,13 +25,15 @@ export const Navbar: FC = () => {
                <Link to='/restaurants'>Restaurants</Link>
             </li>
             <li className='item'>
-               <Link to='/prices'>Prices</Link>
+               <Link to=''>Prices</Link>
             </li>
             <li className='item'>
-               <Link to='/orders'>Orders</Link>
+               <Link to=''>Orders</Link>
             </li>
          </ul>
-         <button type='button' className='navbar-button' onSubmit={logout}>
+         {/* MAKE A CONTAINER WITH THE CURRENT USER */}
+         {/* <div>{props.fullName}</div> */}
+         <button className='navbar-button' type='submit' onClick={logOut}>
             Logout
          </button>
       </nav>

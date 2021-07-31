@@ -10,19 +10,19 @@ export const createAccessToken = (user: User) => {
          // tokenVersion: user.tokenVersion
       },
       process.env.ACCESS_TOKEN_SECRET!,
-      { expiresIn: '6h' }
+      { expiresIn: '10s' }
    );
 };
 
-export const createRefreshToken = (user: User) => {
-   return sign(
-      {
-         userId: user.id,
-         firstName: user.firstName,
-         lastName: user.lastName,
-         //  tokenVersion: user.tokenVersion
-      },
-      process.env.ACCESS_TOKEN_REFRESH!,
-      { expiresIn: '7d' }
-   );
-};
+// export const createRefreshToken = (user: User) => {
+//    return sign(
+//       {
+//          userId: user.id,
+//          firstName: user.firstName,
+//          lastName: user.lastName,
+//          //  tokenVersion: user.tokenVersion
+//       },
+//       process.env.REFRESH_TOKEN_SECRET!,
+//       { expiresIn: '7d' }
+//    );
+// };

@@ -17,6 +17,7 @@ export class User extends BaseEntity {
    @Column('text', { nullable: true, unique: true })
    email: string;
 
+   //no field cus we dont want user to know the password or query for the password
    @Column({ nullable: true, length: 128 })
    password: string;
 
@@ -38,6 +39,6 @@ export class User extends BaseEntity {
    @Column('timestamp', { default: () => 'CURRENT_TIMESTAMP' })
    createdAt: string;
 
-   @Column('int', {default: 0})
+   @Column('int', { default: 0 })
    tokenVersion: number;
 }

@@ -9,10 +9,10 @@ import { graphqlUploadExpress } from 'graphql-upload';
 import * as fs from 'fs';
 import { printSchema } from 'graphql';
 import cookieParser from 'cookie-parser';
-import { verify } from 'jsonwebtoken';
-import { User } from './entity/User';
-import { createAccessToken, createRefreshToken } from './modules/auth';
-import { sendRefreshToken } from './utils/sendRefreshToken';
+// import { verify } from 'jsonwebtoken';
+// import { User } from './entity/User';
+// import { createAccessToken, createRefreshToken } from './modules/auth';
+// import { sendRefreshToken } from './utils/sendRefreshToken';
 
 dotenv.config();
 const { PORT } = process.env;
@@ -23,7 +23,7 @@ if (!process.env.PORT) {
 const main = async () => {
    await createConnection().catch((error) => console.log(error));
    const schema = await buildSchema({
-      resolvers: [`${__dirname}/modules/**/*.ts`],
+      resolvers: [`${__dirname}/modules/**/**/*.ts`],
       authChecker: ({ context: { req } }) => {
          return !!req.session.userId;
       },
@@ -57,41 +57,39 @@ const main = async () => {
       })
    );
 
-   //refreshing the jwt token
-   app.post('/refresh_token', async (req, res) => {
-      const token = req.cookies.jid;
-      console.log('token', token);
-      console.log('SECRET', process.env.ACCESS_TOKEN_REFRESH);
-      if (!token) {
-         return res.send({ ok: false, accessToken: '' });
-      }
+   //    //refreshing the jwt token
+   //    app.post('/refresh_token', async (req, res) => {
+   //       const token = req.cookies.jid;
+   //       console.log('token', token);
+   //       console.log(
+   //          'SECRET FROM /refresh_token',
+   //          process.env.REFRESH_TOKEN_SECRET
+   //       );
+   //       if (!token) {
+   //          return res.send({ ok: false, accessToken: '' });
+   //       }
 
-      let payload: any = null;
-      try {
-         payload = verify(token, process.env.ACCESS_TOKEN_REFRESH!);
-         console.log('payload', payload);
-      } catch (err) {
-         console.log(err);
-         console.error(err.message);
-         return res.send({ ok: false, accessToken: '' });
-      }
+   //       let payload: any = null;
+   //       try {
+   //          payload = verify(token, process.env.REFRESH_TOKEN_SECRET!);
+   //       } catch (err) {
+   //          console.log(err);
+   //          console.error(err.message);
+   //          return res.send({ ok: false, accessToken: '' });
+   //       }
 
-      // token is valid and
-      // we can send back an access token
-      const user = await User.findOne({ id: payload.userId });
+   //       // token is valid and
+   //       // we can send back an access token
+   //       const user = await User.findOne({ id: payload.userId });
 
-      if (!user) {
-         return res.send({ ok: false, accessToken: '' });
-      }
+   //       if (!user) {
+   //          return res.send({ ok: false, accessToken: '' });
+   //       }
 
-      if (user.tokenVersion !== payload.tokenVersion) {
-         return res.send({ ok: false, accessToken: '' });
-      }
+   //       sendRefreshToken(res, createRefreshToken(user));
 
-      sendRefreshToken(res, createRefreshToken(user));
-
-      return res.send({ ok: true, accessToken: createAccessToken(user) });
-   });
+   //       return res.send({ ok: true, accessToken: createAccessToken(user) });
+   //    });
 
    app.use(graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }));
 
