@@ -22,9 +22,6 @@ export const Navbar: FC<NavbarProps> = (props) => {
          </div>
          <ul className='items'>
             <li className='item'>
-               <Link to='/restaurants'>Restaurants</Link>
-            </li>
-            <li className='item'>
                <Link to=''>Prices</Link>
             </li>
             <li className='item'>

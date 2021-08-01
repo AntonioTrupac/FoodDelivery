@@ -1,7 +1,6 @@
-import React, { FC } from 'react';
-import { useField } from 'formik';
+import { FC } from 'react';
 
-type CustomInputProps = {
+type SearchProps = {
    name: string;
    type?:
       | 'button'
@@ -29,7 +28,6 @@ type CustomInputProps = {
    label?: React.ReactNode;
    className?: string;
    placeholder?: string;
-   value?: unknown;
    onBlur?: {
       (e: React.FocusEvent<any>): void;
       <T = any>(fieldOrEvent: T): T extends string ? (e: any) => void : void;
@@ -42,32 +40,21 @@ type CustomInputProps = {
    helperText?: string;
    errorClassName?: string;
    autoComplete?: string;
+   value?: string | ReadonlyArray<string> | number;
 };
 
-export const CustomInput: FC<CustomInputProps> = (props) => {
-   const [field, _, helpers] = useField(props.name);
-   const { onChange, ...fieldFields } = field;
+export const Search: FC<SearchProps> = (props) => {
    return (
-      <>
+      <div>
          <input
-            onChange={(event) => {
-               const val = event.target.value;
-               if (val) {
-                  helpers.setValue(val);
-                  if (props.onChange) {
-                     props.onChange(val);
-                  }
-               } else {
-                  helpers.setValue('');
-               }
-            }}
+            onChange={props.onChange}
             className={props.className}
             type={props.type}
             id={props.id}
             placeholder={props.placeholder}
-            {...fieldFields}
-            {...props}
+            name={props.name}
+            value={props.value}
          />
-      </>
+      </div>
    );
 };

@@ -4,15 +4,16 @@
 @import 'components/register.css';
 @import 'components/header.css';
 @import 'components/navbar.css';
+@import 'components/restaurants.css';
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 .form__button {
-  @apply border-none bg-[#FEAE67] text-[#FFFFFF] text-[24px] w-[400px] h-[65px] mt-[25px] rounded-[40px] focus:ring-[3px] focus:border-none focus:outline-none;
+   @apply border-none bg-[#FEAE67] text-[#FFFFFF] text-[24px] w-[400px] h-[65px] mt-[25px] rounded-[40px] focus:ring-[3px] focus:border-none focus:outline-none;
 }
 
 img {
-  @apply block max-w-full;
+   @apply block max-w-full;
 }
