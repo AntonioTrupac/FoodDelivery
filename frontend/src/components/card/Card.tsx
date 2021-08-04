@@ -1,34 +1,36 @@
 import { FC } from 'react';
-import avatar1 from '../dummydata/constants';
-
-type RestaurantData = {
-   id: number;
-   name: string;
-   rating: number;
-   categories: number[];
-   priceRating: number;
-   photo: any;
-   duration: string;
-   location: {
-      latitude: number;
-      longitude: number;
-   };
-   courier: {
-      avatar: any;
-      name: string;
-   };
-   menu: {
-      menuId: number;
-      name: string;
-      photo: any;
-      description: string;
-      calories: number;
-      price: number;
-   }[];
-};
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faThumbsUp } from '@fortawesome/free-regular-svg-icons';
+import { faMotorcycle } from '@fortawesome/free-solid-svg-icons';
+// type RestaurantData = {
+//    id: number;
+//    name: string;
+//    rating: number;
+//    categories: number[];
+//    restaurantCategory: string;
+//    priceRating: number;
+//    photo: any;
+//    duration: string;
+//    location: {
+//       latitude: number;
+//       longitude: number;
+//    };
+//    courier: {
+//       avatar: any;
+//       name: string;
+//    };
+//    menu: {
+//       menuId: number;
+//       name: string;
+//       photo: any;
+//       description: string;
+//       calories: number;
+//       price: number;
+//    }[];
+// };
 
 type CardProps = {
-   restaurantData?: RestaurantData;
+   //    restaurantData?: RestaurantData;
    id: number;
    name: string;
    rating: number;
@@ -36,23 +38,37 @@ type CardProps = {
    photo: string;
    priceRating: number;
    duration: string;
+   restaurantCategory: string;
 };
 
 export const Card: FC<CardProps> = (props) => {
-   console.log(props.photo);
    return (
       <div className='restaurant-card'>
          <div className='restaurant-card__image'>
+            <div className='dark' />
             <img
                src={props.photo}
                alt={props.name}
                className='restaurant-image'
             />
+            <div className='restaurant-desc'>
+               <h3>{props.name}</h3>
+               <div>
+                  <span className='restaurant-category'>
+                     {props.restaurantCategory}
+                  </span>
+               </div>
+            </div>
          </div>
-         <div>
-            <p>{props.name}</p>
-            <p>{props.priceRating}</p>
-            <p>{props.duration}</p>
+         <div className='estimation-wrapper'>
+            <div className='rating'>
+               <FontAwesomeIcon icon={faThumbsUp} className='like' />
+               <span>{props.rating}</span>
+            </div>
+            <div className='estimation'>
+               <FontAwesomeIcon icon={faMotorcycle} className='moto' />
+               <span>{props.duration}</span>
+            </div>
          </div>
       </div>
    );

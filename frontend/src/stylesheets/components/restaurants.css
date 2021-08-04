@@ -4,33 +4,74 @@
    }
 
    .card-container {
-      display: grid;
-      grid-template-columns: 300px 300px 300px;
-      grid-auto-rows: 400px;
-      justify-content: center;
-      column-gap: 15px;
-      margin-top: 50px;
+      @apply grid grid-cols-3 auto-rows-max gap-y-6 gap-x-6 mt-10 justify-center;
    }
+
    .restaurant-card {
-      /* padding: 1rem; */
-      border: 2px solid black;
-      border-radius: 5px;
-      cursor: pointer;
-      width: 300px;
-      height: 300px;
+      @apply cursor-pointer w-[350px] h-[260px] shadow-lg;
+
+      &:hover {
+         .restaurant-image {
+            transform: scale(1.1);
+         }
+      }
 
       &__image {
-         /* width: 250px; */
-         width: 100%;
+         overflow: hidden;
+         transition: scale 0.3s;
+         @apply w-full bg-cover bg-no-repeat
+            bg-center opacity-90 relative rounded-t-xl shadow-md;
 
-         /* height: 300px; */
-         .restaurant-image {
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center center;
-            height: 220px;
+         .dark {
+            background-color: black;
+            position: absolute;
+            top: 0;
             width: 100%;
-            border-radius: 5px;
+            height: 220px;
+
+            @apply rounded-t-xl;
+         }
+
+         .restaurant-image {
+            @apply h-[220px] w-full z-20 rounded-t-xl opacity-50;
+            transition: transform 0.25s ease-in-out;
+         }
+
+         .restaurant-desc {
+            @apply absolute top-0 z-10 w-full h-full text-[#fff];
+            @apply flex flex-col justify-center items-center;
+
+            & > h3 {
+               @apply text-2xl font-medium mb-2;
+            }
+
+            .restaurant-category {
+               @apply text-xl bg-gray-900 bg-opacity-40 rounded-xl  px-2 py-1 mt-2;
+            }
+         }
+
+         .restaurant-desc:hover {
+            /* tansform: scale(1.1); */
+         }
+      }
+
+      .estimation-wrapper {
+         @apply flex items-start justify-between text-lg px-4 py-2;
+
+         .rating {
+            @apply flex items-center;
+
+            .like {
+               @apply mx-2;
+            }
+         }
+
+         .estimation {
+            @apply flex items-center;
+
+            .moto {
+               @apply mx-2;
+            }
          }
       }
    }
