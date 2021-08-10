@@ -1,16 +1,33 @@
 import { FC } from 'react';
 import { Card } from '../card/Card';
 import { restaurantData } from '../dummydata/restaurantData';
-import { Search } from './Search';
-import { Title } from './Title';
-
+import { images } from '../dummydata/index';
 export const Restaurants: FC = () => {
    return (
       <div className='restaurant-container'>
-         {/* Create a title component */}
-         <Title title='Food near you' />
-         {/* Create a search component */}
-         <Search name='search' type='text' placeholder='Search' />
+         <div className='category-container'>
+            <div className='category-image'>
+               <img src={images.avatar3} alt={images.avatar3} />{' '}
+            </div>
+            <div className='category-image'>
+               <img src={images.avatar3} alt={images.avatar3} />{' '}
+            </div>
+            <div className='category-image'>
+               <img src={images.avatar3} alt={images.avatar3} />{' '}
+            </div>
+            <div className='category-image'>
+               <img src={images.avatar3} alt={images.avatar3} />{' '}
+            </div>
+            <div className='category-image'>
+               <img src={images.avatar3} alt={images.avatar3} />{' '}
+            </div>
+            <div className='category-image'>
+               <img src={images.avatar3} alt={images.avatar3} />{' '}
+            </div>
+            <div className='category-image'>
+               <img src={images.avatar3} alt={images.avatar3} />{' '}
+            </div>
+         </div>
          <div className='card-container'>
             {restaurantData?.map((restaurant) => {
                const {
@@ -28,7 +45,6 @@ export const Restaurants: FC = () => {
                         id={id}
                         name={name}
                         rating={rating}
-                        //  0location={restaurant.location}
                         photo={photo}
                         priceRating={priceRating}
                         duration={duration}

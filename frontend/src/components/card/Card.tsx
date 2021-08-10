@@ -2,32 +2,6 @@ import { FC } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp } from '@fortawesome/free-regular-svg-icons';
 import { faMotorcycle } from '@fortawesome/free-solid-svg-icons';
-// type RestaurantData = {
-//    id: number;
-//    name: string;
-//    rating: number;
-//    categories: number[];
-//    restaurantCategory: string;
-//    priceRating: number;
-//    photo: any;
-//    duration: string;
-//    location: {
-//       latitude: number;
-//       longitude: number;
-//    };
-//    courier: {
-//       avatar: any;
-//       name: string;
-//    };
-//    menu: {
-//       menuId: number;
-//       name: string;
-//       photo: any;
-//       description: string;
-//       calories: number;
-//       price: number;
-//    }[];
-// };
 
 type CardProps = {
    //    restaurantData?: RestaurantData;
@@ -43,7 +17,7 @@ type CardProps = {
 
 export const Card: FC<CardProps> = (props) => {
    return (
-      <div className='restaurant-card'>
+      <section className='restaurant-card'>
          <div className='restaurant-card__image'>
             <div className='dark' />
             <img
@@ -70,6 +44,6 @@ export const Card: FC<CardProps> = (props) => {
                <span>{props.duration}</span>
             </div>
          </div>
-      </div>
+      </section>
    );
 };

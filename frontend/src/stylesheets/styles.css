@@ -5,6 +5,7 @@
 @import 'components/header.css';
 @import 'components/navbar.css';
 @import 'components/restaurants.css';
+@import 'components/search.css';
 
 @tailwind base;
 @tailwind components;

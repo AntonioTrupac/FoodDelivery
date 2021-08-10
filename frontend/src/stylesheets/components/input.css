@@ -1,5 +1,23 @@
 @layer components {
-    .input {
-        @apply w-[320px] h-[50px] border-b-[1px] border-[#AFAEAE] mb-[10px] focus:outline-none;
-    }
+   .input {
+      @apply w-[320px] h-[50px] border-b-[1px] border-[#AFAEAE] mb-[10px] focus:outline-none;
+   }
+
+   .search {
+      /* text-align: center; */
+
+      @apply w-[600px] h-[65px] py-2 px-6 bg-[#FFEEDE] border-[1px] border-[#000000] rounded-[40px] text-xl;
+
+      &:focus-visible,
+      &:focus {
+         outline: none;
+         box-shadow: none;
+         text-align: start;
+      }
+
+      &::placeholder {
+         text-align: center;
+         transition: 0.5s linear;
+      }
+   }
 }

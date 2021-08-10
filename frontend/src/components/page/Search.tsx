@@ -45,16 +45,14 @@ type SearchProps = {
 
 export const Search: FC<SearchProps> = (props) => {
    return (
-      <div>
-         <input
-            onChange={props.onChange}
-            className={props.className}
-            type={props.type}
-            id={props.id}
-            placeholder={props.placeholder}
-            name={props.name}
-            value={props.value}
-         />
-      </div>
+      <input
+         onChange={props.onChange}
+         className={props.className}
+         type={props.type}
+         id={props.id}
+         placeholder={props.placeholder}
+         name={props.name}
+         value={props.value}
+      />
    );
 };

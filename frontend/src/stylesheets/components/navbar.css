@@ -1,21 +1,21 @@
 @layer components {
-  .navbar-container {
-    @apply w-full p-2 bg-[#FEAE67] flex justify-between px-10;
+   .navbar-container {
+      @apply w-full mt-[1rem] flex justify-between px-12;
 
-    .img-container {
-      @apply w-[3em];
-    }
-
-    .items {
-      @apply flex justify-center items-center;
-
-      .item {
-        @apply p-2 mx-2 text-lg hover:text-[#ffffff] flex justify-between;
+      .img-container {
+         @apply w-[4em];
       }
-    }
 
-    .navbar-button {
-      @apply bg-[#ffffff] px-[1.2em] py-[0.5em] rounded-[0.75em] text-lg transition duration-500 ease-in-out hover:bg-[#000] hover:text-[#ffffff];
-    }
-  }
+      .user-cog-container {
+         @apply border-[3px] border-[#feae67] rounded-[50%] p-[0.7rem] mr-[0.5rem];
+
+         .user-cog {
+            @apply text-[#FEAE67];
+         }
+      }
+
+      .navbar-button {
+         @apply bg-[#FEAE67] px-[1.5em] h-[3rem] rounded-[0.75em] text-lg transition duration-500 ease-in-out hover:bg-[#FFEEDE] hover:text-[#000];
+      }
+   }
 }

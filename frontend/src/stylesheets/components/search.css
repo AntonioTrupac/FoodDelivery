@@ -1,0 +1,39 @@
+@layer components {
+   .search-container {
+      position: relative;
+      width: 600px;
+
+      .search {
+         position: relative;
+         transition: 0.3s linear;
+         box-sizing: border-box;
+         box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+         @apply w-[100%] h-[65px] py-2 px-6 bg-[#FFEEDE] border-[1px] border-[#000000] rounded-[40px] text-xl;
+
+         &:focus-visible,
+         &:focus {
+            outline: none;
+            box-shadow: none;
+            text-align: start;
+         }
+
+         &::placeholder {
+            text-align: center;
+         }
+      }
+
+      .search-icon {
+         position: absolute;
+         top: 50%;
+         left: 40%;
+         height: 20px;
+         width: 20px;
+         transform: translate(-50%, -50%);
+         z-index: 20;
+      }
+
+      .search:focus .search-icon {
+         left: 0;
+      }
+   }
+}

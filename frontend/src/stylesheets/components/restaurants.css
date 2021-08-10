@@ -1,10 +1,18 @@
 @layer components {
    .restaurant-container {
       @apply flex flex-col justify-center items-center;
+
+      .category-container {
+         @apply flex justify-between mt-4;
+         .category-image {
+            @apply mx-4;
+            width: 7rem;
+         }
+      }
    }
 
    .card-container {
-      @apply grid grid-cols-3 auto-rows-max gap-y-6 gap-x-6 mt-10 justify-center;
+      @apply grid grid-cols-4 auto-rows-max gap-y-6 gap-x-6 mt-10 justify-center;
    }
 
    .restaurant-card {
