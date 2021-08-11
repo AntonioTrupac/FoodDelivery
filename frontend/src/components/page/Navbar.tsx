@@ -12,7 +12,7 @@ import {
 import logo from '../../images/LOGO.png';
 
 type NavbarProps = {
-   fullName: string;
+   fullName?: string;
 };
 
 export const Navbar: FC<NavbarProps> = (props) => {

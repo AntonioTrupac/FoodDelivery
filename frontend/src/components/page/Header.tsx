@@ -4,24 +4,25 @@ import { Navbar } from './Navbar';
 import { Restaurants } from './Restaurants';
 
 export const Header: FC = () => {
-   const { data, loading, error } = useMeQuery();
+   // FIXME: we need to get the
+   // user from here and pass him to navbar component
+   // this should prolly be done better with redux
 
-   const fullName = `${data?.me?.firstName} ${data?.me?.lastName}`;
+   //    const { data, loading, error } = useMeQuery();
 
-   //    useEffect(() => {
-   //       console.log(data);
-   //    }, [data]);
+   //    const fullName = `${data?.me?.firstName} ${data?.me?.lastName}`;
 
-   // const {data} = useUsersQuery();
-   if (error) return <div>Error</div>;
-   if (loading) return <div>loading...</div>;
+   //    //    useEffect(() => {
+   //    //       console.log(data);
+   //    //    }, [data]);
+
+   //    // const {data} = useUsersQuery();
+   //    if (error) return <div>Error</div>;
+   //    if (loading) return <div>loading...</div>;
    return (
       <>
          <div className='header-container'>
-            <Navbar fullName={fullName} />
-         </div>
-         <div>
-            <Restaurants />
+            <Navbar />
          </div>
       </>
    );
