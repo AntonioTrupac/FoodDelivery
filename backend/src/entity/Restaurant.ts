@@ -1,28 +1,41 @@
-import { Field, ObjectType } from 'type-graphql';
-import { BaseEntity, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Field, ID, ObjectType } from 'type-graphql';
+import {
+   BaseEntity,
+   Column,
+   Entity,
+   PrimaryColumn,
+   PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @ObjectType()
 @Entity()
 export class Restaurant extends BaseEntity {
+   @Field(() => ID)
    @PrimaryGeneratedColumn()
-   @Field()
+   @PrimaryColumn()
    restaurantId: number;
 
-   @Field()
+   @Field({ nullable: true })
+   @Column({ nullable: true, length: 255 })
    restaurantName: string;
 
-   @Field()
-   restaurantRating: string;
+   @Field({ nullable: true })
+   @Column({ nullable: true, length: 255 })
+   restaurantRating: string; //has to be an array of floats
 
-   @Field()
+   @Field({ nullable: true })
+   @Column({ nullable: true, length: 255 })
    restaurantPhoto: string;
 
-   @Field()
+   @Field({ nullable: true })
+   @Column({ nullable: true, length: 255 })
    deliveryTime: string;
 
-   @Field()
+   @Field({ nullable: true })
+   @Column({ nullable: true })
    addressId: number;
 
-   @Field()
+   @Field({ nullable: true })
+   @Column({ nullable: true })
    menuId: number;
 }

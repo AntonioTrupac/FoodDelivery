@@ -1,4 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm';
+import {
+   Entity,
+   PrimaryGeneratedColumn,
+   Column,
+   BaseEntity,
+   PrimaryColumn,
+} from 'typeorm';
 import { Field, ID, ObjectType, Root } from 'type-graphql';
 
 @ObjectType()
@@ -6,7 +12,8 @@ import { Field, ID, ObjectType, Root } from 'type-graphql';
 export class User extends BaseEntity {
    @Field(() => ID)
    @PrimaryGeneratedColumn()
-   id: number;
+   @PrimaryColumn()
+   userId: number;
 
    @Field()
    name(@Root() parent: User): string {
@@ -33,12 +40,6 @@ export class User extends BaseEntity {
    @Column({ nullable: true })
    phoneNumber: string;
 
-   @Column({ nullable: true, length: 16 })
-   salt: string;
-
    @Column('timestamp', { default: () => 'CURRENT_TIMESTAMP' })
    createdAt: string;
-
-   @Column('int', { default: 0 })
-   tokenVersion: number;
 }
