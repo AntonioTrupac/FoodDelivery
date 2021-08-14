@@ -3,10 +3,21 @@
       @apply flex flex-col justify-center items-center;
 
       .category-container {
-         @apply flex justify-between mt-4;
+         @apply flex justify-between my-[6rem];
          .category-image {
-            @apply mx-4;
-            width: 7rem;
+            @apply mx-4 flex flex-col items-center;
+            /* width: 7rem; */
+            transition: transform 0.25s ease-in-out;
+            cursor: pointer;
+
+            & > p {
+               @apply mt-4;
+               font-size: 1.5rem;
+            }
+
+            &:hover {
+               transform: scale(1.1);
+            }
          }
       }
    }
@@ -54,7 +65,7 @@
             }
 
             .restaurant-category {
-               @apply text-xl bg-gray-900 bg-opacity-40 rounded-xl  px-2 py-1 mt-2;
+               @apply text-xl bg-gray-900 bg-opacity-40 rounded-xl px-2 py-1 mt-2;
             }
          }
 

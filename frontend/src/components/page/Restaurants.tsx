@@ -7,25 +7,24 @@ export const Restaurants: FC = () => {
       <div className='restaurant-container'>
          <div className='category-container'>
             <div className='category-image'>
-               <img src={images.avatar3} alt={images.avatar3} />{' '}
+               <img src={images.friesRestaurant} alt={images.avatar3} />{' '}
+               <p>Traditional</p>
             </div>
             <div className='category-image'>
-               <img src={images.avatar3} alt={images.avatar3} />{' '}
+               <img src={images.friesRestaurant} alt={images.avatar3} />{' '}
+               <p>Italian</p>
             </div>
             <div className='category-image'>
-               <img src={images.avatar3} alt={images.avatar3} />{' '}
+               <img src={images.friesRestaurant} alt={images.avatar3} />{' '}
+               <p>Fast food</p>
             </div>
             <div className='category-image'>
-               <img src={images.avatar3} alt={images.avatar3} />{' '}
+               <img src={images.friesRestaurant} alt={images.avatar3} />{' '}
+               <p>Asian</p>
             </div>
             <div className='category-image'>
-               <img src={images.avatar3} alt={images.avatar3} />{' '}
-            </div>
-            <div className='category-image'>
-               <img src={images.avatar3} alt={images.avatar3} />{' '}
-            </div>
-            <div className='category-image'>
-               <img src={images.avatar3} alt={images.avatar3} />{' '}
+               <img src={images.friesRestaurant} alt={images.avatar3} />{' '}
+               <p>Mexican</p>
             </div>
          </div>
          <div className='card-container'>

@@ -14,9 +14,9 @@ export const Home: FC = () => {
          getJWTExpireDate(accessToken, history);
       }
    }, [history, accessToken]);
+
    return (
       <div>
-         {' '}
          <Header />
          <div>
             <Restaurants />

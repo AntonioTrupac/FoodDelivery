@@ -18,3 +18,7 @@
 img {
    @apply block max-w-full;
 }
+
+body {
+   background-color: #fff;
+}

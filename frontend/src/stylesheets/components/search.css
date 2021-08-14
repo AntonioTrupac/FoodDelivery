@@ -1,14 +1,15 @@
 @layer components {
    .search-container {
       position: relative;
-      width: 600px;
+      width: 450px;
+      max-width: 450px;
+      transition: padding 0.4s linear, color 0.4s linear;
 
       .search {
-         position: relative;
-         transition: 0.3s linear;
          box-sizing: border-box;
          box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-         @apply w-[100%] h-[65px] py-2 px-6 bg-[#FFEEDE] border-[1px] border-[#000000] rounded-[40px] text-xl;
+         padding-left: 9%;
+         @apply w-[100%] h-[45px] py-2 pr-6 bg-[#FFEEDE] rounded-[40px] text-xl;
 
          &:focus-visible,
          &:focus {
@@ -18,7 +19,14 @@
          }
 
          &::placeholder {
-            text-align: center;
+            width: fit-content;
+            padding-left: 43%;
+         }
+
+         &:focus::placeholder {
+            color: #ffeede;
+            width: fit-content;
+            padding-left: 2%;
          }
       }
 
@@ -28,12 +36,13 @@
          left: 40%;
          height: 20px;
          width: 20px;
-         transform: translate(-50%, -50%);
-         z-index: 20;
+         transform: translateY(-50%);
+         transition: left 0.4s linear;
       }
 
-      .search:focus .search-icon {
-         left: 0;
+      &:focus-within .search-icon,
+      &:active .search-icon {
+         left: 3% !important;
       }
    }
 }

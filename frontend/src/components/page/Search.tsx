@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { ChangeEvent, FC } from 'react';
 
 type SearchProps = {
    name: string;
@@ -32,11 +32,7 @@ type SearchProps = {
       (e: React.FocusEvent<any>): void;
       <T = any>(fieldOrEvent: T): T extends string ? (e: any) => void : void;
    };
-   onChange?<T = string | React.ChangeEvent<any>>(
-      field: T
-   ): T extends React.ChangeEvent<any>
-      ? void
-      : (e: string | React.ChangeEvent<any>) => void;
+   onChange?: (e: any) => void;
    helperText?: string;
    errorClassName?: string;
    autoComplete?: string;
