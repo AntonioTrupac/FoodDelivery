@@ -7,13 +7,13 @@ import {
    UseMiddleware,
 } from 'type-graphql';
 import bcrypt from 'bcryptjs';
-import { User } from '../../../entity/User';
-import { MyContext } from '../../../types/MyContext';
-import { LoginResponse } from '../objectType/LoginResponse';
-import { createAccessToken } from '../../auth';
-import { isAuth } from '../../../middleware/isAuth';
-import { Logger } from '../../../middleware/Logger';
-import { sendRefreshToken } from '../../../utils/sendRefreshToken';
+import { User } from '../../../../entity/User';
+import { MyContext } from '../../../../types/MyContext';
+import { LoginResponse } from '../../objectType/LoginResponse';
+import { createAccessToken } from '../../../auth';
+import { isAuth } from '../../../../middleware/isAuth';
+import { Logger } from '../../../../middleware/Logger';
+import { sendRefreshToken } from '../../../../utils/sendRefreshToken';
 
 @Resolver()
 export class LoginResolver {

@@ -31,9 +31,9 @@ export class Restaurant extends BaseEntity {
    @Column({ nullable: true, length: 255 })
    deliveryTime: string;
 
-   @Field({ nullable: true })
-   @Column({ nullable: true })
-   addressId: number;
+   //    @Field({ nullable: true })
+   //    @Column({ nullable: true })
+   //    addressId: number;
 
    @Field({ nullable: true })
    @Column({ nullable: true })
