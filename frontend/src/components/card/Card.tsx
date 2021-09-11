@@ -22,13 +22,15 @@ export const Card: FC<CardProps> = ({
    photo,
    name,
 }) => {
-   const image = photo as string;
-
    return (
       <section className='restaurant-card'>
          <div className='restaurant-card__image'>
             <div className='dark' />
-            <img src={image} alt={name} className='restaurant-image' />
+            <img
+               src={photo ? photo : ''}
+               alt={name}
+               className='restaurant-image'
+            />
 
             <div className='restaurant-desc'>
                <h3>{name}</h3>
