@@ -16,20 +16,20 @@ export class Restaurant extends BaseEntity {
    @PrimaryGeneratedColumn()
    restaurantId: number;
 
-   @Field({ nullable: true })
-   @Column({ nullable: true, length: 255 })
+   @Field()
+   @Column({ length: 255 })
    restaurantName: string;
 
-   @Field({ nullable: true })
-   @Column({ nullable: true, length: 255 })
+   @Field()
+   @Column({ length: 255 })
    restaurantRating: string; //has to be an array of floats
 
-   @Field({ nullable: true })
-   @Column({ nullable: true, length: 255 })
+   @Field()
+   @Column({ length: 255 })
    restaurantPhoto: string;
 
-   @Field({ nullable: true })
-   @Column({ nullable: true, length: 255 })
+   @Field()
+   @Column({ length: 255 })
    deliveryTime: string;
 
    @Field((type) => Image, { nullable: true })

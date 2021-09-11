@@ -10,5 +10,5 @@ export class ImageInput implements Partial<Image> {
    url: string;
 
    @Field()
-   restaurantId: number;
+   restaurantRestaurantId: number;
 }

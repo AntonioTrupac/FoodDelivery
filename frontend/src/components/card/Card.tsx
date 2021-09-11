@@ -2,46 +2,54 @@ import { FC } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp } from '@fortawesome/free-regular-svg-icons';
 import { faMotorcycle } from '@fortawesome/free-solid-svg-icons';
+import { Maybe } from 'graphql/jsutils/Maybe';
+// import { Maybe } from '../../generated';
 
 type CardProps = {
    //    restaurantData?: RestaurantData;
    id: number;
-   name: string;
-   rating: number;
-   //location: string;
-   photo: string;
-   priceRating: number;
-   duration: string;
-   restaurantCategory: string;
+   name?: string;
+   rating?: string;
+   photo?: Maybe<string>;
+   duration?: string;
+   restaurantCategory?: number;
 };
 
-export const Card: FC<CardProps> = (props) => {
+export const Card: FC<CardProps> = ({
+   rating,
+   duration,
+   restaurantCategory,
+   photo,
+   name,
+}) => {
+   const image = photo as string;
+
    return (
       <section className='restaurant-card'>
          <div className='restaurant-card__image'>
             <div className='dark' />
-            <img
-               src={props.photo}
-               alt={props.name}
-               className='restaurant-image'
-            />
+            <img src={image} alt={name} className='restaurant-image' />
+
             <div className='restaurant-desc'>
-               <h3>{props.name}</h3>
+               <h3>{name}</h3>
+
                <div>
                   <span className='restaurant-category'>
-                     {props.restaurantCategory}
+                     {restaurantCategory}
                   </span>
                </div>
             </div>
          </div>
+
          <div className='estimation-wrapper'>
             <div className='rating'>
                <FontAwesomeIcon icon={faThumbsUp} className='like' />
-               <span>{props.rating}</span>
+               <span>{rating}</span>
             </div>
+
             <div className='estimation'>
                <FontAwesomeIcon icon={faMotorcycle} className='moto' />
-               <span>{props.duration}</span>
+               <span>{duration}</span>
             </div>
          </div>
       </section>

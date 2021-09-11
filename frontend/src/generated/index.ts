@@ -24,7 +24,7 @@ export type Image = {
 
 export type ImageInput = {
   url: Scalars['String'];
-  restaurantId: Scalars['Float'];
+  restaurantRestaurantId: Scalars['Float'];
 };
 
 export type LoginResponse = {
@@ -94,10 +94,10 @@ export type RegisterInput = {
 export type Restaurant = {
   __typename?: 'Restaurant';
   restaurantId: Scalars['Int'];
-  restaurantName?: Maybe<Scalars['String']>;
-  restaurantRating?: Maybe<Scalars['String']>;
-  restaurantPhoto?: Maybe<Scalars['String']>;
-  deliveryTime?: Maybe<Scalars['String']>;
+  restaurantName: Scalars['String'];
+  restaurantRating: Scalars['String'];
+  restaurantPhoto: Scalars['String'];
+  deliveryTime: Scalars['String'];
   image?: Maybe<Image>;
 };
 

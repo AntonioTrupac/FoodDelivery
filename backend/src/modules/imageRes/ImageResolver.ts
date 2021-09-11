@@ -20,10 +20,11 @@ export class ImageResolver {
    @Mutation(() => Image)
    async addImage(
       @Arg('imageData')
-      { url }: ImageInput
+      { url, restaurantRestaurantId }: ImageInput
    ): Promise<Image> {
       const image = await Image.create({
          url,
+         restaurantRestaurantId,
       }).save();
 
       return image;
