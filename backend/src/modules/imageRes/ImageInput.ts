@@ -4,17 +4,6 @@ import { Length } from 'class-validator';
 import { seedDb } from '../../utils/seedDb';
 
 @InputType()
-//   Omit<
-//      Image,
-//      | 'imageId'
-//      | 'restaurant'
-//      | 'hasId'
-//      | 'save'
-//      | 'remove'
-//      | 'softRemove'
-//      | 'recover'
-//      | 'reload'
-//   >
 export class ImageInput implements Partial<Image> {
    @Field()
    @Length(1, 500)
@@ -23,5 +12,3 @@ export class ImageInput implements Partial<Image> {
    @Field()
    restaurantId: number;
 }
-
-//seedDB.ts

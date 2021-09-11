@@ -1,15 +1,11 @@
-import { Field, ID, Int, ObjectType } from 'type-graphql';
-import { TypeormLoader } from 'type-graphql-dataloader';
+import { Field, Int, ObjectType } from 'type-graphql';
 import {
    BaseEntity,
    Column,
    Entity,
    JoinColumn,
-   ManyToOne,
    OneToOne,
-   PrimaryColumn,
    PrimaryGeneratedColumn,
-   RelationId,
 } from 'typeorm';
 import { Restaurant } from './Restaurant';
 

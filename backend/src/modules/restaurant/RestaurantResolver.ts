@@ -2,15 +2,12 @@ import {
    Arg,
    FieldResolver,
    Int,
-   InterfaceType,
    Mutation,
    Query,
    Resolver,
-   ResolverInterface,
    Root,
 } from 'type-graphql';
-import { BaseEntity, getRepository, Repository } from 'typeorm';
-import { InjectRepository } from 'typeorm-typedi-extensions';
+import { getRepository, Repository } from 'typeorm';
 import { Image } from '../../entity/Image';
 import { Restaurant } from '../../entity/Restaurant';
 import { RestaurantInput } from './input/RestaurantInput';

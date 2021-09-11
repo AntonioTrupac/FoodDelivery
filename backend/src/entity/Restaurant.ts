@@ -4,12 +4,8 @@ import {
    BaseEntity,
    Column,
    Entity,
-   ManyToOne,
-   OneToMany,
    OneToOne,
-   PrimaryColumn,
    PrimaryGeneratedColumn,
-   RelationId,
 } from 'typeorm';
 import { Image } from '../entity/Image';
 
@@ -41,6 +37,5 @@ export class Restaurant extends BaseEntity {
       lazy: true,
       cascade: true,
    })
-   //    @TypeormLoader()
    image?: Image;
 }

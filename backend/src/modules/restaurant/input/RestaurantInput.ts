@@ -1,7 +1,6 @@
 import { Field, InputType } from 'type-graphql';
 import { Restaurant } from '../../../entity/Restaurant';
 import { Length } from 'class-validator';
-import { Image } from '../../../entity/Image';
 
 @InputType()
 export class RestaurantInput implements Partial<Restaurant> {
