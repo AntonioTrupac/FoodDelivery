@@ -1,18 +1,23 @@
-import { Field, ID, ObjectType } from 'type-graphql';
+import { Field, ID, Int, ObjectType } from 'type-graphql';
+import { TypeormLoader } from 'type-graphql-dataloader';
 import {
    BaseEntity,
    Column,
    Entity,
+   ManyToOne,
+   OneToMany,
+   OneToOne,
    PrimaryColumn,
    PrimaryGeneratedColumn,
+   RelationId,
 } from 'typeorm';
+import { Image } from '../entity/Image';
 
 @ObjectType()
 @Entity()
 export class Restaurant extends BaseEntity {
-   @Field(() => ID)
+   @Field(() => Int)
    @PrimaryGeneratedColumn()
-   @PrimaryColumn()
    restaurantId: number;
 
    @Field({ nullable: true })
@@ -31,11 +36,11 @@ export class Restaurant extends BaseEntity {
    @Column({ nullable: true, length: 255 })
    deliveryTime: string;
 
-   //    @Field({ nullable: true })
-   //    @Column({ nullable: true })
-   //    addressId: number;
-
-   @Field({ nullable: true })
-   @Column({ nullable: true })
-   menuId: number;
+   @Field((type) => Image, { nullable: true })
+   @OneToOne(() => Image, (image) => image.restaurant, {
+      lazy: true,
+      cascade: true,
+   })
+   //    @TypeormLoader()
+   image?: Image;
 }

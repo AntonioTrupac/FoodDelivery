@@ -11,6 +11,7 @@ import { printSchema } from 'graphql';
 import cookieParser from 'cookie-parser';
 import { RestaurantResolver } from './modules/restaurant/RestaurantResolver';
 import { UserReslover } from './modules/user/UserReslover';
+import { ImageResolver } from './modules/imageRes/ImageResolver';
 // import { verify } from 'jsonwebtoken';
 // import { User } from './entity/User';
 // import { createAccessToken, createRefreshToken } from './modules/auth';
@@ -25,7 +26,7 @@ if (!process.env.PORT) {
 const main = async () => {
    await createConnection().catch((error) => console.log(error));
    const schema = await buildSchema({
-      resolvers: [RestaurantResolver, UserReslover],
+      resolvers: [RestaurantResolver, UserReslover, ImageResolver],
       authChecker: ({ context: { req } }) => {
          return !!req.session.userId;
       },
@@ -58,40 +59,6 @@ const main = async () => {
          origin: 'http://localhost:3000',
       })
    );
-
-   //    //refreshing the jwt token
-   //    app.post('/refresh_token', async (req, res) => {
-   //       const token = req.cookies.jid;
-   //       console.log('token', token);
-   //       console.log(
-   //          'SECRET FROM /refresh_token',
-   //          process.env.REFRESH_TOKEN_SECRET
-   //       );
-   //       if (!token) {
-   //          return res.send({ ok: false, accessToken: '' });
-   //       }
-
-   //       let payload: any = null;
-   //       try {
-   //          payload = verify(token, process.env.REFRESH_TOKEN_SECRET!);
-   //       } catch (err) {
-   //          console.log(err);
-   //          console.error(err.message);
-   //          return res.send({ ok: false, accessToken: '' });
-   //       }
-
-   //       // token is valid and
-   //       // we can send back an access token
-   //       const user = await User.findOne({ id: payload.userId });
-
-   //       if (!user) {
-   //          return res.send({ ok: false, accessToken: '' });
-   //       }
-
-   //       sendRefreshToken(res, createRefreshToken(user));
-
-   //       return res.send({ ok: true, accessToken: createAccessToken(user) });
-   //    });
 
    app.use(graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 10 }));
 

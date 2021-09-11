@@ -1,10 +1,10 @@
 import { FC } from 'react';
 
-type Title = {
+type TitleProps = {
    className?: string;
    title: string;
 };
 
-export const Title: FC<Title> = (props) => {
+export const Title: FC<TitleProps> = (props) => {
    return <h1 className={props.className}>{props.title}</h1>;
 };

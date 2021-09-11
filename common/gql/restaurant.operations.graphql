@@ -1,0 +1,23 @@
+query getRestaurants {
+  getRestaurants {
+    ...RestaurantFields
+  }
+}
+
+query getRestaurantById($restaurantId: Int!) {
+  getRestaurantById(restaurantId: $restaurantId) {
+    ...RestaurantFields
+  }
+}
+
+fragment RestaurantFields on Restaurant {
+  restaurantId
+  restaurantName
+  restaurantRating
+  deliveryTime
+  # should get the imageId and url from image table
+  image {
+    imageId
+    url
+  }
+}
