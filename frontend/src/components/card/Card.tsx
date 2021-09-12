@@ -26,11 +26,11 @@ export const Card: FC<CardProps> = ({
       <section className='restaurant-card'>
          <div className='restaurant-card__image'>
             <div className='dark' />
-            <img
-               src={photo ? photo : ''}
-               alt={name}
-               className='restaurant-image'
-            />
+            {photo ? (
+               <img src={photo} alt={name} className='restaurant-image' />
+            ) : (
+               ''
+            )}
 
             <div className='restaurant-desc'>
                <h3>{name}</h3>

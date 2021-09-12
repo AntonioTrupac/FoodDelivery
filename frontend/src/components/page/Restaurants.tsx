@@ -19,9 +19,8 @@ type GetRestaurants = {
 
 export const Restaurants: FC = () => {
    const { data, error, loading } = useGetRestaurantsQuery();
-
    const restaurantData = data?.getRestaurants;
-   console.log('QUERY DATA', data);
+
    return (
       <div className='restaurant-container'>
          <div className='category-container'>

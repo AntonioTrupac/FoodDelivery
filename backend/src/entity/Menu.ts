@@ -3,9 +3,12 @@ import {
    BaseEntity,
    Column,
    Entity,
+   JoinColumn,
+   OneToOne,
    PrimaryColumn,
    PrimaryGeneratedColumn,
 } from 'typeorm';
+import { Restaurant } from './Restaurant';
 
 @ObjectType()
 @Entity()
@@ -21,7 +24,7 @@ export class Menu extends BaseEntity {
 
    @Field()
    @Column({ nullable: true, length: 255 })
-   description: string;
+   ingredients: string;
 
    @Field(() => Int)
    @Column({ nullable: true })
@@ -30,4 +33,14 @@ export class Menu extends BaseEntity {
    @Field()
    @Column({ nullable: true })
    price: number;
+
+   @Field(() => Int)
+   @Column()
+   restaurantRestaurantId: number;
+
+   @OneToOne((type) => Restaurant, (restaurant) => restaurant.menu, {
+      lazy: true,
+   })
+   @JoinColumn()
+   restaurant: Restaurant;
 }

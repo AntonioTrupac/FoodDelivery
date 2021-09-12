@@ -12,6 +12,7 @@ import cookieParser from 'cookie-parser';
 import { RestaurantResolver } from './modules/restaurant/RestaurantResolver';
 import { UserReslover } from './modules/user/UserReslover';
 import { ImageResolver } from './modules/imageRes/ImageResolver';
+import { MenuResolver } from './modules/menu/MenuResolver';
 // import { verify } from 'jsonwebtoken';
 // import { User } from './entity/User';
 // import { createAccessToken, createRefreshToken } from './modules/auth';
@@ -26,7 +27,12 @@ if (!process.env.PORT) {
 const main = async () => {
    await createConnection().catch((error) => console.log(error));
    const schema = await buildSchema({
-      resolvers: [RestaurantResolver, UserReslover, ImageResolver],
+      resolvers: [
+         RestaurantResolver,
+         UserReslover,
+         ImageResolver,
+         MenuResolver,
+      ],
       authChecker: ({ context: { req } }) => {
          return !!req.session.userId;
       },

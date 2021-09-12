@@ -8,6 +8,7 @@ import {
    PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Image } from '../entity/Image';
+import { Menu } from './Menu';
 
 @ObjectType()
 @Entity()
@@ -38,4 +39,11 @@ export class Restaurant extends BaseEntity {
       cascade: true,
    })
    image?: Image;
+
+   @Field((type) => Menu, { nullable: true })
+   @OneToOne(() => Menu, (menu) => menu.restaurant, {
+      lazy: true,
+      cascade: ['insert', 'update', 'remove', 'soft-remove', 'recover'],
+   })
+   menu?: Menu;
 }
