@@ -1,12 +1,28 @@
-import { Arg, Int, Mutation, Query, Resolver } from 'type-graphql';
+import {
+   Arg,
+   FieldResolver,
+   Int,
+   Mutation,
+   Query,
+   Resolver,
+   Root,
+} from 'type-graphql';
+import { getRepository, Repository } from 'typeorm';
 import { Menu } from '../../entity/Menu';
+import { MenuItem } from '../../entity/MenuItem';
 import { MenuInput } from './input/MenuInput';
 
 @Resolver((of) => Menu)
 export class MenuResolver {
+   private readonly menuItemRepo: Repository<MenuItem>;
+   constructor() {
+      this.menuItemRepo = getRepository(MenuItem);
+   }
+
    @Query((returns) => [Menu])
    async getMenus() {
       const getAllMenus = Menu.find();
+      console.log('MENU ITEM REPO', this.menuItemRepo);
       return getAllMenus;
    }
 
@@ -18,15 +34,26 @@ export class MenuResolver {
    //mutation for testing the db
    @Mutation((returns) => Menu)
    async addMenu(
-      @Arg('menuData') { menuName, ingredients, calories, price }: MenuInput
+      @Arg('menuData') { menuName, restaurantRestaurantId }: MenuInput
    ): Promise<Menu> {
       const menu = await Menu.create({
          menuName,
-         ingredients,
-         calories,
-         price,
+         restaurantRestaurantId,
       }).save();
 
       return menu;
+   }
+
+   @FieldResolver()
+   async menus(@Root() menu: Menu) {
+      const items = await this.menuItemRepo.find({
+         cache: 1000,
+         where: { menuMenuId: { menuId: menu.menuId } },
+      });
+
+      if (!items) {
+         throw new Error('No menu items!');
+      }
+      return items;
    }
 }

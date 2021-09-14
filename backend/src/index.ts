@@ -13,6 +13,7 @@ import { RestaurantResolver } from './modules/restaurant/RestaurantResolver';
 import { UserReslover } from './modules/user/UserReslover';
 import { ImageResolver } from './modules/imageRes/ImageResolver';
 import { MenuResolver } from './modules/menu/MenuResolver';
+import { MenuItemResolver } from './modules/menuItem/MenuItemResolver';
 // import { verify } from 'jsonwebtoken';
 // import { User } from './entity/User';
 // import { createAccessToken, createRefreshToken } from './modules/auth';
@@ -32,6 +33,7 @@ const main = async () => {
          UserReslover,
          ImageResolver,
          MenuResolver,
+         MenuItemResolver,
       ],
       authChecker: ({ context: { req } }) => {
          return !!req.session.userId;

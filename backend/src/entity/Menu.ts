@@ -4,35 +4,25 @@ import {
    Column,
    Entity,
    JoinColumn,
+   OneToMany,
    OneToOne,
    PrimaryColumn,
    PrimaryGeneratedColumn,
 } from 'typeorm';
+import { MenuItem } from './MenuItem';
 import { Restaurant } from './Restaurant';
 
 @ObjectType()
 @Entity()
 export class Menu extends BaseEntity {
-   @Field(() => ID)
+   @Field(() => Int)
    @PrimaryGeneratedColumn()
    @PrimaryColumn()
    menuId: number;
 
-   @Field()
+   @Field({ nullable: true })
    @Column({ nullable: true, length: 255 })
-   menuName: string;
-
-   @Field()
-   @Column({ nullable: true, length: 255 })
-   ingredients: string;
-
-   @Field(() => Int)
-   @Column({ nullable: true })
-   calories: number;
-
-   @Field()
-   @Column({ nullable: true })
-   price: number;
+   menuName?: string;
 
    @Field(() => Int)
    @Column()
@@ -43,4 +33,8 @@ export class Menu extends BaseEntity {
    })
    @JoinColumn()
    restaurant: Restaurant;
+
+   @Field((type) => [MenuItem])
+   @OneToMany((type) => MenuItem, (menuItem) => menuItem.menu)
+   menus?: MenuItem[];
 }

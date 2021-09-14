@@ -9,12 +9,5 @@ export class MenuInput implements Partial<Menu> {
    menuName: string;
 
    @Field()
-   @Length(1, 255)
-   ingredients: string;
-
-   @Field()
-   calories: number;
-
-   @Field()
-   price: number;
+   restaurantRestaurantId: number;
 }

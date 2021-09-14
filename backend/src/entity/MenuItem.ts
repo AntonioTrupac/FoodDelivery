@@ -1,7 +1,14 @@
-import { isDecimal } from 'class-validator';
 import { type } from 'os';
 import { Field, Int, ObjectType } from 'type-graphql';
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+   BaseEntity,
+   Column,
+   Entity,
+   ManyToOne,
+   PrimaryGeneratedColumn,
+   RelationId,
+} from 'typeorm';
+import { Menu } from './Menu';
 
 @ObjectType()
 @Entity()
@@ -10,21 +17,30 @@ export class MenuItem extends BaseEntity {
    @PrimaryGeneratedColumn()
    menuItemId: number;
 
-   @Field()
+   @Field((type) => String)
    @Column({ length: 255 })
-   menuItemName: string;
+   name: string;
 
    @Field()
    @Column({ type: 'decimal', precision: 5, scale: 2, default: 0 })
-   menuItemPrice: number;
+   price: number;
 
-   @Field()
+   @Field((type) => Int)
    @Column()
-   menuItemCalories: number;
+   calories: number;
 
-   @Field()
+   @Field((type) => String)
    @Column()
-   menuItemIngredients: string;
+   ingredients: string;
+
+   @Field((type) => Int, { nullable: true })
+   @Column({ nullable: true })
+   menuMenuId?: number;
 
    //dodaj tu onda menuId i napravi vezu etc
+   //    @Field((type) => Menu)
+   @ManyToOne((type) => Menu)
+   menu: Menu;
+   //    @RelationId((menuItem: MenuItem) => menuItem.menu)
+   //    menuId: number;
 }
