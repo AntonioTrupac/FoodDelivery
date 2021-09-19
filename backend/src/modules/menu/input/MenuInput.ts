@@ -9,5 +9,5 @@ export class MenuInput implements Partial<Menu> {
    menuName: string;
 
    @Field()
-   restaurantRestaurantId: number;
+   restaurantId: number;
 }

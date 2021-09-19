@@ -1,5 +1,4 @@
 import { Field, ID, Int, ObjectType } from 'type-graphql';
-import { TypeormLoader } from 'type-graphql-dataloader';
 import {
    BaseEntity,
    Column,
@@ -15,7 +14,7 @@ import { Menu } from './Menu';
 export class Restaurant extends BaseEntity {
    @Field(() => Int)
    @PrimaryGeneratedColumn()
-   restaurantId: number;
+   id: number;
 
    @Field()
    @Column({ length: 255 })
@@ -27,16 +26,12 @@ export class Restaurant extends BaseEntity {
 
    @Field()
    @Column({ length: 255 })
-   restaurantPhoto: string;
-
-   @Field()
-   @Column({ length: 255 })
    deliveryTime: string;
 
    @Field((type) => Image, { nullable: true })
    @OneToOne(() => Image, (image) => image.restaurant, {
       lazy: true,
-      cascade: true,
+      cascade: ['insert', 'update', 'remove', 'soft-remove', 'recover'],
    })
    image?: Image;
 

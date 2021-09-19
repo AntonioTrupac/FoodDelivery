@@ -18,5 +18,5 @@ export class MenuItemInput implements Partial<MenuItem> {
    ingredients: string;
 
    @Field()
-   menuMenuId: number;
+   menuId?: number;
 }

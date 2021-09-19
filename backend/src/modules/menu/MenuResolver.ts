@@ -22,33 +22,33 @@ export class MenuResolver {
    @Query((returns) => [Menu])
    async getMenus() {
       const getAllMenus = Menu.find();
-      console.log('MENU ITEM REPO', this.menuItemRepo);
       return getAllMenus;
    }
 
    @Query((returns) => Menu, { nullable: true })
-   async getMenuById(@Arg('menuId', (type) => Int) menuId: number) {
-      return Menu.findOne(menuId);
+   async getMenuById(@Arg('id', (type) => Int) id: number) {
+      const menu = await Menu.findOne(id, { relations: ['tag'] });
+      return menu;
    }
 
    //mutation for testing the db
    @Mutation((returns) => Menu)
    async addMenu(
-      @Arg('menuData') { menuName, restaurantRestaurantId }: MenuInput
+      @Arg('menuData') { menuName, restaurantId }: MenuInput
    ): Promise<Menu> {
       const menu = await Menu.create({
          menuName,
-         restaurantRestaurantId,
+         restaurantId,
       }).save();
 
       return menu;
    }
 
    @FieldResolver()
-   async menus(@Root() menu: Menu) {
+   async menuItems(@Root() menu: Menu) {
       const items = await this.menuItemRepo.find({
          cache: 1000,
-         where: { menuMenuId: { menuId: menu.menuId } },
+         where: { id: menu.id },
       });
 
       if (!items) {

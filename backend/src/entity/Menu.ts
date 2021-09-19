@@ -6,27 +6,26 @@ import {
    JoinColumn,
    OneToMany,
    OneToOne,
-   PrimaryColumn,
    PrimaryGeneratedColumn,
 } from 'typeorm';
 import { MenuItem } from './MenuItem';
 import { Restaurant } from './Restaurant';
+import { Tag } from './Tags';
 
 @ObjectType()
 @Entity()
 export class Menu extends BaseEntity {
    @Field(() => Int)
    @PrimaryGeneratedColumn()
-   @PrimaryColumn()
-   menuId: number;
+   id: number;
 
    @Field({ nullable: true })
    @Column({ nullable: true, length: 255 })
    menuName?: string;
 
-   @Field(() => Int)
-   @Column()
-   restaurantRestaurantId: number;
+   @Field(() => Int, { nullable: true })
+   @Column({ nullable: true })
+   restaurantId: number;
 
    @OneToOne((type) => Restaurant, (restaurant) => restaurant.menu, {
       lazy: true,
@@ -36,5 +35,14 @@ export class Menu extends BaseEntity {
 
    @Field((type) => [MenuItem])
    @OneToMany((type) => MenuItem, (menuItem) => menuItem.menu)
-   menus?: MenuItem[];
+   menuItems?: MenuItem[];
+
+   @Field(() => Int, { nullable: true })
+   @Column({ nullable: true })
+   tagId: number; // probably mi ne treba
+
+   @Field()
+   @OneToOne((type) => Tag)
+   @JoinColumn()
+   tag: Tag;
 }

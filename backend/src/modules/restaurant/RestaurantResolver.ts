@@ -25,32 +25,23 @@ export class RestaurantResolver {
    @Query(() => [Restaurant])
    async getRestaurants() {
       const getAll = Restaurant.find();
-      console.log(getAll);
       return getAll;
    }
 
    @Query(() => Restaurant)
-   async getRestaurantById(
-      @Arg('restaurantId', (type) => Int) restaurantId: number
-   ) {
-      return Restaurant.findOne(restaurantId);
+   async getRestaurantById(@Arg('id', (type) => Int) id: number) {
+      return Restaurant.findOne(id);
    }
 
    //mutation for testing the db
    @Mutation(() => Restaurant)
    async addRestaurant(
       @Arg('restaurantData')
-      {
-         restaurantName,
-         restaurantRating,
-         restaurantPhoto,
-         deliveryTime,
-      }: RestaurantInput
+      { restaurantName, restaurantRating, deliveryTime }: RestaurantInput
    ): Promise<Restaurant> {
       const restaurant = await Restaurant.create({
          restaurantName,
          restaurantRating,
-         restaurantPhoto,
          deliveryTime,
       }).save();
 
@@ -61,7 +52,7 @@ export class RestaurantResolver {
    async image(@Root() restaurant: Restaurant) {
       return await this.imageRepo.findOne({
          where: {
-            restaurantRestaurantId: restaurant.restaurantId,
+            restaurantId: restaurant.id,
          },
       });
    }
@@ -70,8 +61,9 @@ export class RestaurantResolver {
    async menu(@Root() restaurant: Restaurant) {
       return await this.menuRepo.findOne({
          where: {
-            restaurantRestaurantId: restaurant.restaurantId,
+            restaurantId: restaurant.id,
          },
+         relations: ['tag'],
       });
    }
 }

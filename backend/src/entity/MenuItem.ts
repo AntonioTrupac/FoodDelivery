@@ -1,4 +1,3 @@
-import { type } from 'os';
 import { Field, Int, ObjectType } from 'type-graphql';
 import {
    BaseEntity,
@@ -6,7 +5,6 @@ import {
    Entity,
    ManyToOne,
    PrimaryGeneratedColumn,
-   RelationId,
 } from 'typeorm';
 import { Menu } from './Menu';
 
@@ -15,7 +13,7 @@ import { Menu } from './Menu';
 export class MenuItem extends BaseEntity {
    @Field(() => Int)
    @PrimaryGeneratedColumn()
-   menuItemId: number;
+   id: number;
 
    @Field((type) => String)
    @Column({ length: 255 })
@@ -35,12 +33,8 @@ export class MenuItem extends BaseEntity {
 
    @Field((type) => Int, { nullable: true })
    @Column({ nullable: true })
-   menuMenuId?: number;
+   menuId?: number;
 
-   //dodaj tu onda menuId i napravi vezu etc
-   //    @Field((type) => Menu)
    @ManyToOne((type) => Menu)
    menu: Menu;
-   //    @RelationId((menuItem: MenuItem) => menuItem.menu)
-   //    menuId: number;
 }

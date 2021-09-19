@@ -5,36 +5,34 @@ import { MenuItemInput } from './MenuItemInput';
 
 @Resolver((of) => MenuItem)
 export class MenuItemResolver {
-   private readonly menuItemRepo: Repository<MenuItem>;
-   constructor() {
-      this.menuItemRepo = getRepository(MenuItem);
-   }
+   //    private readonly menuItemRepo: Repository<MenuItem>;
+   //    constructor() {
+   //       this.menuItemRepo = getRepository(MenuItem);
+   //    }
 
    @Query((returns) => [MenuItem])
    async getMenuItems() {
-      return this.menuItemRepo.find();
+      return await MenuItem.find();
    }
 
    @Query((returns) => MenuItem, { nullable: true })
-   async getMenuById(@Arg('menuItemId', (type) => Int) menuItemId: number) {
-      return this.menuItemRepo.findOne(menuItemId);
+   async getMenuItemById(@Arg('id', (type) => Int) id: number) {
+      return await MenuItem.findOne(id);
    }
 
    //for inserting in db
    @Mutation((returns) => MenuItem)
    async addMenu(
       @Arg('menuItemData')
-      { name, price, calories, ingredients, menuMenuId }: MenuItemInput
+      { name, price, calories, ingredients, menuId }: MenuItemInput
    ): Promise<MenuItem> {
-      const menuItem = await this.menuItemRepo
-         .create({
-            name,
-            price,
-            calories,
-            ingredients,
-            menuMenuId,
-         })
-         .save();
+      const menuItem = await MenuItem.create({
+         name,
+         price,
+         calories,
+         ingredients,
+         menuId,
+      }).save();
 
       return menuItem;
    }

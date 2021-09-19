@@ -14,15 +14,15 @@ import { Restaurant } from './Restaurant';
 export class Image extends BaseEntity {
    @Field(() => Int)
    @PrimaryGeneratedColumn()
-   imageId: number;
+   id: number;
 
    @Field({ nullable: true })
    @Column({ nullable: true, length: 2000 })
    url: string;
 
-   @Field(() => Int)
-   @Column()
-   restaurantRestaurantId: number;
+   @Field(() => Int, { nullable: true })
+   @Column({ nullable: true })
+   restaurantId: number;
 
    @OneToOne((type) => Restaurant, (restaurant) => restaurant.image, {
       lazy: true,

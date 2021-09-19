@@ -13,9 +13,5 @@ export class RestaurantInput implements Partial<Restaurant> {
    restaurantRating: string;
 
    @Field()
-   @Length(1, 255)
-   restaurantPhoto: string;
-
-   @Field()
    deliveryTime: string;
 }
