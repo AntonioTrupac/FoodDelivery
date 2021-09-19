@@ -5,19 +5,19 @@ import { MenuItemInput } from './MenuItemInput';
 
 @Resolver((of) => MenuItem)
 export class MenuItemResolver {
-   //    private readonly menuItemRepo: Repository<MenuItem>;
-   //    constructor() {
-   //       this.menuItemRepo = getRepository(MenuItem);
-   //    }
+   private readonly menuItemRepo: Repository<MenuItem>;
+   constructor() {
+      this.menuItemRepo = getRepository(MenuItem);
+   }
 
    @Query((returns) => [MenuItem])
    async getMenuItems() {
-      return await MenuItem.find();
+      return await this.menuItemRepo.find();
    }
 
    @Query((returns) => MenuItem, { nullable: true })
    async getMenuItemById(@Arg('id', (type) => Int) id: number) {
-      return await MenuItem.findOne(id);
+      return await this.menuItemRepo.findOne(id);
    }
 
    //for inserting in db
@@ -26,13 +26,15 @@ export class MenuItemResolver {
       @Arg('menuItemData')
       { name, price, calories, ingredients, menuId }: MenuItemInput
    ): Promise<MenuItem> {
-      const menuItem = await MenuItem.create({
-         name,
-         price,
-         calories,
-         ingredients,
-         menuId,
-      }).save();
+      const menuItem = await this.menuItemRepo
+         .create({
+            name,
+            price,
+            calories,
+            ingredients,
+            menuId,
+         })
+         .save();
 
       return menuItem;
    }
