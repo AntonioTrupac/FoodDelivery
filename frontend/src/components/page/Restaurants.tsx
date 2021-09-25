@@ -3,23 +3,10 @@ import { Card } from '../card/Card';
 import { images } from '../dummydata/index';
 import { useGetRestaurantsQuery } from '../../generated';
 
-type Image = {
-   imageId: number;
-   url: string;
-   restaurantRestaurantId: number;
-};
-
-type GetRestaurants = {
-   restaurantId: number;
-   restaurantName: string;
-   restaurantRating: string;
-   deliveryTime: string;
-   image: Image;
-};
-
 export const Restaurants: FC = () => {
    const { data, error, loading } = useGetRestaurantsQuery();
    const restaurantData = data?.getRestaurants;
+   console.log(restaurantData);
 
    return (
       <div className='restaurant-container'>
@@ -48,24 +35,25 @@ export const Restaurants: FC = () => {
 
          <div className='card-container'>
             {restaurantData?.map((restaurant) => {
+               console.log(restaurant);
                const {
-                  restaurantId,
+                  id,
                   restaurantName,
                   restaurantRating,
                   deliveryTime,
                   image,
+                  menu,
                } = restaurant;
+
                return (
-                  <div key={restaurantId}>
-                     <Card
-                        id={restaurantId}
-                        name={restaurantName}
-                        rating={restaurantRating}
-                        photo={image?.url}
-                        duration={deliveryTime}
-                        restaurantCategory={image?.imageId}
-                     />
-                  </div>
+                  <Card
+                     id={id}
+                     name={restaurantName}
+                     rating={restaurantRating}
+                     photo={image?.url}
+                     duration={deliveryTime}
+                     restaurantCategory={menu?.tag?.tagName}
+                  />
                );
             })}
          </div>

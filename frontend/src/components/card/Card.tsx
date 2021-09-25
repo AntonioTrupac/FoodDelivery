@@ -12,7 +12,7 @@ type CardProps = {
    rating?: string;
    photo?: Maybe<string>;
    duration?: string;
-   restaurantCategory?: number;
+   restaurantCategory?: string;
 };
 
 export const Card: FC<CardProps> = ({
@@ -30,6 +30,7 @@ export const Card: FC<CardProps> = ({
                <img src={photo} alt={name} className='restaurant-image' />
             ) : (
                ''
+               // add a div for example No image or something
             )}
 
             <div className='restaurant-desc'>

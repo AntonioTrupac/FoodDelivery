@@ -48,7 +48,7 @@ export class MenuResolver {
    async menuItems(@Root() menu: Menu) {
       const items = await this.menuItemRepo.find({
          cache: 1000,
-         where: { id: menu.id },
+         where: { menuId: menu.id },
       });
 
       if (!items) {

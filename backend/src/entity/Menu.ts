@@ -4,13 +4,17 @@ import {
    Column,
    Entity,
    JoinColumn,
+   ManyToOne,
    OneToMany,
    OneToOne,
    PrimaryGeneratedColumn,
+   RelationId,
 } from 'typeorm';
 import { MenuItem } from './MenuItem';
 import { Restaurant } from './Restaurant';
 import { Tag } from './Tags';
+
+export type Lazy<T extends object> = Promise<T> | T;
 
 @ObjectType()
 @Entity()
@@ -34,15 +38,12 @@ export class Menu extends BaseEntity {
    restaurant: Restaurant;
 
    @Field((type) => [MenuItem])
-   @OneToMany((type) => MenuItem, (menuItem) => menuItem.menu)
+   @OneToMany((type) => MenuItem, (menuItem) => menuItem.menu, {
+      cascade: true,
+   })
    menuItems?: MenuItem[];
 
-   @Field(() => Int, { nullable: true })
-   @Column({ nullable: true })
-   tagId: number; // probably mi ne treba
-
-   @Field()
-   @OneToOne((type) => Tag)
-   @JoinColumn()
+   @Field((type) => Tag, { nullable: true })
+   @ManyToOne((type) => Tag, { nullable: true })
    tag: Tag;
 }

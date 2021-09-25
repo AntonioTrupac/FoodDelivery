@@ -17,19 +17,46 @@ export type Scalars = {
 
 export type Image = {
   __typename?: 'Image';
-  imageId: Scalars['Int'];
+  id: Scalars['Int'];
   url?: Maybe<Scalars['String']>;
-  restaurantRestaurantId: Scalars['Int'];
+  restaurantId?: Maybe<Scalars['Int']>;
 };
 
 export type ImageInput = {
   url: Scalars['String'];
-  restaurantRestaurantId: Scalars['Float'];
+  restaurantId: Scalars['Float'];
 };
 
 export type LoginResponse = {
   __typename?: 'LoginResponse';
   accessToken: Scalars['String'];
+};
+
+export type Menu = {
+  __typename?: 'Menu';
+  id: Scalars['Int'];
+  menuName?: Maybe<Scalars['String']>;
+  restaurantId?: Maybe<Scalars['Int']>;
+  menuItems: Array<MenuItem>;
+  tag?: Maybe<Tag>;
+};
+
+export type MenuItem = {
+  __typename?: 'MenuItem';
+  id: Scalars['Int'];
+  name: Scalars['String'];
+  price: Scalars['Float'];
+  calories: Scalars['Int'];
+  ingredients: Scalars['String'];
+  menuId?: Maybe<Scalars['Int']>;
+};
+
+export type MenuItemInput = {
+  name: Scalars['String'];
+  price: Scalars['Float'];
+  calories: Scalars['Float'];
+  ingredients: Scalars['String'];
+  menuId: Scalars['Float'];
 };
 
 export type Mutation = {
@@ -38,6 +65,7 @@ export type Mutation = {
   register: User;
   login?: Maybe<LoginResponse>;
   addImage: Image;
+  addMenu: MenuItem;
 };
 
 
@@ -61,6 +89,11 @@ export type MutationAddImageArgs = {
   imageData: ImageInput;
 };
 
+
+export type MutationAddMenuArgs = {
+  menuItemData: MenuItemInput;
+};
+
 export type Query = {
   __typename?: 'Query';
   getRestaurants: Array<Restaurant>;
@@ -71,16 +104,30 @@ export type Query = {
   userNerd: Scalars['String'];
   getImages: Array<Image>;
   getImageById: Image;
+  getMenus: Array<Menu>;
+  getMenuById?: Maybe<Menu>;
+  getMenuItems: Array<MenuItem>;
+  getMenuItemById?: Maybe<MenuItem>;
 };
 
 
 export type QueryGetRestaurantByIdArgs = {
-  restaurantId: Scalars['Int'];
+  id: Scalars['Int'];
 };
 
 
 export type QueryGetImageByIdArgs = {
   imageId: Scalars['Int'];
+};
+
+
+export type QueryGetMenuByIdArgs = {
+  id: Scalars['Int'];
+};
+
+
+export type QueryGetMenuItemByIdArgs = {
+  id: Scalars['Int'];
 };
 
 export type RegisterInput = {
@@ -93,19 +140,24 @@ export type RegisterInput = {
 
 export type Restaurant = {
   __typename?: 'Restaurant';
-  restaurantId: Scalars['Int'];
+  id: Scalars['Int'];
   restaurantName: Scalars['String'];
   restaurantRating: Scalars['String'];
-  restaurantPhoto: Scalars['String'];
   deliveryTime: Scalars['String'];
   image?: Maybe<Image>;
+  menu?: Maybe<Menu>;
 };
 
 export type RestaurantInput = {
   restaurantName: Scalars['String'];
   restaurantRating: Scalars['String'];
-  restaurantPhoto: Scalars['String'];
   deliveryTime: Scalars['String'];
+};
+
+export type Tag = {
+  __typename?: 'Tag';
+  id: Scalars['Int'];
+  tagName: Scalars['String'];
 };
 
 export type User = {
@@ -130,7 +182,7 @@ export type GetRestaurantsQuery = (
 );
 
 export type GetRestaurantByIdQueryVariables = Exact<{
-  restaurantId: Scalars['Int'];
+  id: Scalars['Int'];
 }>;
 
 
@@ -144,11 +196,31 @@ export type GetRestaurantByIdQuery = (
 
 export type RestaurantFieldsFragment = (
   { __typename?: 'Restaurant' }
-  & Pick<Restaurant, 'restaurantId' | 'restaurantName' | 'restaurantRating' | 'deliveryTime'>
+  & Pick<Restaurant, 'id' | 'restaurantName' | 'restaurantRating' | 'deliveryTime'>
   & { image?: Maybe<(
     { __typename?: 'Image' }
-    & Pick<Image, 'imageId' | 'url'>
+    & Pick<Image, 'id' | 'url'>
+  )>, menu?: Maybe<(
+    { __typename?: 'Menu' }
+    & Pick<Menu, 'id' | 'menuName'>
+    & { tag?: Maybe<(
+      { __typename?: 'Tag' }
+      & Pick<Tag, 'id' | 'tagName'>
+    )>, menuItems: Array<(
+      { __typename?: 'MenuItem' }
+      & Pick<MenuItem, 'id' | 'name' | 'price' | 'calories' | 'ingredients' | 'menuId'>
+    )> }
   )> }
+);
+
+export type MenuItemFieldsFragment = (
+  { __typename?: 'MenuItem' }
+  & Pick<MenuItem, 'id' | 'name' | 'price' | 'calories' | 'ingredients' | 'menuId'>
+);
+
+export type TagFieldsFragment = (
+  { __typename?: 'Tag' }
+  & Pick<Tag, 'id' | 'tagName'>
 );
 
 export type LoginMutationVariables = Exact<{
@@ -211,14 +283,46 @@ export type UserFieldsFragment = (
 
 export const RestaurantFieldsFragmentDoc = gql`
     fragment RestaurantFields on Restaurant {
-  restaurantId
+  id
   restaurantName
   restaurantRating
   deliveryTime
   image {
-    imageId
+    id
     url
   }
+  menu {
+    id
+    menuName
+    tag {
+      id
+      tagName
+    }
+    menuItems {
+      id
+      name
+      price
+      calories
+      ingredients
+      menuId
+    }
+  }
+}
+    `;
+export const MenuItemFieldsFragmentDoc = gql`
+    fragment MenuItemFields on MenuItem {
+  id
+  name
+  price
+  calories
+  ingredients
+  menuId
+}
+    `;
+export const TagFieldsFragmentDoc = gql`
+    fragment TagFields on Tag {
+  id
+  tagName
 }
     `;
 export const UserFieldsFragmentDoc = gql`
@@ -265,8 +369,8 @@ export type GetRestaurantsQueryHookResult = ReturnType<typeof useGetRestaurantsQ
 export type GetRestaurantsLazyQueryHookResult = ReturnType<typeof useGetRestaurantsLazyQuery>;
 export type GetRestaurantsQueryResult = ApolloReactCommon.QueryResult<GetRestaurantsQuery, GetRestaurantsQueryVariables>;
 export const GetRestaurantByIdDocument = gql`
-    query getRestaurantById($restaurantId: Int!) {
-  getRestaurantById(restaurantId: $restaurantId) {
+    query getRestaurantById($id: Int!) {
+  getRestaurantById(id: $id) {
     ...RestaurantFields
   }
 }
@@ -284,7 +388,7 @@ export const GetRestaurantByIdDocument = gql`
  * @example
  * const { data, loading, error } = useGetRestaurantByIdQuery({
  *   variables: {
- *      restaurantId: // value for 'restaurantId'
+ *      id: // value for 'id'
  *   },
  * });
  */

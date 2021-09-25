@@ -4,20 +4,49 @@ query getRestaurants {
   }
 }
 
-query getRestaurantById($restaurantId: Int!) {
-  getRestaurantById(restaurantId: $restaurantId) {
+query getRestaurantById($id: Int!) {
+  getRestaurantById(id: $id) {
     ...RestaurantFields
   }
 }
 
 fragment RestaurantFields on Restaurant {
-  restaurantId
+  id
   restaurantName
   restaurantRating
   deliveryTime
-  # should get the imageId and url from image table
   image {
-    imageId
+    id
     url
   }
+  menu {
+    id
+    menuName
+    tag {
+      id
+      tagName
+    }
+    menuItems {
+      id
+      name
+      price
+      calories
+      ingredients
+      menuId
+    }
+  }
+}
+
+fragment MenuItemFields on MenuItem {
+  id
+  name
+  price
+  calories
+  ingredients
+  menuId
+}
+
+fragment TagFields on Tag {
+  id
+  tagName
 }
