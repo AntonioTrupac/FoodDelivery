@@ -4,6 +4,7 @@ import { faThumbsUp } from '@fortawesome/free-regular-svg-icons';
 import { faMotorcycle } from '@fortawesome/free-solid-svg-icons';
 import { Maybe } from 'graphql/jsutils/Maybe';
 // import { Maybe } from '../../generated';
+import { useHistory } from 'react-router';
 
 type CardProps = {
    //    restaurantData?: RestaurantData;
@@ -16,14 +17,20 @@ type CardProps = {
 };
 
 export const Card: FC<CardProps> = ({
+   id,
    rating,
    duration,
    restaurantCategory,
    photo,
    name,
 }) => {
+   const history = useHistory();
+   const handleClick = () => {
+      history.push(`home/${id}`);
+   };
+
    return (
-      <section className='restaurant-card'>
+      <section className='restaurant-card' onClick={handleClick}>
          <div className='restaurant-card__image'>
             <div className='dark' />
             {photo ? (

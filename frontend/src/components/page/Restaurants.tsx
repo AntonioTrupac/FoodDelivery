@@ -6,7 +6,6 @@ import { useGetRestaurantsQuery } from '../../generated';
 export const Restaurants: FC = () => {
    const { data, error, loading } = useGetRestaurantsQuery();
    const restaurantData = data?.getRestaurants;
-   console.log(restaurantData);
 
    return (
       <div className='restaurant-container'>
