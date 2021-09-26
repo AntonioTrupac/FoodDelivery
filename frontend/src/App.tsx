@@ -7,7 +7,7 @@ import {
 import { LandingPage } from './pages/LandingPage';
 import { Home } from './pages/Home';
 import { PrivateRoute } from './components/privateRoute/PrivateRoute';
-import { Restaurants } from './components/page/Restaurants';
+import { RestaurantDetails } from './pages/RestaurantDetails';
 
 function App() {
    return (
@@ -15,8 +15,13 @@ function App() {
          <Router>
             <Switch>
                <Route exact path='/landing-page' component={LandingPage} />
+
                <PrivateRoute path='/home' component={Home} exact />
-               <PrivateRoute path='/restaurants' component={Restaurants} />
+               <PrivateRoute
+                  path='/home/:id'
+                  component={RestaurantDetails}
+                  exact
+               />
                <Redirect from='/' to='/home' />
             </Switch>
          </Router>

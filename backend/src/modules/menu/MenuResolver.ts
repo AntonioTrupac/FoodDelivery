@@ -54,6 +54,7 @@ export class MenuResolver {
       if (!items) {
          throw new Error('No menu items!');
       }
+
       return items;
    }
 }

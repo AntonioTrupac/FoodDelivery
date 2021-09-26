@@ -1,8 +1,7 @@
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import { Redirect, Route } from 'react-router';
 import { getAccessToken } from '../../accessToken';
-import jwt_decode, { JwtPayload } from 'jwt-decode';
-import { RouteProps, useHistory } from 'react-router-dom';
+import { RouteProps } from 'react-router-dom';
 
 type PrivateRouteProps = {
    exact?: boolean;

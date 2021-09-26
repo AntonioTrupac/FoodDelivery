@@ -205,10 +205,10 @@ export type RestaurantFieldsFragment = (
     & Pick<Menu, 'id' | 'menuName'>
     & { tag?: Maybe<(
       { __typename?: 'Tag' }
-      & Pick<Tag, 'id' | 'tagName'>
+      & TagFieldsFragment
     )>, menuItems: Array<(
       { __typename?: 'MenuItem' }
-      & Pick<MenuItem, 'id' | 'name' | 'price' | 'calories' | 'ingredients' | 'menuId'>
+      & MenuItemFieldsFragment
     )> }
   )> }
 );
@@ -281,6 +281,22 @@ export type UserFieldsFragment = (
   & Pick<User, 'email' | 'firstName' | 'lastName' | 'userId' | 'phoneNumber'>
 );
 
+export const TagFieldsFragmentDoc = gql`
+    fragment TagFields on Tag {
+  id
+  tagName
+}
+    `;
+export const MenuItemFieldsFragmentDoc = gql`
+    fragment MenuItemFields on MenuItem {
+  id
+  name
+  price
+  calories
+  ingredients
+  menuId
+}
+    `;
 export const RestaurantFieldsFragmentDoc = gql`
     fragment RestaurantFields on Restaurant {
   id
@@ -295,36 +311,15 @@ export const RestaurantFieldsFragmentDoc = gql`
     id
     menuName
     tag {
-      id
-      tagName
+      ...TagFields
     }
     menuItems {
-      id
-      name
-      price
-      calories
-      ingredients
-      menuId
+      ...MenuItemFields
     }
   }
 }
-    `;
-export const MenuItemFieldsFragmentDoc = gql`
-    fragment MenuItemFields on MenuItem {
-  id
-  name
-  price
-  calories
-  ingredients
-  menuId
-}
-    `;
-export const TagFieldsFragmentDoc = gql`
-    fragment TagFields on Tag {
-  id
-  tagName
-}
-    `;
+    ${TagFieldsFragmentDoc}
+${MenuItemFieldsFragmentDoc}`;
 export const UserFieldsFragmentDoc = gql`
     fragment UserFields on User {
   email
