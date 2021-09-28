@@ -1,0 +1,43 @@
+@layer components {
+   .detail__container {
+      @apply flex flex-col justify-center items-center;
+
+      .imageContainer {
+         @apply min-w-full h-[350px] bg-yellow-500;
+
+         &__left {
+            @apply flex flex-col justify-end items-start h-full ml-4;
+
+            h1 {
+               @apply text-5xl md:text-3xl font-light mb-2;
+            }
+
+            .paragraphContainer {
+               @apply flex mb-2;
+
+               .dot {
+                  @apply text-xl md:text-lg;
+               }
+
+               p {
+                  @apply text-2xl md:text-lg font-extralight;
+               }
+            }
+         }
+      }
+
+      .card-wrapper {
+         @apply justify-center mx-8;
+         display: grid;
+         grid-template-columns: 1fr;
+
+         @media screen and (min-width: 768px) {
+            grid-template-columns: 1fr 1fr;
+         }
+
+         @media screen and (min-width: 1024px) {
+            grid-template-columns: 1fr 1fr 1fr;
+         }
+      }
+   }
+}

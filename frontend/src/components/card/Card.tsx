@@ -33,11 +33,8 @@ export const Card: FC<CardProps> = ({
       <section className='restaurant-card' onClick={handleClick}>
          <div className='restaurant-card__image'>
             <div className='dark' />
-            {photo ? (
+            {photo && (
                <img src={photo} alt={name} className='restaurant-image' />
-            ) : (
-               ''
-               // add a div for example No image or something
             )}
 
             <div className='restaurant-desc'>

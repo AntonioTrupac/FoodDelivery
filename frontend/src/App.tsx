@@ -5,9 +5,7 @@ import {
    Redirect,
 } from 'react-router-dom';
 import { LandingPage } from './pages/LandingPage';
-import { Home } from './pages/Home';
-import { PrivateRoute } from './components/privateRoute/PrivateRoute';
-import { RestaurantDetails } from './pages/RestaurantDetails';
+import { PrivateRoutes } from './components/privateRoute';
 
 function App() {
    return (
@@ -15,13 +13,7 @@ function App() {
          <Router>
             <Switch>
                <Route exact path='/landing-page' component={LandingPage} />
-
-               <PrivateRoute path='/home' component={Home} exact />
-               <PrivateRoute
-                  path='/home/:id'
-                  component={RestaurantDetails}
-                  exact
-               />
+               <PrivateRoutes />
                <Redirect from='/' to='/home' />
             </Switch>
          </Router>

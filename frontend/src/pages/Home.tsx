@@ -17,7 +17,6 @@ export const Home: FC = () => {
 
    return (
       <div>
-         <Header />
          <Restaurants />
       </div>
    );

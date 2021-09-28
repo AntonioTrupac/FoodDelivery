@@ -6,6 +6,8 @@
 @import 'components/navbar.css';
 @import 'components/restaurants.css';
 @import 'components/search.css';
+@import 'components/restaurantDetails.css';
+@import 'components/card/detailCard.css';
 
 @tailwind base;
 @tailwind components;

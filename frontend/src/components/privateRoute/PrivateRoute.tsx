@@ -9,12 +9,9 @@ type PrivateRouteProps = {
    path: string;
 };
 
-interface RouterProps extends RouteProps {}
+type Routes = RouteProps & PrivateRouteProps;
 
-export const PrivateRoute: FC<PrivateRouteProps & RouterProps> = ({
-   component: Component,
-   ...rest
-}) => {
+export const PrivateRoute: FC<Routes> = ({ component: Component, ...rest }) => {
    const accessToken = getAccessToken();
 
    return (
