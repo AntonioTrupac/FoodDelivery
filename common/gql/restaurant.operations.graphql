@@ -15,6 +15,9 @@ fragment RestaurantFields on Restaurant {
   restaurantName
   restaurantRating
   deliveryTime
+  openFrom
+  openUntil
+  deliveryPrice
   image {
     id
     url

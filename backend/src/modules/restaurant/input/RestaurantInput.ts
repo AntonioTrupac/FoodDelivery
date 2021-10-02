@@ -14,4 +14,13 @@ export class RestaurantInput implements Partial<Restaurant> {
 
    @Field()
    deliveryTime: string;
+
+   @Field()
+   openFrom: string;
+
+   @Field()
+   openUntil: string;
+
+   @Field()
+   deliveryPrice: number;
 }

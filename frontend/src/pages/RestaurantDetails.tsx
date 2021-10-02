@@ -23,7 +23,7 @@ export const RestaurantDetails: FC = () => {
    return (
       <div className='detail__container'>
          <div className='imageContainer'>
-            {/* FIXME: add images that are bigger than the card images */}
+            {/* FIXME: add images that are bigger than the current card images */}
             {/* {restaurant?.image?.url && (
                <img
                   src={restaurant?.image?.url}

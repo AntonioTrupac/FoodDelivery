@@ -11,7 +11,7 @@ export const DetailCard: FC<DetailCardProps> = ({ menuItems }) => {
       <>
          {menuItems?.map((menuItem) => {
             return (
-               <div className='card-container'>
+               <div className='card-container-detail'>
                   <div>
                      <p className='text-2xl md:text-lg'>{menuItem.name}</p>
                      <p className='mr-4 font-light text-base md:text-base'>

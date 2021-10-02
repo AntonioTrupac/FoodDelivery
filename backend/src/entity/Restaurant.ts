@@ -1,4 +1,4 @@
-import { Field, ID, Int, ObjectType } from 'type-graphql';
+import { Field, Float, ID, Int, ObjectType } from 'type-graphql';
 import {
    BaseEntity,
    Column,
@@ -12,21 +12,39 @@ import { Menu } from './Menu';
 @ObjectType()
 @Entity()
 export class Restaurant extends BaseEntity {
-   @Field(() => Int)
+   @Field((type) => Int)
    @PrimaryGeneratedColumn()
    id: number;
 
-   @Field()
+   @Field((type) => String)
    @Column({ length: 255 })
    restaurantName: string;
 
-   @Field()
+   @Field((type) => String)
    @Column({ length: 255 })
    restaurantRating: string; //has to be an array of floats
 
-   @Field()
+   @Field((type) => String)
    @Column({ length: 255 })
    deliveryTime: string;
+
+   @Field((type) => String, { nullable: true })
+   @Column({ length: 50, nullable: true })
+   openFrom: string;
+
+   @Field((type) => String, { nullable: true })
+   @Column({ length: 50, nullable: true })
+   openUntil: string;
+
+   @Field((type) => Float, { nullable: true })
+   @Column({
+      type: 'decimal',
+      precision: 5,
+      scale: 2,
+      default: 0,
+      nullable: true,
+   })
+   deliveryPrice: number;
 
    @Field((type) => Image, { nullable: true })
    @OneToOne(() => Image, (image) => image.restaurant, {

@@ -37,12 +37,22 @@ export class RestaurantResolver {
    @Mutation(() => Restaurant)
    async addRestaurant(
       @Arg('restaurantData')
-      { restaurantName, restaurantRating, deliveryTime }: RestaurantInput
+      {
+         restaurantName,
+         restaurantRating,
+         deliveryTime,
+         openFrom,
+         openUntil,
+         deliveryPrice,
+      }: RestaurantInput
    ): Promise<Restaurant> {
       const restaurant = await Restaurant.create({
          restaurantName,
          restaurantRating,
          deliveryTime,
+         openFrom,
+         openUntil,
+         deliveryPrice,
       }).save();
 
       return restaurant;
