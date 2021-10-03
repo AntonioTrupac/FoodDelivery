@@ -14,10 +14,6 @@ import { UserReslover } from './modules/user/UserReslover';
 import { ImageResolver } from './modules/imageRes/ImageResolver';
 import { MenuResolver } from './modules/menu/MenuResolver';
 import { MenuItemResolver } from './modules/menuItem/MenuItemResolver';
-// import { verify } from 'jsonwebtoken';
-// import { User } from './entity/User';
-// import { createAccessToken, createRefreshToken } from './modules/auth';
-// import { sendRefreshToken } from './utils/sendRefreshToken';
 
 dotenv.config();
 const { PORT } = process.env;
