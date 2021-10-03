@@ -1,4 +1,4 @@
-import { Field, ID, Int, ObjectType } from 'type-graphql';
+import { Field, Int, ObjectType } from 'type-graphql';
 import {
    BaseEntity,
    Column,
@@ -8,13 +8,10 @@ import {
    OneToMany,
    OneToOne,
    PrimaryGeneratedColumn,
-   RelationId,
 } from 'typeorm';
 import { MenuItem } from './MenuItem';
 import { Restaurant } from './Restaurant';
 import { Tag } from './Tags';
-
-export type Lazy<T extends object> = Promise<T> | T;
 
 @ObjectType()
 @Entity()

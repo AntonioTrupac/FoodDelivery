@@ -7,6 +7,7 @@ import {
    PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Menu } from './Menu';
+import { MenuItem } from './MenuItem';
 
 @ObjectType()
 @Entity()
@@ -19,6 +20,9 @@ export class Tag extends BaseEntity {
    @Column()
    tagName: string;
 
-   @OneToMany(() => Menu, (menu) => menu.tag)
+   @OneToMany((type) => Menu, (menu) => menu.tag)
    tag: Menu[];
+
+   @OneToMany((type) => MenuItem, (menuItem) => menuItem.tag)
+   tagMenuItem: MenuItem[];
 }

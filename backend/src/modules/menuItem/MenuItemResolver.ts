@@ -6,18 +6,19 @@ import { MenuItemInput } from './MenuItemInput';
 @Resolver((of) => MenuItem)
 export class MenuItemResolver {
    private readonly menuItemRepo: Repository<MenuItem>;
+
    constructor() {
       this.menuItemRepo = getRepository(MenuItem);
    }
 
    @Query((returns) => [MenuItem])
    async getMenuItems() {
-      return await this.menuItemRepo.find();
+      return await this.menuItemRepo.find({ relations: ['tag'] });
    }
 
    @Query((returns) => MenuItem, { nullable: true })
    async getMenuItemById(@Arg('id', (type) => Int) id: number) {
-      return await this.menuItemRepo.findOne(id);
+      return await this.menuItemRepo.findOne(id, { relations: ['tag'] });
    }
 
    //for inserting in db

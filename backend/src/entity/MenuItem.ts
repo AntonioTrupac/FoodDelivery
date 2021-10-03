@@ -7,6 +7,7 @@ import {
    PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Menu } from './Menu';
+import { Tag } from './Tags';
 
 @ObjectType()
 @Entity()
@@ -37,4 +38,12 @@ export class MenuItem extends BaseEntity {
 
    @ManyToOne((type) => Menu)
    menu: Menu;
+
+   @Field((type) => Int, { nullable: true })
+   @Column()
+   tagId?: number;
+
+   @Field((type) => Tag, { nullable: true })
+   @ManyToOne((type) => Tag, { nullable: true })
+   tag: Tag;
 }

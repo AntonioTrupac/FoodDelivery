@@ -7,6 +7,11 @@ export const Restaurants: FC = () => {
    const { data, error, loading } = useGetRestaurantsQuery();
    const restaurantData = data?.getRestaurants;
 
+   console.log(restaurantData);
+
+   if (loading) return <div>Loading...</div>;
+   if (error) return <div>Error...</div>;
+
    return (
       <div className='restaurant-container'>
          <div className='category-container'>

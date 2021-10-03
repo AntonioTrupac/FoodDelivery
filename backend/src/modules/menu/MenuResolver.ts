@@ -49,7 +49,10 @@ export class MenuResolver {
       const items = await this.menuItemRepo.find({
          cache: 1000,
          where: { menuId: menu.id },
+         relations: ['tag'],
       });
+
+      console.log('ITEMS', items);
 
       if (!items) {
          throw new Error('No menu items!');

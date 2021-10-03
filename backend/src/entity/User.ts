@@ -18,7 +18,8 @@ export class User extends BaseEntity {
    @Field()
    name(@Root() parent: User): string {
       return `${parent.firstName} ${parent.lastName}`;
-   } // parent ce biti taj value koji u mutationu returnamo
+   } // parent ce biti taj value koji u mutationu returnamo,
+   //to trenutno ne koristim, izbacit cu u slucaju da mi nece trebat, a mislim da nece
 
    @Field()
    @Column('text', { nullable: true, unique: true })
