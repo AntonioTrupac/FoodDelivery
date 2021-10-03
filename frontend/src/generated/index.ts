@@ -49,6 +49,8 @@ export type MenuItem = {
   calories: Scalars['Int'];
   ingredients: Scalars['String'];
   menuId?: Maybe<Scalars['Int']>;
+  tagId?: Maybe<Scalars['Int']>;
+  tag?: Maybe<Tag>;
 };
 
 export type MenuItemInput = {
@@ -144,6 +146,9 @@ export type Restaurant = {
   restaurantName: Scalars['String'];
   restaurantRating: Scalars['String'];
   deliveryTime: Scalars['String'];
+  openFrom?: Maybe<Scalars['String']>;
+  openUntil?: Maybe<Scalars['String']>;
+  deliveryPrice?: Maybe<Scalars['Float']>;
   image?: Maybe<Image>;
   menu?: Maybe<Menu>;
 };
@@ -152,6 +157,9 @@ export type RestaurantInput = {
   restaurantName: Scalars['String'];
   restaurantRating: Scalars['String'];
   deliveryTime: Scalars['String'];
+  openFrom: Scalars['String'];
+  openUntil: Scalars['String'];
+  deliveryPrice: Scalars['Float'];
 };
 
 export type Tag = {
@@ -196,7 +204,7 @@ export type GetRestaurantByIdQuery = (
 
 export type RestaurantFieldsFragment = (
   { __typename?: 'Restaurant' }
-  & Pick<Restaurant, 'id' | 'restaurantName' | 'restaurantRating' | 'deliveryTime'>
+  & Pick<Restaurant, 'id' | 'restaurantName' | 'restaurantRating' | 'deliveryTime' | 'openFrom' | 'openUntil' | 'deliveryPrice'>
   & { image?: Maybe<(
     { __typename?: 'Image' }
     & Pick<Image, 'id' | 'url'>
@@ -216,6 +224,10 @@ export type RestaurantFieldsFragment = (
 export type MenuItemFieldsFragment = (
   { __typename?: 'MenuItem' }
   & Pick<MenuItem, 'id' | 'name' | 'price' | 'calories' | 'ingredients' | 'menuId'>
+  & { tag?: Maybe<(
+    { __typename?: 'Tag' }
+    & TagFieldsFragment
+  )> }
 );
 
 export type TagFieldsFragment = (
@@ -295,14 +307,20 @@ export const MenuItemFieldsFragmentDoc = gql`
   calories
   ingredients
   menuId
+  tag {
+    ...TagFields
+  }
 }
-    `;
+    ${TagFieldsFragmentDoc}`;
 export const RestaurantFieldsFragmentDoc = gql`
     fragment RestaurantFields on Restaurant {
   id
   restaurantName
   restaurantRating
   deliveryTime
+  openFrom
+  openUntil
+  deliveryPrice
   image {
     id
     url

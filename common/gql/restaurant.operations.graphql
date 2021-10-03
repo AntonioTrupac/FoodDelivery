@@ -41,6 +41,9 @@ fragment MenuItemFields on MenuItem {
   calories
   ingredients
   menuId
+  tag {
+    ...TagFields
+  }
 }
 
 fragment TagFields on Tag {
