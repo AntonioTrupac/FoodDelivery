@@ -178,6 +178,28 @@ export type User = {
   phoneNumber: Scalars['String'];
 };
 
+export type GetMenuItemByIdQueryVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type GetMenuItemByIdQuery = (
+  { __typename?: 'Query' }
+  & { getMenuItemById?: Maybe<(
+    { __typename?: 'MenuItem' }
+    & MenuItemFieldsFragment
+  )> }
+);
+
+export type MenuItemFieldsFragment = (
+  { __typename?: 'MenuItem' }
+  & Pick<MenuItem, 'id' | 'name' | 'price' | 'calories' | 'ingredients' | 'menuId'>
+  & { tag?: Maybe<(
+    { __typename?: 'Tag' }
+    & TagFieldsFragment
+  )> }
+);
+
 export type GetRestaurantsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -218,15 +240,6 @@ export type RestaurantFieldsFragment = (
       { __typename?: 'MenuItem' }
       & MenuItemFieldsFragment
     )> }
-  )> }
-);
-
-export type MenuItemFieldsFragment = (
-  { __typename?: 'MenuItem' }
-  & Pick<MenuItem, 'id' | 'name' | 'price' | 'calories' | 'ingredients' | 'menuId'>
-  & { tag?: Maybe<(
-    { __typename?: 'Tag' }
-    & TagFieldsFragment
   )> }
 );
 
@@ -347,6 +360,41 @@ export const UserFieldsFragmentDoc = gql`
   phoneNumber
 }
     `;
+export const GetMenuItemByIdDocument = gql`
+    query getMenuItemById($id: Int!) {
+  getMenuItemById(id: $id) {
+    ...MenuItemFields
+  }
+}
+    ${MenuItemFieldsFragmentDoc}`;
+
+/**
+ * __useGetMenuItemByIdQuery__
+ *
+ * To run a query within a React component, call `useGetMenuItemByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetMenuItemByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetMenuItemByIdQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetMenuItemByIdQuery(baseOptions: ApolloReactHooks.QueryHookOptions<GetMenuItemByIdQuery, GetMenuItemByIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useQuery<GetMenuItemByIdQuery, GetMenuItemByIdQueryVariables>(GetMenuItemByIdDocument, options);
+      }
+export function useGetMenuItemByIdLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetMenuItemByIdQuery, GetMenuItemByIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return ApolloReactHooks.useLazyQuery<GetMenuItemByIdQuery, GetMenuItemByIdQueryVariables>(GetMenuItemByIdDocument, options);
+        }
+export type GetMenuItemByIdQueryHookResult = ReturnType<typeof useGetMenuItemByIdQuery>;
+export type GetMenuItemByIdLazyQueryHookResult = ReturnType<typeof useGetMenuItemByIdLazyQuery>;
+export type GetMenuItemByIdQueryResult = ApolloReactCommon.QueryResult<GetMenuItemByIdQuery, GetMenuItemByIdQueryVariables>;
 export const GetRestaurantsDocument = gql`
     query getRestaurants {
   getRestaurants {

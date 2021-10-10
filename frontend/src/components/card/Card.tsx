@@ -3,11 +3,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThumbsUp } from '@fortawesome/free-regular-svg-icons';
 import { faMotorcycle } from '@fortawesome/free-solid-svg-icons';
 import { Maybe } from 'graphql/jsutils/Maybe';
-// import { Maybe } from '../../generated';
 import { useHistory } from 'react-router';
 
 type CardProps = {
-   //    restaurantData?: RestaurantData;
    id: number;
    name?: string;
    rating?: string;
@@ -26,7 +24,7 @@ export const Card: FC<CardProps> = ({
 }) => {
    const history = useHistory();
    const handleClick = () => {
-      history.push(`home/${id}`);
+      history.push(`/restaurant/${id}`);
    };
 
    return (

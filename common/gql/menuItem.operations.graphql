@@ -1,0 +1,28 @@
+query getMenuItemById($id: Int!) {
+  getMenuItemById(id: $id) {
+    ...MenuItemFields
+  }
+}
+
+query getCategoriesByTagId($tagId: Int!, $menuId: Int!) {
+  getCategoriesByTagId(tagId: $tagId, menuId: $menuId) {
+    ...MenuItemFields
+  }
+}
+
+fragment MenuItemFields on MenuItem {
+  id
+  name
+  price
+  calories
+  ingredients
+  menuId
+  tag {
+    ...TagFields
+  }
+}
+
+fragment TagFields on Tag {
+  id
+  tagName
+}

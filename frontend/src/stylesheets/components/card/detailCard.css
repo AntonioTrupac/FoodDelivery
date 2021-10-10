@@ -1,5 +1,5 @@
 @layer components {
    .card-container-detail {
-      @apply flex flex-col justify-between p-3 border min-w-0 border-gray-300 text-3xl even:ml-8 even:mr-8;
+      @apply flex flex-col justify-between p-6 border min-w-0 border-gray-300 text-3xl rounded-md;
    }
 }

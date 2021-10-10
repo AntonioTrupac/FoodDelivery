@@ -1,8 +1,8 @@
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 import { useParams } from 'react-router-dom';
 import { DetailCard } from '../components/card/DetailCard';
 import { CategoryFilter } from '../components/filter/CategoryFilter';
-import { MenuItem, useGetRestaurantByIdQuery } from '../generated';
+import { useGetRestaurantByIdQuery } from '../generated';
 
 type Params = {
    id?: string;
@@ -16,14 +16,18 @@ export const RestaurantDetails: FC = () => {
       variables: { id: idAsNumber },
    });
 
+   console.log('Restaurants', data);
+
    const restaurant = data?.getRestaurantById;
 
+   // FIXME: make a query on the backend part, probably menuItems resolver that is gonna return all categories of all menuItems
    const uniqueFiltered = Array.from(
-      new Set(restaurant?.menu?.menuItems.map((item) => item.tag?.tagName))
+      new Set(restaurant?.menu?.menuItems.map((item) => item.tag))
    );
+   // FIXME: can these unique filter types, or generated types from the backend not be so compex on the frontend part?
    console.log('Filtered', uniqueFiltered);
 
-   if (error) return <div>{error.message}</div>;
+   if (error) return <div>{error?.message}</div>;
    if (loading) return <div>loading...</div>;
 
    return (
@@ -47,12 +51,12 @@ export const RestaurantDetails: FC = () => {
                </div>
             </div>
          </div>
-         <div className='content-container'>
+         <div className='content-container flex mt-12'>
             <div className='filter-wrapper'>
                <CategoryFilter filter={uniqueFiltered} />
             </div>
             {restaurant?.menu && (
-               <div className='card-wrapper'>
+               <div className='card-wrapper ml-6'>
                   <DetailCard menuItems={restaurant?.menu?.menuItems} />
                </div>
             )}

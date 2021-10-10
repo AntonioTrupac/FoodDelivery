@@ -14,7 +14,7 @@ function App() {
             <Switch>
                <Route exact path='/landing-page' component={LandingPage} />
                <PrivateRoutes />
-               <Redirect from='/' to='/home' />
+               <Redirect from='/' to='/landing-page' />
             </Switch>
          </Router>
       </div>

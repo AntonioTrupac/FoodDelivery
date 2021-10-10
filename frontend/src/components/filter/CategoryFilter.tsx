@@ -1,23 +1,22 @@
 import { FC } from 'react';
+import { Maybe, Tag } from '../../generated';
 
-type Filter = string | undefined;
+type Filter = Maybe<Pick<Tag, 'id' | 'tagName'>> | undefined;
 
 type CategoryFilterProps = {
-   filter?: Filter[];
+   filter: Filter[] | undefined;
 };
 
-export const CategoryFilter: FC<CategoryFilterProps> = ({
-   filter,
-   children,
-}) => {
+export const CategoryFilter: FC<CategoryFilterProps> = ({ filter }) => {
    return (
-      <div>
-         <>
-            {/* ovdje trebas dobit i id ili jednostavno samo generiraj neki uniq id sa libom */}
-            {filter?.map((category, index) => {
-               return <div key={index}>{category}</div>;
-            })}
-         </>
-      </div>
+      <>
+         {filter?.map((category) => {
+            return (
+               <p className='filtered-item' key={category?.id}>
+                  {category?.tagName}
+               </p>
+            );
+         })}
+      </>
    );
 };

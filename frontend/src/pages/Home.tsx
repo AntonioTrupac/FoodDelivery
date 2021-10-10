@@ -14,9 +14,5 @@ export const Home: FC = () => {
       }
    }, [history, accessToken]);
 
-   return (
-      <div>
-         <Restaurants />
-      </div>
-   );
+   return <Restaurants />;
 };

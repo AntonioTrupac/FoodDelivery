@@ -21,21 +21,3 @@ export const getJWTExpireDate = (jwtToken: string, history: any) => {
       return false;
    }
 };
-
-//mozda je ovo bolje
-
-// function assertAlive (decoded) {
-//     const now = Date.now().valueOf() / 1000
-//     if (typeof decoded.exp !== 'undefined' && decoded.exp < now) {
-//       throw new Error(`token expired: ${JSON.stringify(decoded)}`)
-//     }
-//     if (typeof decoded.nbf !== 'undefined' && decoded.nbf > now) {
-//       throw new Error(`token not yet valid: ${JSON.stringify(decoded)}`)
-//     }
-//   }
-
-//   try {
-//     assertAlive(jwtDecode(token))
-//   } catch (error) {
-//     console.error(error)
-//   }

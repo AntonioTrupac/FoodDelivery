@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { Redirect } from 'react-router';
 
 import { Home } from '../../pages/Home';
 import { RestaurantDetails } from '../../pages/RestaurantDetails';
@@ -9,8 +10,12 @@ export const PrivateRoutes: FC = () => {
    return (
       <div>
          <Header />
-         <PrivateRoute path='/home' component={Home} exact />
-         <PrivateRoute path='/home/:id' component={RestaurantDetails} exact />
+         <PrivateRoute path='/' component={Home} exact />
+         <PrivateRoute
+            path='/restaurant/:id'
+            component={RestaurantDetails}
+            exact
+         />
       </div>
    );
 };

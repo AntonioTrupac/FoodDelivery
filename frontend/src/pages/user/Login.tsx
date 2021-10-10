@@ -33,7 +33,7 @@ export const Login: FC<LoginProps> = (props) => {
                if (res && res.data && res.data.login?.accessToken) {
                   console.log('LOGIN RESPONSE', res.data);
                   setAccessToken(res.data.login?.accessToken);
-                  history.push('/home');
+                  history.push('/');
                }
             })
             .catch((err) => {
