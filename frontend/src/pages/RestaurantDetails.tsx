@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { DetailCard } from '../components/card/DetailCard';
 import { CategoryFilter } from '../components/filter/CategoryFilter';
@@ -10,13 +10,11 @@ type Params = {
 
 export const RestaurantDetails: FC = () => {
    const { id } = useParams<Params>();
+   const [item, setItem] = useState<any>();
    const idAsNumber = Number(id);
-
    const { data, error, loading } = useGetRestaurantByIdQuery({
       variables: { id: idAsNumber },
    });
-
-   console.log('Restaurants', data);
 
    const restaurant = data?.getRestaurantById;
 
@@ -25,10 +23,23 @@ export const RestaurantDetails: FC = () => {
       new Set(restaurant?.menu?.menuItems.map((item) => item.tag))
    );
    // FIXME: can these unique filter types, or generated types from the backend not be so compex on the frontend part?
-   console.log('Filtered', uniqueFiltered);
+   console.log('Filtered tag names', uniqueFiltered); // [...tagNames]
 
    if (error) return <div>{error?.message}</div>;
    if (loading) return <div>loading...</div>;
+
+   const handleClick = (
+      e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
+   ) => {
+      console.log(e.currentTarget.textContent);
+      let clickedTag = e.currentTarget.textContent;
+
+      const filtered = restaurant?.menu?.menuItems.filter(
+         (item) => item.tag?.tagName === clickedTag
+      );
+      console.log('filtered', filtered);
+      setItem(filtered);
+   };
 
    return (
       <div className='detail__container'>
@@ -52,12 +63,15 @@ export const RestaurantDetails: FC = () => {
             </div>
          </div>
          <div className='content-container flex mt-12'>
-            <div className='filter-wrapper'>
-               <CategoryFilter filter={uniqueFiltered} />
+            <div className='filter-wrapper text-center max-h-screen max-w-xs'>
+               <CategoryFilter
+                  filter={uniqueFiltered}
+                  handleClick={handleClick}
+               />
             </div>
             {restaurant?.menu && (
                <div className='card-wrapper ml-6'>
-                  <DetailCard menuItems={restaurant?.menu?.menuItems} />
+                  <DetailCard menuItems={item} />
                </div>
             )}
          </div>

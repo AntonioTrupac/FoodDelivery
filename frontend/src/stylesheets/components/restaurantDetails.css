@@ -30,23 +30,21 @@
          .filter-wrapper {
             position: sticky;
             top: 20px;
-            max-height: 100vh;
-            max-width: 250px;
             overflow-y: auto;
             overflow-x: hidden;
-            border-radius: 6px;
 
             width: 250px;
-            text-align: center;
             max-height: calc(100vh - 140px);
             overflow-y: auto;
             overflow-x: hidden;
 
             .filtered-item {
-               font-size: 25px;
-               width: 100%;
-               border-bottom: 1px solid #e3e3e3;
-               padding: 15px 0;
+               border-bottom: 2px solid #e3e3e3;
+
+               &:hover {
+                  cursor: pointer;
+                  color: red;
+               }
             }
          }
 
