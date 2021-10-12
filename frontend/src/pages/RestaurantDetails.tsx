@@ -18,12 +18,9 @@ export const RestaurantDetails: FC = () => {
 
    const restaurant = data?.getRestaurantById;
 
-   // FIXME: make a query on the backend part, probably menuItems resolver that is gonna return all categories of all menuItems
    const uniqueFiltered = Array.from(
       new Set(restaurant?.menu?.menuItems.map((item) => item.tag))
    );
-   // FIXME: can these unique filter types, or generated types from the backend not be so compex on the frontend part?
-   console.log('Filtered tag names', uniqueFiltered); // [...tagNames]
 
    if (error) return <div>{error?.message}</div>;
    if (loading) return <div>loading...</div>;
@@ -31,13 +28,11 @@ export const RestaurantDetails: FC = () => {
    const handleClick = (
       e: React.MouseEvent<HTMLParagraphElement, MouseEvent>
    ) => {
-      console.log(e.currentTarget.textContent);
       let clickedTag = e.currentTarget.textContent;
 
       const filtered = restaurant?.menu?.menuItems.filter(
          (item) => item.tag?.tagName === clickedTag
       );
-      console.log('filtered', filtered);
       setItem(filtered);
    };
 
@@ -62,7 +57,7 @@ export const RestaurantDetails: FC = () => {
                </div>
             </div>
          </div>
-         <div className='content-container flex mt-12'>
+         <div className='content-container flex xl:flex-col xl:justify-center xl:items-center mt-12'>
             <div className='filter-wrapper text-center max-h-screen max-w-xs'>
                <CategoryFilter
                   filter={uniqueFiltered}
@@ -71,7 +66,7 @@ export const RestaurantDetails: FC = () => {
             </div>
             {restaurant?.menu && (
                <div className='card-wrapper ml-6'>
-                  <DetailCard menuItems={item} />
+                  <DetailCard menuItems={item} restaurant={restaurant} />
                </div>
             )}
          </div>

@@ -27,14 +27,16 @@
       }
 
       .content-container {
+         width: 100%;
+         max-width: 1400px;
+         padding-right: 15px;
+         padding-left: 15px;
+         margin-right: auto;
+         margin-left: auto;
+
          .filter-wrapper {
             position: sticky;
             top: 20px;
-            overflow-y: auto;
-            overflow-x: hidden;
-
-            width: 250px;
-            max-height: calc(100vh - 140px);
             overflow-y: auto;
             overflow-x: hidden;
 
@@ -51,13 +53,14 @@
          .card-wrapper {
             display: grid;
             grid-template-columns: 1fr;
+            gap: 20px;
 
             @media screen and (min-width: 768px) {
-               grid-template-columns: 1fr 1fr;
+               grid-template-columns: 320px 320px;
             }
 
             @media screen and (min-width: 1024px) {
-               grid-template-columns: 1fr 1fr 1fr;
+               grid-template-columns: 320px 320px 320px;
             }
          }
       }

@@ -17,7 +17,7 @@ export const CategoryFilter: FC<CategoryFilterProps> = ({
          {filter?.map((category) => {
             return (
                <p
-                  className='filtered-item w-full font-light text-2xl pb-2 mt-3 first:mt-0'
+                  className='filtered-item w-full font-light text-2xl mr-4 pb-2 mt-3 px-10 first:mt-0'
                   key={category?.id}
                   onClick={handleClick}
                >
