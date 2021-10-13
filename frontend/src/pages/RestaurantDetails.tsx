@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { DetailCard } from '../components/card/DetailCard';
 import { CategoryFilter } from '../components/filter/CategoryFilter';
-import { useGetRestaurantByIdQuery } from '../generated';
+import { Restaurant, useGetRestaurantByIdQuery } from '../generated';
 
 type Params = {
    id?: string;
@@ -10,11 +10,15 @@ type Params = {
 
 export const RestaurantDetails: FC = () => {
    const { id } = useParams<Params>();
-   const [item, setItem] = useState<any>();
    const idAsNumber = Number(id);
    const { data, error, loading } = useGetRestaurantByIdQuery({
       variables: { id: idAsNumber },
    });
+
+   const [restaurantData, setRestaurantData] = useState<Restaurant | undefined>(
+      data?.getRestaurantById
+   );
+   const [item, setItem] = useState<any>();
 
    const restaurant = data?.getRestaurantById;
 
@@ -36,6 +40,18 @@ export const RestaurantDetails: FC = () => {
       setItem(filtered);
    };
 
+   const showAll = (e: React.MouseEvent<HTMLParagraphElement, MouseEvent>) => {
+      const all = e.currentTarget.textContent;
+
+      if (all === 'Show All') {
+         const allRestaurants = restaurantData?.menu?.menuItems.map(
+            (item) => item
+         );
+
+         setItem(allRestaurants);
+      }
+   };
+
    return (
       <div className='detail__container'>
          <div className='imageContainer'>
@@ -48,25 +64,32 @@ export const RestaurantDetails: FC = () => {
             )} */}
             <div className='imageContainer__left'>
                <h1>{restaurant?.restaurantName}</h1>
+
                <div className='paragraphContainer'>
                   <p>
                      The average delivery time is: {restaurant?.deliveryTime}
                   </p>
+
                   <div className='dot'>&nbsp;&nbsp;•&nbsp;&nbsp;</div>
                   <p>{restaurant?.restaurantRating}</p>
                </div>
             </div>
          </div>
+
          <div className='content-container flex xl:flex-col xl:justify-center xl:items-center mt-12'>
-            <div className='filter-wrapper text-center max-h-screen max-w-xs'>
+            <div className='filter-wrapper text-center'>
                <CategoryFilter
                   filter={uniqueFiltered}
                   handleClick={handleClick}
+                  showAll={showAll}
                />
             </div>
+
             {restaurant?.menu && (
-               <div className='card-wrapper ml-6'>
-                  <DetailCard menuItems={item} restaurant={restaurant} />
+               <div className='flex flex-col text-2xl'>
+                  <div className='card-wrapper ml-6'>
+                     <DetailCard menuItems={item} restaurant={restaurant} />
+                  </div>
                </div>
             )}
          </div>
