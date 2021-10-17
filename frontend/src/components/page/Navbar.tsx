@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom';
 import { Search } from './Search';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faUserCog } from '@fortawesome/free-solid-svg-icons';
-import useOutsideClick from '../util/useOutsideClick';
 import logo from '../../images/LOGO.png';
 
 type NavbarProps = {

@@ -1,5 +1,10 @@
 import { FC } from 'react';
 import { Card } from '../card/Card';
+import traditional from '../../images/categories/traditional.svg';
+import asian from '../../images/categories/asian.svg';
+import fastFood from '../../images/categories/fastfood (1).svg';
+import mexican from '../../images/categories/mexican.svg';
+import italian from '../../images/categories/italian.svg';
 
 import { useGetRestaurantsQuery } from '../../generated';
 
@@ -12,28 +17,25 @@ export const Restaurants: FC = () => {
 
    return (
       <div className='restaurant-container'>
-         {/* <div className='category-container'>
+         <div className='category-container'>
             <div className='category-image'>
-               <img src={images.friesRestaurant} alt={images.avatar3} />{' '}
+               <img src={traditional} alt='traditional' />
                <p>Traditional</p>
             </div>
+
             <div className='category-image'>
-               <img src={images.friesRestaurant} alt={images.avatar3} />{' '}
-               <p>Italian</p>
+               <img src={italian} alt='italian' /> <p>Italian</p>
             </div>
             <div className='category-image'>
-               <img src={images.friesRestaurant} alt={images.avatar3} />{' '}
-               <p>Fast food</p>
+               <img src={fastFood} alt='fast food' /> <p>Fast food</p>
             </div>
             <div className='category-image'>
-               <img src={images.friesRestaurant} alt={images.avatar3} />{' '}
-               <p>Asian</p>
+               <img src={asian} alt='asian' /> <p>Asian</p>
             </div>
             <div className='category-image'>
-               <img src={images.friesRestaurant} alt={images.avatar3} />{' '}
-               <p>Mexican</p>
+               <img src={mexican} alt='mexican' /> <p>Mexican</p>
             </div>
-         </div> */}
+         </div>
 
          <div className='card-container mt-10 justify-center'>
             {restaurantData?.map((restaurant) => {

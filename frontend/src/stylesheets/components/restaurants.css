@@ -4,11 +4,14 @@
       padding: 15px 20px;
 
       .category-container {
-         @apply flex justify-between my-[6rem];
+         @apply flex justify-between items-end my-[4rem];
+
          .category-image {
-            @apply mx-4 flex flex-col items-center;
+            @apply flex flex-col items-center mx-10;
             transition: transform 0.25s ease-in-out;
             cursor: pointer;
+            height: auto;
+            width: 100px;
 
             & > p {
                @apply mt-4;
