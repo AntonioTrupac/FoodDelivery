@@ -1,5 +1,6 @@
 import React, { FC, useState } from 'react';
 import { useParams } from 'react-router-dom';
+
 import { DetailCard } from '../components/card/DetailCard';
 import { CategoryFilter } from '../components/filter/CategoryFilter';
 import { Restaurant, useGetRestaurantByIdQuery } from '../generated';
@@ -43,7 +44,7 @@ export const RestaurantDetails: FC = () => {
    const showAll = (e: React.MouseEvent<HTMLParagraphElement, MouseEvent>) => {
       const all = e.currentTarget.textContent;
 
-      if (all === 'Show All') {
+      if (all === 'All') {
          const allRestaurants = restaurantData?.menu?.menuItems.map(
             (item) => item
          );
@@ -77,17 +78,15 @@ export const RestaurantDetails: FC = () => {
          </div>
 
          <div className='content-container flex xl:flex-col xl:justify-center xl:items-center mt-12'>
-            <div className='filter-wrapper text-center'>
-               <CategoryFilter
-                  filter={uniqueFiltered}
-                  handleClick={handleClick}
-                  showAll={showAll}
-               />
-            </div>
+            <CategoryFilter
+               filter={uniqueFiltered}
+               handleClick={handleClick}
+               showAll={showAll}
+            />
 
             {restaurant?.menu && (
                <div className='flex flex-col text-2xl'>
-                  <div className='card-wrapper ml-6'>
+                  <div className='card-wrapper xl:ml-0 ml-6'>
                      <DetailCard menuItems={item} restaurant={restaurant} />
                   </div>
                </div>

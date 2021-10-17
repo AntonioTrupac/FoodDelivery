@@ -1,12 +1,12 @@
 @layer components {
    .restaurant-container {
       @apply flex flex-col justify-center items-center;
+      padding: 15px 20px;
 
       .category-container {
          @apply flex justify-between my-[6rem];
          .category-image {
             @apply mx-4 flex flex-col items-center;
-            /* width: 7rem; */
             transition: transform 0.25s ease-in-out;
             cursor: pointer;
 
@@ -23,11 +23,32 @@
    }
 
    .card-container {
-      @apply grid grid-cols-4 auto-rows-max gap-y-6 gap-x-6 mt-10 justify-center;
+      display: grid;
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+      grid-auto-rows: max-content;
+      row-gap: 1.5rem;
+      column-gap: 1.5rem;
+
+      @media screen and (min-width: 768px) {
+         grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      @media screen and (min-width: 1120px) {
+         grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      @media screen and (min-width: 1500px) {
+         grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
    }
 
    .restaurant-card {
       @apply cursor-pointer w-[350px] h-[260px] shadow-lg;
+
+      @media screen and (max-width: 568px) {
+         width: 280px;
+         height: 220px;
+      }
 
       &:hover {
          .restaurant-image {
@@ -48,12 +69,20 @@
             width: 100%;
             height: 220px;
 
+            @media screen and (max-width: 568px) {
+               height: 180px;
+            }
+
             @apply rounded-t-xl;
          }
 
          .restaurant-image {
             @apply h-[220px] w-full z-20 rounded-t-xl opacity-50;
             transition: transform 0.25s ease-in-out;
+
+            @media screen and (max-width: 568px) {
+               height: 180px;
+            }
          }
 
          .restaurant-desc {

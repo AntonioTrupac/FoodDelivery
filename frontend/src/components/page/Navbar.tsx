@@ -12,29 +12,25 @@ type NavbarProps = {
 
 export const Navbar: FC<NavbarProps> = (props) => {
    const ref = useRef<any>();
-   const [isClicked, setIsClicked] = useState<boolean>(false);
    const [search, setSearch] = useState<string>('');
    const history = useHistory();
 
+   const handleClick = () => {
+      history.push('/');
+   };
+
    const logOut = () => {
-      console.log('CLICKED');
       window.localStorage.clear();
       history.push('/landing-page');
    };
 
-   useOutsideClick(ref, () => {
-      setIsClicked(true);
-      setSearch('');
-      console.log('clicked', isClicked);
-   });
-
    return (
       <nav className='navbar-container'>
-         <div className='img-container'>
+         <div className='img-container' onClick={handleClick}>
             <img src={logo} alt={logo} />
          </div>
          <div className='search-container' ref={ref}>
-            <FontAwesomeIcon icon={faSearch} className={'search-icon'} />
+            <FontAwesomeIcon icon={faSearch} className='search-icon' />
             <Search
                name='search'
                type='text'
@@ -49,9 +45,9 @@ export const Navbar: FC<NavbarProps> = (props) => {
             <span className='user-cog-container'>
                <FontAwesomeIcon icon={faUserCog} className='user-cog' />
             </span>
-            <button className='navbar-button' type='submit' onClick={logOut}>
+            {/* <button className='navbar-button' type='submit' onClick={logOut}>
                Logout
-            </button>
+            </button> */}
          </div>
       </nav>
    );

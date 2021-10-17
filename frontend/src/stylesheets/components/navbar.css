@@ -1,24 +1,31 @@
 @layer components {
    .navbar-container {
       box-shadow: 0 5px 10px hsl(207deg 26% 17% / 10%);
-      @apply w-full flex justify-between px-12 items-center bg-[hsl(0,0%,100%)] h-[80px];
+      @apply w-full flex justify-between px-12 xl:px-2 items-center p-2.5 bg-[hsl(0,0%,100%)] relative h-[80px];
 
       .img-container {
-         @apply w-[4em] mr-[3.4rem];
+         @apply sm:w-[3rem] w-[4rem] cursor-pointer;
       }
 
       .right-container {
          @apply relative flex items-center justify-center;
 
          .user-cog-container {
-            @apply left-[-55px] absolute border-[3px] border-[#feae67] rounded-[50%] p-[0.5rem] mr-[0.5rem];
+            @apply left-[-55px]  border-[3px] border-[#feae67] rounded-[50%] p-[0.5rem];
 
             .user-cog {
                @apply text-[#FEAE67];
             }
          }
+
          .navbar-button {
             @apply bg-[#FEAE67] px-[1.5em] h-[3rem] rounded-[0.75em] text-lg transition duration-500 ease-in-out hover:bg-[#FFEEDE] hover:text-[#000];
+
+            display: none;
+
+            @media screen and (min-width: 1024px) {
+               display: block;
+            }
          }
       }
    }

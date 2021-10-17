@@ -33,15 +33,30 @@
          padding-left: 15px;
          margin-right: auto;
          margin-left: auto;
+         position: relative;
+         justify-content: center;
 
          .filter-wrapper {
+            display: flex;
             position: sticky;
-            top: 20px;
-            overflow-y: auto;
-            overflow-x: hidden;
+            background: #fff;
+            width: 100%;
+            top: -1px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+
+            @media screen and (min-width: 1280px) {
+               display: block;
+               width: auto;
+            }
 
             .filtered-item {
-               border-bottom: 2px solid #e3e3e3;
+               border: none;
+
+               @media screen and (min-width: 1280px) {
+                  border-bottom: 2px solid #e3e3e3;
+                  margin-top: 0px;
+               }
 
                &:hover {
                   cursor: pointer;
@@ -54,8 +69,9 @@
             display: grid;
             grid-template-columns: 1fr;
             gap: 20px;
+            margin-bottom: 40px;
 
-            @media screen and (min-width: 768px) {
+            @media screen and (min-width: 756px) {
                grid-template-columns: 320px 320px;
             }
 
