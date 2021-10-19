@@ -1,16 +1,31 @@
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { Card } from '../card/Card';
-import traditional from '../../images/categories/traditional.svg';
-import asian from '../../images/categories/asian.svg';
-import fastFood from '../../images/categories/fastfood (1).svg';
-import mexican from '../../images/categories/mexican.svg';
-import italian from '../../images/categories/italian.svg';
 
-import { useGetRestaurantsQuery } from '../../generated';
+import categories from '../dummydata/categories';
+import { Restaurant, useGetRestaurantsQuery } from '../../generated';
 
 export const Restaurants: FC = () => {
    const { data, error, loading } = useGetRestaurantsQuery();
    const restaurantData = data?.getRestaurants;
+   const [categoryName, setCategoryName] = useState<string>('All');
+   const [filteredRestaurants, setFilteredRestaurants] =
+      useState<any>(restaurantData);
+
+   useEffect(() => {
+      if (categoryName !== 'All') {
+         const filteredData = restaurantData?.filter(
+            (restaurant) => restaurant.menu?.tag?.tagName === categoryName
+         );
+
+         setFilteredRestaurants(filteredData);
+      } else {
+         setFilteredRestaurants(restaurantData);
+      }
+   }, [categoryName, restaurantData]);
+
+   const handleClick = (categoryName: string) => {
+      setCategoryName(categoryName);
+   };
 
    if (loading) return <div>Loading...</div>;
    if (error) return <div>Error...</div>;
@@ -18,27 +33,22 @@ export const Restaurants: FC = () => {
    return (
       <div className='restaurant-container'>
          <div className='category-container'>
-            <div className='category-image'>
-               <img src={traditional} alt='traditional' />
-               <p>Traditional</p>
-            </div>
-
-            <div className='category-image'>
-               <img src={italian} alt='italian' /> <p>Italian</p>
-            </div>
-            <div className='category-image'>
-               <img src={fastFood} alt='fast food' /> <p>Fast food</p>
-            </div>
-            <div className='category-image'>
-               <img src={asian} alt='asian' /> <p>Asian</p>
-            </div>
-            <div className='category-image'>
-               <img src={mexican} alt='mexican' /> <p>Mexican</p>
-            </div>
+            {categories.map((category) => {
+               return (
+                  <div
+                     key={category.id}
+                     className='category-image'
+                     onClick={() => handleClick(category.category)}
+                  >
+                     <img src={category.imageUrl} alt={category.category} />
+                     <p>{category.category}</p>
+                  </div>
+               );
+            })}
          </div>
 
          <div className='card-container mt-10 justify-center'>
-            {restaurantData?.map((restaurant) => {
+            {filteredRestaurants?.map((restaurant: Restaurant) => {
                const {
                   id,
                   restaurantName,
