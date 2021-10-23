@@ -13,7 +13,7 @@
       .search {
          box-sizing: border-box;
          box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-         @apply w-[100%]  h-[45px] py-2 px-12 sm:px-10 bg-[#FFEEDE] rounded-[40px] text-xl sm:text-base;
+         @apply w-[100%] h-[45px] py-2 px-12 sm:px-10 bg-[#FFEEDE] rounded-[40px] text-xl sm:text-base;
 
          @media screen and (max-width: 568px) {
             height: 30px;

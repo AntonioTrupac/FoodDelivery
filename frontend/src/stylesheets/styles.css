@@ -8,6 +8,7 @@
 @import 'components/search.css';
 @import 'components/restaurantDetails.css';
 @import 'components/card/detailCard.css';
+@import 'components/userDropdown.css';
 
 @tailwind base;
 @tailwind components;

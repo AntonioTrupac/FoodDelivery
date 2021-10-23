@@ -4,6 +4,7 @@ import { Search } from './Search';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faUserCog } from '@fortawesome/free-solid-svg-icons';
 import logo from '../../images/LOGO.png';
+import { UserDropdown } from '../userDropdown/UserDropdown';
 
 type NavbarProps = {
    fullName?: string;
@@ -12,15 +13,11 @@ type NavbarProps = {
 export const Navbar: FC<NavbarProps> = (props) => {
    const ref = useRef<any>();
    const [search, setSearch] = useState<string>('');
+   const [open, setOpen] = useState<boolean>(false);
    const history = useHistory();
 
    const handleClick = () => {
       history.push('/');
-   };
-
-   const logOut = () => {
-      window.localStorage.clear();
-      history.push('/landing-page');
    };
 
    return (
@@ -39,14 +36,12 @@ export const Navbar: FC<NavbarProps> = (props) => {
                value={search}
             />
          </div>
-         {/* MAKE A CONTAINER WITH THE CURRENT USER */}
+
          <div className='right-container'>
-            <span className='user-cog-container'>
+            <span className='user-cog-container' onClick={() => setOpen(!open)}>
                <FontAwesomeIcon icon={faUserCog} className='user-cog' />
             </span>
-            {/* <button className='navbar-button' type='submit' onClick={logOut}>
-               Logout
-            </button> */}
+            {open && <UserDropdown open={open} setOpen={setOpen} />}
          </div>
       </nav>
    );
