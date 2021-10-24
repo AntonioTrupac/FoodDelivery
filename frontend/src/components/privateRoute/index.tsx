@@ -1,6 +1,6 @@
 import { FC } from 'react';
-import { Redirect } from 'react-router';
 
+import { EditUserInfo } from '../../pages/EditUserInfo';
 import { Home } from '../../pages/Home';
 import { RestaurantDetails } from '../../pages/RestaurantDetails';
 import { Header } from '../page/Header';
@@ -16,6 +16,7 @@ export const PrivateRoutes: FC = () => {
             component={RestaurantDetails}
             exact
          />
+         <PrivateRoute path='/editUserInfo' component={EditUserInfo} exact />
       </div>
    );
 };

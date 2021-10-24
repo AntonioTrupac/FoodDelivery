@@ -110,6 +110,8 @@ export type Query = {
   getMenuById?: Maybe<Menu>;
   getMenuItems: Array<MenuItem>;
   getMenuItemById?: Maybe<MenuItem>;
+  getCategoriesByTagId: Array<MenuItem>;
+  search: Array<Restaurant>;
 };
 
 
@@ -130,6 +132,17 @@ export type QueryGetMenuByIdArgs = {
 
 export type QueryGetMenuItemByIdArgs = {
   id: Scalars['Int'];
+};
+
+
+export type QueryGetCategoriesByTagIdArgs = {
+  menuId: Scalars['Int'];
+  tagId: Scalars['Int'];
+};
+
+
+export type QuerySearchArgs = {
+  search?: Maybe<Scalars['String']>;
 };
 
 export type RegisterInput = {
@@ -191,6 +204,20 @@ export type GetMenuItemByIdQuery = (
   )> }
 );
 
+export type GetCategoriesByTagIdQueryVariables = Exact<{
+  tagId: Scalars['Int'];
+  menuId: Scalars['Int'];
+}>;
+
+
+export type GetCategoriesByTagIdQuery = (
+  { __typename?: 'Query' }
+  & { getCategoriesByTagId: Array<(
+    { __typename?: 'MenuItem' }
+    & MenuItemFieldsFragment
+  )> }
+);
+
 export type MenuItemFieldsFragment = (
   { __typename?: 'MenuItem' }
   & Pick<MenuItem, 'id' | 'name' | 'price' | 'calories' | 'ingredients' | 'menuId'>
@@ -198,6 +225,11 @@ export type MenuItemFieldsFragment = (
     { __typename?: 'Tag' }
     & TagFieldsFragment
   )> }
+);
+
+export type TagFieldsFragment = (
+  { __typename?: 'Tag' }
+  & Pick<Tag, 'id' | 'tagName'>
 );
 
 export type GetRestaurantsQueryVariables = Exact<{ [key: string]: never; }>;
@@ -224,6 +256,19 @@ export type GetRestaurantByIdQuery = (
   ) }
 );
 
+export type SearchQueryVariables = Exact<{
+  search?: Maybe<Scalars['String']>;
+}>;
+
+
+export type SearchQuery = (
+  { __typename?: 'Query' }
+  & { search: Array<(
+    { __typename?: 'Restaurant' }
+    & RestaurantFieldsFragment
+  )> }
+);
+
 export type RestaurantFieldsFragment = (
   { __typename?: 'Restaurant' }
   & Pick<Restaurant, 'id' | 'restaurantName' | 'restaurantRating' | 'deliveryTime' | 'openFrom' | 'openUntil' | 'deliveryPrice'>
@@ -241,11 +286,6 @@ export type RestaurantFieldsFragment = (
       & MenuItemFieldsFragment
     )> }
   )> }
-);
-
-export type TagFieldsFragment = (
-  { __typename?: 'Tag' }
-  & Pick<Tag, 'id' | 'tagName'>
 );
 
 export type LoginMutationVariables = Exact<{
@@ -395,6 +435,42 @@ export function useGetMenuItemByIdLazyQuery(baseOptions?: ApolloReactHooks.LazyQ
 export type GetMenuItemByIdQueryHookResult = ReturnType<typeof useGetMenuItemByIdQuery>;
 export type GetMenuItemByIdLazyQueryHookResult = ReturnType<typeof useGetMenuItemByIdLazyQuery>;
 export type GetMenuItemByIdQueryResult = ApolloReactCommon.QueryResult<GetMenuItemByIdQuery, GetMenuItemByIdQueryVariables>;
+export const GetCategoriesByTagIdDocument = gql`
+    query getCategoriesByTagId($tagId: Int!, $menuId: Int!) {
+  getCategoriesByTagId(tagId: $tagId, menuId: $menuId) {
+    ...MenuItemFields
+  }
+}
+    ${MenuItemFieldsFragmentDoc}`;
+
+/**
+ * __useGetCategoriesByTagIdQuery__
+ *
+ * To run a query within a React component, call `useGetCategoriesByTagIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCategoriesByTagIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCategoriesByTagIdQuery({
+ *   variables: {
+ *      tagId: // value for 'tagId'
+ *      menuId: // value for 'menuId'
+ *   },
+ * });
+ */
+export function useGetCategoriesByTagIdQuery(baseOptions: ApolloReactHooks.QueryHookOptions<GetCategoriesByTagIdQuery, GetCategoriesByTagIdQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useQuery<GetCategoriesByTagIdQuery, GetCategoriesByTagIdQueryVariables>(GetCategoriesByTagIdDocument, options);
+      }
+export function useGetCategoriesByTagIdLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<GetCategoriesByTagIdQuery, GetCategoriesByTagIdQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return ApolloReactHooks.useLazyQuery<GetCategoriesByTagIdQuery, GetCategoriesByTagIdQueryVariables>(GetCategoriesByTagIdDocument, options);
+        }
+export type GetCategoriesByTagIdQueryHookResult = ReturnType<typeof useGetCategoriesByTagIdQuery>;
+export type GetCategoriesByTagIdLazyQueryHookResult = ReturnType<typeof useGetCategoriesByTagIdLazyQuery>;
+export type GetCategoriesByTagIdQueryResult = ApolloReactCommon.QueryResult<GetCategoriesByTagIdQuery, GetCategoriesByTagIdQueryVariables>;
 export const GetRestaurantsDocument = gql`
     query getRestaurants {
   getRestaurants {
@@ -464,6 +540,41 @@ export function useGetRestaurantByIdLazyQuery(baseOptions?: ApolloReactHooks.Laz
 export type GetRestaurantByIdQueryHookResult = ReturnType<typeof useGetRestaurantByIdQuery>;
 export type GetRestaurantByIdLazyQueryHookResult = ReturnType<typeof useGetRestaurantByIdLazyQuery>;
 export type GetRestaurantByIdQueryResult = ApolloReactCommon.QueryResult<GetRestaurantByIdQuery, GetRestaurantByIdQueryVariables>;
+export const SearchDocument = gql`
+    query Search($search: String) {
+  search(search: $search) {
+    ...RestaurantFields
+  }
+}
+    ${RestaurantFieldsFragmentDoc}`;
+
+/**
+ * __useSearchQuery__
+ *
+ * To run a query within a React component, call `useSearchQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSearchQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSearchQuery({
+ *   variables: {
+ *      search: // value for 'search'
+ *   },
+ * });
+ */
+export function useSearchQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<SearchQuery, SearchQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useQuery<SearchQuery, SearchQueryVariables>(SearchDocument, options);
+      }
+export function useSearchLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<SearchQuery, SearchQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return ApolloReactHooks.useLazyQuery<SearchQuery, SearchQueryVariables>(SearchDocument, options);
+        }
+export type SearchQueryHookResult = ReturnType<typeof useSearchQuery>;
+export type SearchLazyQueryHookResult = ReturnType<typeof useSearchLazyQuery>;
+export type SearchQueryResult = ApolloReactCommon.QueryResult<SearchQuery, SearchQueryVariables>;
 export const LoginDocument = gql`
     mutation Login($email: String!, $password: String!) {
   login(email: $email, password: $password) {
