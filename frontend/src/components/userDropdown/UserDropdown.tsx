@@ -30,6 +30,10 @@ export const UserDropdown: FC<UserDropdownProps> = ({ open, setOpen }) => {
       setOpen(!open);
    };
 
+   const handleRoute = () => {
+      history.push('/editUserInfo');
+   };
+
    if (error) {
       <div>{error.message}</div>;
    }
@@ -69,7 +73,10 @@ export const UserDropdown: FC<UserDropdownProps> = ({ open, setOpen }) => {
                </div>
             </div>
             <div className='flex justify-end items-center'>
-               <div className='py-1.5 hover:text-[#FEAE67] hover:cursor-pointer text-[20px]'>
+               <div
+                  className='py-1.5 hover:text-[#FEAE67] hover:cursor-pointer text-[20px]'
+                  onClick={handleRoute}
+               >
                   Edit
                </div>
             </div>

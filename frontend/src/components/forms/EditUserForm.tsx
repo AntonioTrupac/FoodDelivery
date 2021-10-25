@@ -3,6 +3,7 @@ import { Form, Formik, FormikProps } from 'formik';
 
 import { CustomInput } from '../input/CustomInput';
 import { Button } from '../button/Button';
+import { useMeQuery } from '../../generated';
 
 type Values = {
    firstName: string;
@@ -11,14 +12,16 @@ type Values = {
    email: string;
 };
 
-const initialValues = {
-   firstName: '',
-   lastName: '',
-   phoneNumber: '',
-   email: '',
-};
-
 export const EditUserForm = () => {
+   const { data, loading, error } = useMeQuery();
+
+   const initialValues = {
+      firstName: data?.me?.firstName || '',
+      lastName: data?.me?.lastName || '',
+      phoneNumber: data?.me?.phoneNumber || '',
+      email: data?.me?.email || '',
+   };
+
    return (
       <>
          <Formik
@@ -36,7 +39,7 @@ export const EditUserForm = () => {
                         value={propsFormik.values.firstName}
                         type='text'
                         autoComplete='off'
-                        className='input'
+                        className='input text-lg'
                         onChange={propsFormik.handleChange}
                      />
                      <CustomInput
@@ -45,7 +48,7 @@ export const EditUserForm = () => {
                         value={propsFormik.values.lastName}
                         type='text'
                         autoComplete='off'
-                        className='input'
+                        className='input text-lg'
                         onChange={propsFormik.handleChange}
                      />
                      <CustomInput
@@ -54,7 +57,7 @@ export const EditUserForm = () => {
                         value={propsFormik.values.email}
                         type='text'
                         autoComplete='off'
-                        className='input'
+                        className='input text-lg'
                         onChange={propsFormik.handleChange}
                      />
                      <CustomInput
@@ -63,10 +66,15 @@ export const EditUserForm = () => {
                         value={propsFormik.values.phoneNumber}
                         type='text'
                         autoComplete='off'
-                        className='input'
+                        className='input text-lg'
                         onChange={propsFormik.handleChange}
                      />
-                     <Button type='submit'>Submit</Button>
+                     <Button
+                        type='submit'
+                        className='border px-2.5 py-1.5 rounded-lg border-[#FEAE67] text-sm'
+                     >
+                        Submit
+                     </Button>
                   </div>
                </Form>
             )}

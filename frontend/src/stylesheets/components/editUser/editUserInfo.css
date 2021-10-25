@@ -1,2 +1,7 @@
 @layer components {
+   .edit-container {
+      @media screen and (min-width: 1120px) {
+         max-width: 1120px;
+      }
+   }
 }
