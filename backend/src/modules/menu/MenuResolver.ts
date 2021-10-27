@@ -52,8 +52,6 @@ export class MenuResolver {
          relations: ['tag'],
       });
 
-      console.log('ITEMS', items);
-
       if (!items) {
          throw new Error('No menu items!');
       }

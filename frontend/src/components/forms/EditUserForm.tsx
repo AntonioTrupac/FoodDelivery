@@ -1,33 +1,72 @@
-import { FC } from 'react';
 import { Form, Formik, FormikProps } from 'formik';
 
 import { CustomInput } from '../input/CustomInput';
 import { Button } from '../button/Button';
-import { useMeQuery } from '../../generated';
+import { MeDocument, MeQuery, useUpdateUserMutation } from '../../generated';
+import { useHistory } from 'react-router-dom';
+import { FC, useCallback } from 'react';
+
+type EditUserFormProps = {
+   data: MeQuery | undefined;
+};
 
 type Values = {
    firstName: string;
    lastName: string;
-   phoneNumber: string;
    email: string;
+   phoneNumber: string;
 };
 
-export const EditUserForm = () => {
-   const { data, loading, error } = useMeQuery();
+export const EditUserForm: FC<EditUserFormProps> = ({ data }) => {
+   const history = useHistory();
+   const id = Number(data?.me?.userId);
+
+   const [updateUserMutation, { loading, error }] = useUpdateUserMutation();
 
    const initialValues = {
       firstName: data?.me?.firstName || '',
       lastName: data?.me?.lastName || '',
-      phoneNumber: data?.me?.phoneNumber || '',
       email: data?.me?.email || '',
+      phoneNumber: data?.me?.phoneNumber || '',
    };
+
+   const handleSubmit = useCallback(
+      (values: Values) => {
+         updateUserMutation({
+            variables: {
+               id: id,
+               input: values,
+            },
+            refetchQueries: [{ query: MeDocument }],
+         })
+            .then((data) => {
+               console.log('SENT', data);
+            })
+            .catch((error) => {
+               console.log('Error!', error);
+            });
+
+         history.push('/');
+      },
+      [history, id, updateUserMutation]
+   );
+
+   if (loading) return <div> loading ...</div>;
+   if (error) return <div>{error.message}</div>;
 
    return (
       <>
          <Formik
             initialValues={initialValues}
             onSubmit={(values) => {
-               console.log(values);
+               setTimeout(() => {
+                  if (values.email === data?.me?.email) {
+                     console.log('email already exists!');
+                     return;
+                  } else {
+                     handleSubmit(values);
+                  }
+               }, 2000);
             }}
          >
             {(propsFormik: FormikProps<Values>) => (

@@ -12,7 +12,6 @@ export class SearchResolver {
    async search(
       @Arg('search', { defaultValue: '' }) search?: string
    ): Promise<Restaurant[]> {
-      console.log(this.restaurantRepository);
       return await this.restaurantRepository.find({
          where: `"restaurantName" ILIKE '%${search}%' OR "tagName" ILIKE '%${search}%'`,
          relations: ['menu', 'menu.tag'],

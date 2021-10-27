@@ -28,6 +28,12 @@ mutation Register(
   }
 }
 
+mutation UpdateUser($id: Int!, $input: UpdateUserInput!) {
+  updateUser(id: $id, input: $input) {
+    ...UserFields
+  }
+}
+
 query Me {
   me {
     ...UserFields

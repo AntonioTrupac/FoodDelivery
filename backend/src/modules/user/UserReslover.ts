@@ -5,6 +5,7 @@ import {
    Query,
    UseMiddleware,
    Ctx,
+   Int,
 } from 'type-graphql';
 import { User } from '../../entity/User';
 import { isAuth } from '../../middleware/isAuth';
@@ -14,11 +15,10 @@ import { RegisterInput } from './input/RegisterInput';
 import { MyContext } from '../../types/MyContext';
 import { createAccessToken } from '../auth';
 import { LoginResponse } from './objectType/LoginResponse';
+import { UpdateUserInput } from './input/UpdateUserInput';
 
 @Resolver(User)
 export class UserReslover {
-   //ME
-   // @description this gets the logged in user
    @Query(() => User, { nullable: true })
    @UseMiddleware(isAuth, Logger)
    async me(@Ctx() { payload }: MyContext): Promise<User | undefined> {
@@ -71,8 +71,7 @@ export class UserReslover {
    @Mutation(() => LoginResponse, { nullable: true })
    async login(
       @Arg('email') email: string,
-      @Arg('password') password: string,
-      @Ctx() { res }: MyContext
+      @Arg('password') password: string
    ): Promise<LoginResponse | null> {
       const user = await User.findOne({ where: { email } });
       console.log(user);
@@ -91,5 +90,28 @@ export class UserReslover {
       return {
          accessToken: createAccessToken(user),
       };
+   }
+
+   //update user
+   @Mutation(() => User)
+   async updateUser(
+      @Arg('id', () => Int) id: number,
+      @Arg('input', () => UpdateUserInput) input: UpdateUserInput
+   ): Promise<User | null | undefined> {
+      const updatedUser = await User.update({ userId: id }, input);
+
+      if (!updatedUser) {
+         return null;
+      }
+
+      const findUser = User.findOne(id);
+
+      if (!findUser) {
+         throw new Error('No user found!');
+      }
+
+      console.log(findUser);
+
+      return findUser;
    }
 }
