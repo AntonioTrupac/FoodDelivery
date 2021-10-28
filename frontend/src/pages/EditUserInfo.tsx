@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
 import { Title } from '../components/page/Title';
 import { EditUserForm } from '../components/forms/EditUserForm';

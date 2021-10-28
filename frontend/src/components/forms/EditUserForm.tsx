@@ -60,12 +60,7 @@ export const EditUserForm: FC<EditUserFormProps> = ({ data }) => {
             initialValues={initialValues}
             onSubmit={(values) => {
                setTimeout(() => {
-                  if (values.email === data?.me?.email) {
-                     console.log('email already exists!');
-                     return;
-                  } else {
-                     handleSubmit(values);
-                  }
+                  handleSubmit(values);
                }, 2000);
             }}
          >

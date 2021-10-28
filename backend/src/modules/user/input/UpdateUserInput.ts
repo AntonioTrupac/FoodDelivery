@@ -13,8 +13,6 @@ export class UpdateUserInput {
    lastName?: string;
 
    @Field((type) => String, { nullable: true })
-   @IsEmail()
-   @IsEmailAlreadyExist({ message: 'Email already exists' })
    email?: string;
 
    @Field((type) => String, { nullable: true })

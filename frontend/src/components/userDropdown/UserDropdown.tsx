@@ -15,8 +15,6 @@ export const UserDropdown: FC<UserDropdownProps> = ({ open, setOpen }) => {
 
    const { data: user, error, loading } = useMeQuery();
 
-   console.log('me', user);
-
    const logOut = () => {
       window.localStorage.clear();
       history.push('/landing-page');

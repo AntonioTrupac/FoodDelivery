@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Restaurant, useSearchQuery } from '../../generated';
+import { Restaurant, SearchQuery } from '../../generated';
 import { RootState } from '../store';
 
 interface RestaurantSliceState {
@@ -11,18 +11,20 @@ const initialState: RestaurantSliceState = {
 };
 
 export const searchSlice = createSlice({
-   name: 'search',
+   name: 'search', //should be unique across the whole project
    initialState,
    reducers: {
-      search: (state, action: PayloadAction<string>) => {
-         state.restaurant = [...state.restaurant];
+      setSearchRestaurant(state, action: PayloadAction<SearchQuery>) {
+         const data = action.payload;
+         state.restaurant = data.search;
       },
    },
 });
 
-export const { search } = searchSlice.actions;
+export const { setSearchRestaurant } = searchSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
-export const selectSearch = (state: RootState) => state.search.restaurant;
+export const selectSearch = (state: RootState) =>
+   state.setSearchRestaurant.restaurant;
 
 export default searchSlice.reducer;

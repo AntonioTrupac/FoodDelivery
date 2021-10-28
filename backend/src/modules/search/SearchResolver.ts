@@ -1,5 +1,5 @@
 import { Arg, Query, Resolver } from 'type-graphql';
-import { getRepository, Like, Repository } from 'typeorm';
+import { getRepository, Repository } from 'typeorm';
 import { Restaurant } from '../../entity/Restaurant';
 
 @Resolver()

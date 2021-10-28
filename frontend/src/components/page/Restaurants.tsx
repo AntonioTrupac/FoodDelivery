@@ -3,8 +3,14 @@ import { Card } from '../card/Card';
 
 import categories from '../dummydata/categories';
 import { Restaurant, useGetRestaurantsQuery } from '../../generated';
+import { RootState } from '../../redux/store';
+import { useSelector } from 'react-redux';
 
 export const Restaurants: FC = () => {
+   const restaurantSearch = useSelector(
+      (state: RootState) => state.setSearchRestaurant.restaurant
+   );
+   console.log(restaurantSearch);
    const { data, error, loading } = useGetRestaurantsQuery();
    const restaurantData = data?.getRestaurants;
    const [categoryName, setCategoryName] = useState<string>('All');

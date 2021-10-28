@@ -16,7 +16,7 @@ export const RestaurantDetails: FC = () => {
       variables: { id: idAsNumber },
    });
 
-   const [restaurantData, setRestaurantData] = useState<Restaurant | undefined>(
+   const [restaurantData] = useState<Restaurant | undefined>(
       data?.getRestaurantById
    );
    const [item, setItem] = useState<any>();

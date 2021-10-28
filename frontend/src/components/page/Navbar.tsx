@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useState } from 'react';
+import { ChangeEvent, FC, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Search } from './Search';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,17 +6,26 @@ import { faSearch, faUserCog } from '@fortawesome/free-solid-svg-icons';
 import logo from '../../images/LOGO.png';
 import { UserDropdown } from '../userDropdown/UserDropdown';
 import { useSearchQuery } from '../../generated';
+import { setSearchRestaurant } from '../../redux/slice/searchSlice';
+import { useAppDispatch } from '../../redux/hooks';
 
 export const Navbar: FC = () => {
    const [search, setSearch] = useState<string>();
    const [open, setOpen] = useState<boolean>(false);
    const history = useHistory();
+   const dispatch = useAppDispatch();
 
    const { data, error, loading } = useSearchQuery({
       variables: {
          search,
       },
    });
+
+   useEffect(() => {
+      if (data) {
+         dispatch(setSearchRestaurant(data));
+      }
+   }, [data]);
 
    const handleClick = () => {
       history.push('/');
@@ -26,6 +35,8 @@ export const Navbar: FC = () => {
       e.preventDefault();
       setSearch(e.currentTarget.value);
    };
+
+   if (loading) return <div>Loading...</div>;
 
    return (
       <nav className='navbar-container'>

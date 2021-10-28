@@ -1,10 +1,4 @@
-import React, {
-   Dispatch,
-   FC,
-   MouseEventHandler,
-   SetStateAction,
-   useCallback,
-} from 'react';
+import { Dispatch, FC, SetStateAction, useCallback } from 'react';
 import { Form, Formik, FormikProps, FormikValues } from 'formik';
 import { CustomInput } from '../../components/input/CustomInput';
 import { Button } from '../../components/button/Button';
