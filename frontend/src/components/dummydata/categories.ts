@@ -28,7 +28,7 @@ const categories = [
    },
    {
       id: 6,
-      imageUrl: 'broken',
+      imageUrl: images.all,
       category: 'All',
    },
 ];

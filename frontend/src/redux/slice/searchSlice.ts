@@ -16,7 +16,8 @@ export const searchSlice = createSlice({
    reducers: {
       setSearchRestaurant(state, action: PayloadAction<SearchQuery>) {
          const data = action.payload;
-         state.restaurant = data.search;
+
+         state.restaurant = [...data.search];
       },
    },
 });

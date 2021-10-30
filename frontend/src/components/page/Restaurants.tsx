@@ -10,9 +10,9 @@ export const Restaurants: FC = () => {
    const restaurantSearch = useSelector(
       (state: RootState) => state.setSearchRestaurant.restaurant
    );
-   console.log(restaurantSearch);
+   console.log('restaurant component', restaurantSearch);
    const { data, error, loading } = useGetRestaurantsQuery();
-   const restaurantData = data?.getRestaurants;
+   const restaurantData = restaurantSearch;
    const [categoryName, setCategoryName] = useState<string>('All');
    const [filteredRestaurants, setFilteredRestaurants] =
       useState<any>(restaurantData);
@@ -53,7 +53,7 @@ export const Restaurants: FC = () => {
             })}
          </div>
 
-         <div className='card-container mt-10 justify-center'>
+         <div className='card-container mt-10 justify-center text-center'>
             {filteredRestaurants?.map((restaurant: Restaurant) => {
                const {
                   id,
@@ -77,6 +77,11 @@ export const Restaurants: FC = () => {
                );
             })}
          </div>
+         {filteredRestaurants?.length === 0 && (
+            <div className='flex justify-center items-center w-full'>
+               No restaurants!
+            </div>
+         )}
       </div>
    );
 };
