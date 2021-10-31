@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { Search } from './Search';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {

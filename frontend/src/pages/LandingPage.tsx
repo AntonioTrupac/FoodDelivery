@@ -3,6 +3,7 @@ import { useModal } from '../customHooks/useModal';
 import { Modal } from '../components/modal/Modal';
 import logo from '../images/LOGO.png';
 import pozadina from '../images/pozadina.jpg';
+import { Form } from '../components/forms/Form';
 
 const bgImageStyle = {
    width: '100%',
@@ -58,7 +59,9 @@ export const LandingPage: FC = () => {
             </div>
          </div>
 
-         <Modal isShown={isShown} hide={toggle} headerText={'Login'} />
+         <Modal isShown={isShown} hide={toggle} headerText={'Login'}>
+            <Form />
+         </Modal>
       </>
    );
 };

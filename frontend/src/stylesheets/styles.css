@@ -15,7 +15,7 @@
 @tailwind utilities;
 
 .form__button {
-   @apply border-none bg-[#FEAE67] text-[#FFFFFF] text-[24px] w-[400px] h-[65px] mt-[25px] rounded-[40px] focus:ring-[3px] focus:border-none focus:outline-none;
+   @apply border-none bg-[#FEAE67] text-[#FFFFFF] text-[18px] w-full max-w-[200px] py-1 mt-[25px] rounded-[40px] focus:ring-[3px] focus:border-none focus:outline-none;
 }
 
 img {
@@ -27,5 +27,5 @@ body {
 }
 
 .input {
-   @apply w-[320px] h-[50px] border-b-[1px] border-[#AFAEAE] mb-[10px] focus:outline-none;
+   @apply w-full h-[50px] border-b-[1px] border-[#AFAEAE] mb-[10px] focus:outline-none;
 }

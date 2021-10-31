@@ -2,12 +2,12 @@ import { Form, Formik, FormikProps } from 'formik';
 
 import { CustomInput } from '../input/CustomInput';
 import { Button } from '../button/Button';
-import { MeDocument, MeQuery, useUpdateUserMutation } from '../../generated';
+import { MeDocument, useUpdateUserMutation } from '../../generated';
 import { useHistory } from 'react-router-dom';
 import { FC, useCallback } from 'react';
 
 type EditUserFormProps = {
-   data: MeQuery | undefined;
+   data: Values & { userId: string };
 };
 
 type Values = {
@@ -19,15 +19,15 @@ type Values = {
 
 export const EditUserForm: FC<EditUserFormProps> = ({ data }) => {
    const history = useHistory();
-   const id = Number(data?.me?.userId);
+   const id = Number(data.userId);
 
    const [updateUserMutation, { loading, error }] = useUpdateUserMutation();
 
    const initialValues = {
-      firstName: data?.me?.firstName || '',
-      lastName: data?.me?.lastName || '',
-      email: data?.me?.email || '',
-      phoneNumber: data?.me?.phoneNumber || '',
+      firstName: data.firstName || '',
+      lastName: data.lastName || '',
+      email: data.email || '',
+      phoneNumber: data.phoneNumber || '',
    };
 
    const handleSubmit = useCallback(

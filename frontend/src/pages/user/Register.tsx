@@ -77,7 +77,18 @@ export const Register: FC<RegisterProps> = (props) => {
 
    return (
       <div>
-         <Formik initialValues={initialValues} onSubmit={onSubmit}>
+         <Formik
+            initialValues={initialValues}
+            onSubmit={(values: FormikValues, { setSubmitting, resetForm }) => {
+               setSubmitting(true);
+               setTimeout(() => {
+                  onSubmit(values);
+                  resetForm();
+
+                  props.setMode('login');
+               }, 2000);
+            }}
+         >
             {(propsFormik: FormikProps<Values>) => (
                <Form>
                   <div className='register__container'>
@@ -90,6 +101,7 @@ export const Register: FC<RegisterProps> = (props) => {
                         autoComplete='off'
                         onChange={propsFormik.handleChange}
                      />
+
                      <CustomInput
                         name='lastName'
                         type='text'
@@ -99,6 +111,7 @@ export const Register: FC<RegisterProps> = (props) => {
                         className='input'
                         onChange={propsFormik.handleChange}
                      />
+
                      <CustomInput
                         name='phoneNumber'
                         type='tel'
@@ -109,6 +122,7 @@ export const Register: FC<RegisterProps> = (props) => {
                         className='input'
                         onChange={propsFormik.handleChange}
                      />
+
                      <CustomInput
                         name='email'
                         type='text'
@@ -118,6 +132,7 @@ export const Register: FC<RegisterProps> = (props) => {
                         className='input'
                         onChange={propsFormik.handleChange}
                      />
+
                      <CustomInput
                         name='password'
                         type='password'
@@ -127,9 +142,15 @@ export const Register: FC<RegisterProps> = (props) => {
                         className='input'
                         onChange={propsFormik.handleChange}
                      />
-                     <Button type='submit' className='form__button'>
+
+                     <Button
+                        type='submit'
+                        disabled={propsFormik.isSubmitting}
+                        className='form__button'
+                     >
                         Sign up
                      </Button>
+
                      <div className='register__link'>
                         <p className='text-[#AFAEAE]'>
                            Have an account?{' '}

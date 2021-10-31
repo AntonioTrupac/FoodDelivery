@@ -24,7 +24,6 @@ export const searchSlice = createSlice({
 
 export const { setSearchRestaurant } = searchSlice.actions;
 
-// Other code such as selectors can use the imported `RootState` type
 export const selectSearch = (state: RootState) =>
    state.setSearchRestaurant.restaurant;
 

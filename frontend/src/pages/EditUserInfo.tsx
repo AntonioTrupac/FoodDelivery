@@ -2,13 +2,10 @@ import { FC } from 'react';
 
 import { Title } from '../components/page/Title';
 import { EditUserForm } from '../components/forms/EditUserForm';
-import { useMeQuery } from '../generated';
+import { useSessionStore } from '../store/session';
 
 export const EditUserInfo: FC = () => {
-   const { data, loading, error } = useMeQuery();
-
-   if (loading) return <div> loading ...</div>;
-   if (error) return <div>{error.message}</div>;
+   const session = useSessionStore();
 
    return (
       <div className='w-full flex justify-center'>
@@ -17,7 +14,7 @@ export const EditUserInfo: FC = () => {
                title='Edit your info!'
                className='text-center text-2xl mb-3 font-light'
             />
-            <EditUserForm data={data} />
+            <EditUserForm data={session} />
          </div>
       </div>
    );

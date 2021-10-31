@@ -1,6 +1,6 @@
-import React, { FC } from 'react';
+import { ComponentPropsWithoutRef, FC } from 'react';
 
-type ButtonProps = {
+type ButtonProps = ComponentPropsWithoutRef<'button'> & {
    name?: string;
    type?: 'submit' | 'reset' | 'button';
    value?: string | ReadonlyArray<string> | number;
@@ -16,6 +16,7 @@ export const Button: FC<ButtonProps> = (props) => {
          name={props.name}
          onClick={props.onClick}
          className={props.className}
+         disabled={props.disabled}
       >
          {props.children}
       </button>

@@ -2,7 +2,7 @@ import { FC, useRef } from 'react';
 import { useHistory } from 'react-router';
 
 import useOnClickOutside from '../../customHooks/useClickOutside';
-import { useMeQuery } from '../../generated';
+import { useSessionStore } from '../../store/session';
 
 type UserDropdownProps = {
    open: boolean;
@@ -13,13 +13,14 @@ export const UserDropdown: FC<UserDropdownProps> = ({ open, setOpen }) => {
    const history = useHistory();
    const node = useRef<any>(null);
 
-   const { data: user, error, loading } = useMeQuery();
+   const { email, firstName, lastName, phoneNumber } = useSessionStore();
 
    const logOut = () => {
       window.localStorage.clear();
       history.push('/landing-page');
    };
 
+   // TODO: vidi
    const handleClickInside = () => {
       setOpen(!open);
    };
@@ -32,12 +33,12 @@ export const UserDropdown: FC<UserDropdownProps> = ({ open, setOpen }) => {
       history.push('/editUserInfo');
    };
 
-   if (error) {
-      <div>{error.message}</div>;
-   }
-   if (loading) {
-      <div>Loading...</div>;
-   }
+   //    if (error) {
+   //       <div>{error.message}</div>;
+   //    }
+   //    if (loading) {
+   //       <div>Loading...</div>;
+   //    }
 
    useOnClickOutside(node, handleClickOutside);
 
@@ -45,7 +46,7 @@ export const UserDropdown: FC<UserDropdownProps> = ({ open, setOpen }) => {
       <div ref={node} className='dropdown bg-[#FFEEDE] absolute rounded p-4'>
          <div className='user-name border-b py-4 flex justify-between items-center'>
             <p className='text-lg font-light'>
-               Hi, {user?.me?.firstName} {user?.me?.lastName}!
+               Hi, {firstName} {lastName}!
             </p>
             <div className='close' onClick={handleClickInside} />
          </div>
@@ -54,20 +55,16 @@ export const UserDropdown: FC<UserDropdownProps> = ({ open, setOpen }) => {
                <div className='font-normal text-lg'>Name:</div>
 
                <div className='font-light text-base mt-1'>
-                  {user?.me?.firstName} {user?.me?.lastName}
+                  {firstName} {lastName}
                </div>
 
                <div className='font-normal text-lg mt-1'>Email:</div>
 
-               <div className='mt-1 font-light text-base'>
-                  {user?.me?.email}
-               </div>
+               <div className='mt-1 font-light text-base'>{email}</div>
 
                <div className='flex flex-col py-1.5'>
                   <div className='font-normal text-lg'>Telephone</div>
-                  <div className='mt-1 font-light text-base'>
-                     {user?.me?.phoneNumber}
-                  </div>
+                  <div className='mt-1 font-light text-base'>{phoneNumber}</div>
                </div>
             </div>
             <div className='flex justify-end items-center'>
