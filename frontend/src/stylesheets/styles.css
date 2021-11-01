@@ -27,5 +27,5 @@ body {
 }
 
 .input {
-   @apply w-full h-[50px] border-b-[1px] border-[#AFAEAE] mb-[10px] focus:outline-none;
+   @apply w-full  border-b-[1px] border-[#AFAEAE] mb-6 focus:outline-none;
 }

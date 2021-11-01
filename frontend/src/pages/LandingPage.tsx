@@ -15,13 +15,7 @@ const bgImageStyle = {
 };
 
 export const LandingPage: FC = () => {
-   const [value, setValue] = useState('');
    const { isShown, toggle } = useModal();
-
-   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-      e.preventDefault();
-      setValue(e.currentTarget.value);
-   };
 
    return (
       <>
@@ -39,23 +33,10 @@ export const LandingPage: FC = () => {
             </div>
 
             <div className='search__container'>
-               <p className='text-[36px] ml-[100px] capitalize'>
-                  feeling hungry?
+               <p className='search__paragraph'>Feeling hungry?</p>
+               <p className='search__paragraph'>
+                  Sign up or login to search for nearby food!
                </p>
-               <p className='search__paragraph'>search for food nearby</p>
-
-               <div className='input__container'>
-                  <input
-                     type='text'
-                     value={value}
-                     onChange={(e) => onChange(e)}
-                     className='landing__input'
-                  />
-
-                  <button type='submit' className='search__button'>
-                     search
-                  </button>
-               </div>
             </div>
          </div>
 

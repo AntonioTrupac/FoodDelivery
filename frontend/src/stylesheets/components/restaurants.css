@@ -1,4 +1,13 @@
 @layer components {
+   .restaurant-image {
+      height: 100vh;
+      width: 100%;
+      background-image: url('../images/pozadina.jpg');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-attachment: fixed;
+   }
    .restaurant-container {
       @apply flex flex-col justify-center items-center;
       padding: 15px 20px;
@@ -63,7 +72,7 @@
          overflow: hidden;
          transition: scale 0.3s;
          @apply w-full bg-cover bg-no-repeat
-            bg-center opacity-90 relative rounded-t-xl shadow-md;
+            bg-center opacity-95 relative rounded-t-xl shadow-md;
 
          .dark {
             background-color: black;
@@ -107,7 +116,7 @@
       }
 
       .estimation-wrapper {
-         @apply flex items-start justify-between text-lg px-4 py-2;
+         @apply flex items-start justify-between text-lg px-4 py-2 bg-[#fff];
 
          .rating {
             @apply flex items-center;
