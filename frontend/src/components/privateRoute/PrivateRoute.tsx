@@ -25,7 +25,7 @@ export const PrivateRoute: FC<Routes> = ({ component: Component, ...rest }) => {
                   <Redirect to={'/landing-page'} />
                );
             }}
-         />{' '}
+         />
       </>
    );
 };

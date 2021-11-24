@@ -2,13 +2,13 @@ import { FC } from 'react';
 import { createPortal } from 'react-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import { Form } from '../forms/Form';
 
 type ModalProps = {
    isShown: boolean;
    hide: () => void;
    modalContent?: JSX.Element;
    headerText: string;
+   className: string;
 };
 
 export const Modal: FC<ModalProps> = (props) => {
@@ -24,7 +24,7 @@ export const Modal: FC<ModalProps> = (props) => {
                aria-labelledby={props.headerText}
                tabIndex={-1}
                role='dialog'
-               className='absolute top-[120px] mx-5 z-50 bg-[#ffffff] h-auto rounded-[20px]'
+               className={props.className}
             >
                <div className='z-40 flex flex-row-reverse mr-[20px]'>
                   <FontAwesomeIcon

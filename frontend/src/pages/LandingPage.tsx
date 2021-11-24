@@ -40,7 +40,12 @@ export const LandingPage: FC = () => {
             </div>
          </div>
 
-         <Modal isShown={isShown} hide={toggle} headerText={'Login'}>
+         <Modal
+            className='absolute top-[120px] mx-5 z-50 bg-[#ffffff] h-auto rounded-[20px]'
+            isShown={isShown}
+            hide={toggle}
+            headerText={'Login'}
+         >
             <Form />
          </Modal>
       </>

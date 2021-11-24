@@ -46,9 +46,9 @@ export class MenuItemResolver {
 
    //for inserting in db
    @Mutation((returns) => MenuItem)
-   async addMenu(
+   async addMenuItems(
       @Arg('menuItemData')
-      { name, price, calories, ingredients, menuId }: MenuItemInput
+      { name, price, calories, ingredients, menuId, tagId }: MenuItemInput
    ): Promise<MenuItem> {
       const menuItem = await this.menuItemRepo
          .create({
@@ -57,6 +57,7 @@ export class MenuItemResolver {
             calories,
             ingredients,
             menuId,
+            tagId
          })
          .save();
 

@@ -19,4 +19,7 @@ export class MenuItemInput implements Partial<MenuItem> {
 
    @Field()
    menuId?: number;
+
+   @Field()
+   tagId?: number;
 }
