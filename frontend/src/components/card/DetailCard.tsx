@@ -5,6 +5,7 @@ import { faPlusSquare } from '@fortawesome/free-regular-svg-icons';
 import { MenuItem, Restaurant, useGetMenuItemByIdQuery } from '../../generated';
 import { useModal } from '../../customHooks/useModal';
 import { Modal } from '../modal/Modal';
+import { RestaurantModalDetails } from '../RestaurantModalDetails';
 
 type DetailCardProps = {
    menuItems?: MenuItem[];
@@ -13,8 +14,10 @@ type DetailCardProps = {
 
 export const DetailCard: FC<DetailCardProps> = ({ menuItems, restaurant }) => {
    const [itemId, setItemId] = useState<number>();
-   const allItems = restaurant?.menu?.menuItems.map((item) => item);
    const { isShown, toggle } = useModal();
+
+   const allItems = restaurant?.menu?.menuItems.map((item) => item);
+
    const { data, loading, error } = useGetMenuItemByIdQuery({
       variables: {
          id: Number(itemId),
@@ -22,7 +25,6 @@ export const DetailCard: FC<DetailCardProps> = ({ menuItems, restaurant }) => {
    });
 
    const splitString = data?.getMenuItemById?.ingredients.split(' ');
-   console.log(splitString);
 
    if (menuItems === undefined || menuItems === null) {
       return (
@@ -52,26 +54,17 @@ export const DetailCard: FC<DetailCardProps> = ({ menuItems, restaurant }) => {
             ))}
 
             <Modal
-               className='absolute top-[30%] mx-5 z-50 bg-[#ffffff] h-auto rounded-[20px]'
+               className='absolute top-[30%] md:fixed mx-6 z-50 bg-[#ffffff] h-auto w-[400px] md:w-[90%] rounded-[20px]'
                isShown={isShown}
                hide={toggle}
                headerText={'Show Item'}
             >
-               <div className=''>
-                  <p>{data?.getMenuItemById?.name}</p>
-
-                  <p>{data?.getMenuItemById?.price}$</p>
-
-                  <div className='grid'>
-                     {splitString?.map((item) => (
-                        <p>{item.split(',')}</p>
-                     ))}
-                  </div>
-
-                  <p>{data?.getMenuItemById?.calories}kcal</p>
-
-                  <p>{data?.getMenuItemById?.tag?.tagName}</p>
-               </div>
+               <RestaurantModalDetails
+                  data={data}
+                  loading={loading}
+                  error={error}
+                  splitString={splitString}
+               />
             </Modal>
          </>
       );
@@ -84,7 +77,10 @@ export const DetailCard: FC<DetailCardProps> = ({ menuItems, restaurant }) => {
                <div
                   className='card-container-detail'
                   key={menuItem.id}
-                  onClick={toggle}
+                  onClick={() => {
+                     setItemId(menuItem.id);
+                     toggle();
+                  }}
                >
                   <div>
                      <p className='text-2xl md:text-lg'>{menuItem.name}</p>
@@ -103,12 +99,17 @@ export const DetailCard: FC<DetailCardProps> = ({ menuItems, restaurant }) => {
          })}
 
          <Modal
-            className='absolute top-[120px] mx-5 z-50 bg-[#ffffff] h-auto rounded-[20px]'
+            className='absolute top-[30%] md:fixed mx-6 z-50 bg-[#ffffff] h-auto w-[400px] md:w-[90%] rounded-[20px]'
             isShown={isShown}
             hide={toggle}
-            headerText={'Login'}
+            headerText={'Categories'}
          >
-            LALALA
+            <RestaurantModalDetails
+               data={data}
+               loading={loading}
+               error={error}
+               splitString={splitString}
+            />
          </Modal>
       </>
    );
