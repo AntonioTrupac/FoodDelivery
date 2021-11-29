@@ -9,18 +9,16 @@ type DrawerProps = {
 export const Drawer: FC<DrawerProps> = (props) => {
    return (
       <main
-         className={
-            ' fixed overflow-hidden z-10 bg-gray-900 bg-opacity-25 inset-0 transform ease-in-out ' +
-            (props.isOpen
-               ? ' transition-opacity opacity-100 duration-500 translate-x-0  '
-               : ' transition-all delay-500 opacity-0 translate-x-full  ')
-         }
+         className={`fixed overflow-hidden z-10 bg-gray-900 bg-opacity-30 inset-0 transform ease-in-out 
+            ${
+               props.isOpen
+                  ? 'transition-opacity opacity-100 duration-500 translate-x-0'
+                  : 'transition-all delay-500 opacity-0 translate-x-full'
+            }`}
       >
          <section
-            className={
-               ' w-screen max-w-lg right-0 absolute bg-white h-full shadow-xl delay-400 duration-500 ease-in-out transition-all transform  ' +
-               (props.isOpen ? ' translate-x-0 ' : ' translate-x-full ')
-            }
+            className={`w-screen max-w-lg right-0 absolute bg-white h-full shadow-xl delay-400 duration-500 ease-in-out transition-all transform 
+               ${props.isOpen ? 'translate-x-0' : 'translate-x-full'}`}
          >
             <article className='relative w-screen max-w-lg pb-10 flex flex-col space-y-6 overflow-y-scroll h-full'>
                <header className='p-4 font-bold text-lg'>
