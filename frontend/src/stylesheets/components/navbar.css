@@ -11,7 +11,7 @@
          @apply relative flex items-center justify-center;
 
          .user-cog-container {
-            @apply left-[-55px]  border-[3px] border-[#feae67] rounded-[50%] p-[0.5rem];
+            @apply border-[3px] border-[#feae67] rounded-[50%] p-[0.3rem];
 
             .user-cog {
                @apply text-[#FEAE67];
