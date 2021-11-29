@@ -1,4 +1,4 @@
-import { ChangeEvent, FC, useState } from 'react';
+import { FC } from 'react';
 import { useModal } from '../customHooks/useModal';
 import { Modal } from '../components/modal/Modal';
 import logo from '../images/LOGO.png';

@@ -22,7 +22,7 @@ export const RestaurantModalDetails: FC<RestaurantModalDetailsProps> = (
             <p className='mr-1 font-medium'>Price:</p>
             <p>{props.data?.getMenuItemById?.price}$</p>
          </div>
-         <div className='grid my-1'>
+         <div className='my-1 mb-1 min-h-[100px]'>
             <p className='font-medium'>Ingredients:</p>
             <hr />
             {props.splitString?.map((item) => (
