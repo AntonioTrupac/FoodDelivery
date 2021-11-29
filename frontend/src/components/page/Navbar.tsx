@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Search } from './Search';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -6,26 +6,27 @@ import {
    faSearch,
    faUserCog,
    faTimes,
+   faShoppingCart,
 } from '@fortawesome/free-solid-svg-icons';
 import logo from '../../images/LOGO.png';
 import { UserDropdown } from '../userDropdown/UserDropdown';
-import { useSearchLazyQuery, useSearchQuery } from '../../generated';
+import { useSearchQuery } from '../../generated';
 import { setSearchRestaurant } from '../../redux/slice/searchSlice';
 import { useAppDispatch } from '../../redux/hooks';
 
-export const Navbar: FC = () => {
+type NavbarProps = {
+   setIsOpen: Dispatch<SetStateAction<boolean>>;
+};
+
+export const Navbar: FC<NavbarProps> = (props) => {
    const [search, setSearch] = useState<string>('');
    const [open, setOpen] = useState<boolean>(false);
    const history = useHistory();
+   const homeRoute = history.location.pathname === '/';
+
    const dispatch = useAppDispatch();
 
-   //    const [getData, { data: lazyData, error: lazyError }] = useSearchLazyQuery({
-   //       variables: {
-   //          search: '',
-   //       },
-   //    });
-
-   const { data, error } = useSearchQuery({
+   const { data } = useSearchQuery({
       variables: {
          search,
       },
@@ -41,25 +42,10 @@ export const Navbar: FC = () => {
       }
    }, [dispatch, data]);
 
-   //    const handleSubmit = (e: any) => {
-   //       e.preventDefault();
-   //    };
-
-   //    const onChange = (e: any) => {
-   //       setSearch(e.target.value || '');
-   //       getData({
-   //          variables: {
-   //             search: search || '',
-   //          },
-   //       });
-   //    };
-
    const onClose = (e: any) => {
       e.preventDefault();
       setSearch('');
    };
-
-   //    if (error) return <div>{error.message}</div>;
 
    return (
       <nav className='navbar-container'>
@@ -67,9 +53,8 @@ export const Navbar: FC = () => {
             <img src={logo} alt={logo} />
          </div>
 
-         {history.location.pathname === '/' && (
+         {homeRoute && (
             <div className='search-container'>
-               {/* <form onSubmit={handleSubmit}> */}
                <FontAwesomeIcon icon={faSearch} className='search-icon' />
 
                <Search
@@ -88,11 +73,19 @@ export const Navbar: FC = () => {
                      onClick={onClose}
                   />
                )}
-               {/* </form> */}
             </div>
          )}
 
-         <div className='right-container'>
+         <div className='right-container ml-4 md:pl-3'>
+            {!homeRoute && (
+               <span
+                  className='mr-4 text-[#FEAE67]'
+                  onClick={() => props.setIsOpen(true)}
+               >
+                  <FontAwesomeIcon icon={faShoppingCart} size='lg' />
+               </span>
+            )}
+
             <span className='user-cog-container' onClick={() => setOpen(!open)}>
                <FontAwesomeIcon icon={faUserCog} className='user-cog' />
             </span>
