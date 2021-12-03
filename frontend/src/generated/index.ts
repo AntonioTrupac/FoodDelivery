@@ -41,6 +41,11 @@ export type Menu = {
   tag?: Maybe<Tag>;
 };
 
+export type MenuInput = {
+  menuName: Scalars['String'];
+  restaurantId: Scalars['Float'];
+};
+
 export type MenuItem = {
   __typename?: 'MenuItem';
   id: Scalars['Int'];
@@ -59,6 +64,7 @@ export type MenuItemInput = {
   calories: Scalars['Float'];
   ingredients: Scalars['String'];
   menuId: Scalars['Float'];
+  tagId: Scalars['Float'];
 };
 
 export type Mutation = {
@@ -68,7 +74,8 @@ export type Mutation = {
   login?: Maybe<LoginResponse>;
   updateUser: User;
   addImage: Image;
-  addMenu: MenuItem;
+  addMenu: Menu;
+  addMenuItems: MenuItem;
 };
 
 
@@ -100,6 +107,11 @@ export type MutationAddImageArgs = {
 
 
 export type MutationAddMenuArgs = {
+  menuData: MenuInput;
+};
+
+
+export type MutationAddMenuItemsArgs = {
   menuItemData: MenuItemInput;
 };
 
@@ -138,7 +150,7 @@ export type QueryGetMenuByIdArgs = {
 
 
 export type QueryGetMenuItemByIdArgs = {
-  id: Scalars['Int'];
+  id?: Maybe<Scalars['Int']>;
 };
 
 
@@ -205,7 +217,7 @@ export type User = {
 };
 
 export type GetMenuItemByIdQueryVariables = Exact<{
-  id: Scalars['Int'];
+  id?: Maybe<Scalars['Int']>;
 }>;
 
 
@@ -428,7 +440,7 @@ export const UserFieldsFragmentDoc = gql`
 }
     `;
 export const GetMenuItemByIdDocument = gql`
-    query getMenuItemById($id: Int!) {
+    query getMenuItemById($id: Int) {
   getMenuItemById(id: $id) {
     ...MenuItemFields
   }
@@ -451,7 +463,7 @@ export const GetMenuItemByIdDocument = gql`
  *   },
  * });
  */
-export function useGetMenuItemByIdQuery(baseOptions: ApolloReactHooks.QueryHookOptions<GetMenuItemByIdQuery, GetMenuItemByIdQueryVariables>) {
+export function useGetMenuItemByIdQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<GetMenuItemByIdQuery, GetMenuItemByIdQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
         return ApolloReactHooks.useQuery<GetMenuItemByIdQuery, GetMenuItemByIdQueryVariables>(GetMenuItemByIdDocument, options);
       }
