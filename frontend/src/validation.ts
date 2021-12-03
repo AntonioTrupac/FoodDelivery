@@ -14,3 +14,10 @@ export const loginValidationSchema = yup.object().shape({
     email: yup.string().email('Invalid email').matches(EMAIL_REGEX, "Invalid email!").required('Field is required!'),
     password: yup.string().max(255, "Maximum number of charachters is 255!").required("Field is required!"),
 })
+
+export const editUserValidation = yup.object().shape({
+    firstName: yup.string().min(2,"First name too short!").max(30, "First name too long!").notRequired(),
+    lastName: yup.string().min(2,"Last name too short!").max(30, "Last name too long!").notRequired(),
+    email: yup.string().email('Invalid email!').matches(EMAIL_REGEX, "Invalid email!").required("Email is required!"),
+    phoneNumber: yup.string().notRequired(),
+});
