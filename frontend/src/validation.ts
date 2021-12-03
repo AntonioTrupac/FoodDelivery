@@ -7,7 +7,7 @@ export const registerValidationSchema = yup.object().shape({
     lastName: yup.string().min(2,"Last name too short!").max(30, "Last name too long!").required("Field is required!"),
     phoneNumber: yup.string().required("Field is required!"),
     email: yup.string().email('Invalid email!').matches(EMAIL_REGEX, "Invalid email!").required('Field is required!'),
-    password: yup.string().max(255, "Maximum number of charachters is 255!").required("Field is required!"),
+    password: yup.string().min(8, "Minimum number of charachters is 8").max(40, "Maximum number of charachters is 40!").required("Field is required!"),
 });
 
 export const loginValidationSchema = yup.object().shape({
