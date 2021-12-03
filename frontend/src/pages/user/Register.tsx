@@ -5,6 +5,7 @@ import { CustomInput } from '../../components/input/CustomInput';
 import { Button } from '../../components/button/Button';
 import { RegisterInput, useRegisterMutation } from '../../generated';
 import { registerValidationSchema } from '../../validation';
+import { ValidationError } from '../../components/validationError/ValidationError';
 
 type RegisterProps = {
    mode: string;
@@ -105,12 +106,12 @@ export const Register: FC<RegisterProps> = (props) => {
                            autoComplete='off'
                            onChange={propsFormik.handleChange}
                         />
-                        {/* TODO: CREATE A COMPONENT FOR ERROR DISPLAY */}
-                        {errors.firstName && touched.firstName && (
-                           <span className='mt-0 absolute top-7 text-[12px] left-0 text-red-500'>
-                              {errors.firstName}
-                           </span>
-                        )}
+
+                        <ValidationError
+                           fieldName='firstName'
+                           component='span'
+                           className='mt-0 absolute top-7 text-[12px] left-0 text-red-500'
+                        />
                      </div>
 
                      <div className='w-full relative'>
@@ -123,11 +124,12 @@ export const Register: FC<RegisterProps> = (props) => {
                            className='input'
                            onChange={propsFormik.handleChange}
                         />
-                        {errors.lastName && touched.lastName && (
-                           <span className='mt-0 absolute top-7 text-[12px] left-0 text-red-500'>
-                              {errors.lastName}
-                           </span>
-                        )}
+
+                        <ValidationError
+                           fieldName='lastName'
+                           component='span'
+                           className='mt-0 absolute top-7 text-[12px] left-0 text-red-500'
+                        />
                      </div>
 
                      <div className='w-full relative'>
@@ -141,11 +143,12 @@ export const Register: FC<RegisterProps> = (props) => {
                            className='input'
                            onChange={propsFormik.handleChange}
                         />
-                        {errors.phoneNumber && touched.phoneNumber && (
-                           <span className='mt-0 absolute top-7 text-[12px] left-0 text-red-500'>
-                              {errors.phoneNumber}
-                           </span>
-                        )}
+
+                        <ValidationError
+                           fieldName='phoneNumber'
+                           component='span'
+                           className='mt-0 absolute top-7 text-[12px] left-0 text-red-500'
+                        />
                      </div>
 
                      <div className='w-full relative'>
@@ -158,11 +161,12 @@ export const Register: FC<RegisterProps> = (props) => {
                            className='input'
                            onChange={propsFormik.handleChange}
                         />
-                        {errors.email && touched.email && (
-                           <span className='mt-0 absolute top-7 text-[12px] left-0 text-red-500'>
-                              {errors.email}
-                           </span>
-                        )}
+
+                        <ValidationError
+                           fieldName='email'
+                           component='span'
+                           className='mt-0 absolute top-7 text-[12px] left-0 text-red-500'
+                        />
                      </div>
 
                      <div className='w-full relative'>
@@ -175,12 +179,13 @@ export const Register: FC<RegisterProps> = (props) => {
                            className='input'
                            onChange={propsFormik.handleChange}
                         />
-                        {errors.password && touched.password && (
-                           <span className='mt-0 absolute top-7 text-[12px] left-0 text-red-500'>
-                              {errors.password}
-                           </span>
-                        )}
+                        <ValidationError
+                           fieldName='password'
+                           component='span'
+                           className='mt-0 absolute top-7 text-[12px] left-0 text-red-500'
+                        />
                      </div>
+
                      <Button
                         type='submit'
                         disabled={propsFormik.isSubmitting}

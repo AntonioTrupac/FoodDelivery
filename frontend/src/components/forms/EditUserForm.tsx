@@ -6,6 +6,7 @@ import { CustomInput } from '../input/CustomInput';
 import { Button } from '../button/Button';
 import { MeDocument, useUpdateUserMutation } from '../../generated';
 import { editUserValidation } from '../../validation';
+import { ValidationError } from '../validationError/ValidationError';
 
 type EditUserFormProps = {
    data: Values & { userId: string };
@@ -61,9 +62,7 @@ export const EditUserForm: FC<EditUserFormProps> = ({ data }) => {
             initialValues={initialValues}
             validationSchema={editUserValidation}
             onSubmit={(values) => {
-               setTimeout(() => {
-                  handleSubmit(values);
-               }, 2000);
+               handleSubmit(values);
             }}
          >
             {({ errors, touched, ...propsFormik }: FormikProps<Values>) => (
@@ -79,11 +78,12 @@ export const EditUserForm: FC<EditUserFormProps> = ({ data }) => {
                            className='input text-lg'
                            onChange={propsFormik.handleChange}
                         />
-                        {errors.firstName && touched.firstName && (
-                           <span className='mt-0 absolute top-7 text-[12px] left-0 text-red-500'>
-                              {errors.firstName}
-                           </span>
-                        )}
+
+                        <ValidationError
+                           fieldName='firstName'
+                           component='span'
+                           className='mt-0 absolute top-7 text-[12px] left-0 text-red-500'
+                        />
                      </div>
 
                      <div className='w-full relative'>
@@ -96,28 +96,12 @@ export const EditUserForm: FC<EditUserFormProps> = ({ data }) => {
                            className='input text-lg'
                            onChange={propsFormik.handleChange}
                         />
-                        {errors.lastName && touched.lastName && (
-                           <span className='mt-0 absolute top-7 text-[12px] left-0 text-red-500'>
-                              {errors.lastName}
-                           </span>
-                        )}
-                     </div>
 
-                     <div className='w-full relative'>
-                        <CustomInput
-                           name='email'
-                           placeholder='Email'
-                           value={propsFormik.values.email}
-                           type='text'
-                           autoComplete='off'
-                           className='input text-lg'
-                           onChange={propsFormik.handleChange}
+                        <ValidationError
+                           fieldName='lastName'
+                           component='span'
+                           className='mt-0 absolute top-7 text-[12px] left-0 text-red-500'
                         />
-                        {errors.email && touched.email && (
-                           <span className='mt-0 absolute top-7 text-[12px] left-0 text-red-500'>
-                              {errors.email}
-                           </span>
-                        )}
                      </div>
 
                      <div className='w-full relative'>
@@ -130,11 +114,30 @@ export const EditUserForm: FC<EditUserFormProps> = ({ data }) => {
                            className='input text-lg'
                            onChange={propsFormik.handleChange}
                         />
-                        {errors.phoneNumber && touched.phoneNumber && (
-                           <span className='mt-0 absolute top-7 text-[12px] left-0 text-red-500'>
-                              {errors.phoneNumber}
-                           </span>
-                        )}
+
+                        <ValidationError
+                           fieldName='phoneNumber'
+                           component='span'
+                           className='mt-0 absolute top-7 text-[12px] left-0 text-red-500'
+                        />
+                     </div>
+
+                     <div className='w-full relative'>
+                        <CustomInput
+                           name='email'
+                           placeholder='Email'
+                           value={propsFormik.values.email}
+                           type='text'
+                           autoComplete='off'
+                           className='input text-lg'
+                           onChange={propsFormik.handleChange}
+                        />
+
+                        <ValidationError
+                           fieldName='email'
+                           component='span'
+                           className='mt-0 absolute top-7 text-[12px] left-0 text-red-500'
+                        />
                      </div>
 
                      <Button

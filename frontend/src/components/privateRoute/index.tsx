@@ -21,7 +21,7 @@ export const PrivateRoutes: FC = () => {
    }, [me, sessionUpdated]);
 
    return (
-      <div>
+      <>
          <Header />
          <PrivateRoute path='/' component={Home} exact />
          <PrivateRoute
@@ -30,6 +30,6 @@ export const PrivateRoutes: FC = () => {
             exact
          />
          <PrivateRoute path='/editUserInfo' component={EditUserInfo} exact />
-      </div>
+      </>
    );
 };

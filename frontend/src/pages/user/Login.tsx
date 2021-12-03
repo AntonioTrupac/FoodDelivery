@@ -7,6 +7,7 @@ import { MutationLoginArgs, useLoginMutation } from '../../generated';
 import { useHistory } from 'react-router-dom';
 import { setAccessToken } from '../../accessToken';
 import { loginValidationSchema } from '../../validation';
+import { ValidationError } from '../../components/validationError/ValidationError';
 
 type LoginProps = {
    mode: string;
@@ -84,11 +85,12 @@ export const Login: FC<LoginProps> = (props) => {
                            autoComplete='off'
                            onChange={propsFormik.handleChange}
                         />
-                        {errors.email && touched.email && (
-                           <span className='mt-0 absolute top-7 text-[12px] left-0 text-red-500'>
-                              {errors.email}
-                           </span>
-                        )}
+
+                        <ValidationError
+                           fieldName='email'
+                           component='span'
+                           className='mt-0 absolute top-7 text-[12px] left-0 text-red-500'
+                        />
                      </div>
 
                      <div className='w-full relative'>
@@ -101,11 +103,12 @@ export const Login: FC<LoginProps> = (props) => {
                            className='input'
                            onChange={propsFormik.handleChange}
                         />
-                        {errors.password && touched.password && (
-                           <span className='mt-0 absolute top-7 text-[12px] left-0 text-red-500'>
-                              {errors.password}
-                           </span>
-                        )}
+
+                        <ValidationError
+                           fieldName='password'
+                           component='span'
+                           className='mt-0 absolute top-7 text-[12px] left-0 text-red-500'
+                        />
                      </div>
 
                      <Button type='submit' className='form__button'>
