@@ -1,7 +1,6 @@
 import { MiddlewareFn } from 'type-graphql';
 import { MyContext } from '../types/MyContext';
 import { verify } from 'jsonwebtoken';
-// import {Error} from ""
 
 // bearer
 export const isAuth: MiddlewareFn<MyContext> = async ({ context }, next) => {
