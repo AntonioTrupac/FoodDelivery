@@ -1,4 +1,4 @@
-query getMenuItemById($id: Int!) {
+query getMenuItemById($id: Int) {
   getMenuItemById(id: $id) {
     ...MenuItemFields
   }

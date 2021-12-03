@@ -28,7 +28,11 @@ export class MenuItemResolver {
    }
 
    @Query((returns) => MenuItem, { nullable: true })
-   async getMenuItemById(@Arg('id', (type) => Int) id: number) {
+   async getMenuItemById(@Arg('id' , (type) => Int, {nullable: true}) id?: number) {
+      if(id === undefined) {
+         return;
+      }
+
       return await this.menuItemRepo.findOne(id, { relations: ['tag'] });
    }
 
