@@ -1,6 +1,9 @@
 import { ApolloError } from '@apollo/client';
-import { FC } from 'react';
-import { GetMenuItemByIdQuery } from '../generated';
+import { faPlusSquare } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FC, useCallback } from 'react';
+import { GetMenuItemByIdQuery, MenuItem } from '../generated';
+import { useBasketStore } from '../store/basket';
 
 type RestaurantModalDetailsProps = {
    data: GetMenuItemByIdQuery | undefined;
@@ -12,6 +15,21 @@ type RestaurantModalDetailsProps = {
 export const RestaurantModalDetails: FC<RestaurantModalDetailsProps> = (
    props
 ) => {
+   const { items, itemAdded, itemIncremented } = useBasketStore();
+   const addItem = useCallback(
+      (menuItem: MenuItem) => {
+         if (!items.find((i) => i.menuItemId === menuItem.id)) {
+            itemAdded({
+               menuItemId: menuItem.id,
+               name: menuItem.name,
+            });
+         } else {
+            itemIncremented(menuItem.id);
+         }
+      },
+      [itemAdded, itemIncremented, items]
+   );
+
    return (
       <div>
          <p className='font-medium text-2xl mb-2'>
@@ -38,6 +56,17 @@ export const RestaurantModalDetails: FC<RestaurantModalDetailsProps> = (
          <div className='flex my-1'>
             <p className='mr-1 font-medium'>Category:</p>
             <p>{props.data?.getMenuItemById?.tag?.tagName}</p>
+         </div>
+
+         <div
+            className='text-2xl md:text-lg flex justify-between'
+            onClick={() => {
+               if (props.data?.getMenuItemById) {
+                  addItem(props.data?.getMenuItemById);
+               }
+            }}
+         >
+            <FontAwesomeIcon icon={faPlusSquare} />
          </div>
       </div>
    );

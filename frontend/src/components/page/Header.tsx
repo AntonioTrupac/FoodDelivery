@@ -1,4 +1,5 @@
 import { FC, useState } from 'react';
+import { BasketDrawer } from '../drawer/BasketDrawer';
 
 import { Drawer } from '../drawer/Drawer';
 import { Navbar } from './Navbar';
@@ -10,11 +11,7 @@ export const Header: FC = () => {
       <>
          <div className='header-container'>
             <Navbar setIsOpen={setIsOpen} />
-            <Drawer
-               isOpen={isOpen}
-               setIsOpen={setIsOpen}
-               headerText='Cart items'
-            />
+            <BasketDrawer isOpen={isOpen} onClose={() => setIsOpen(false)} />
          </div>
       </>
    );
