@@ -25,21 +25,21 @@ export class Order extends BaseEntity {
     @ManyToOne((type) => User)
     customer: User;
 
-    @Field((type) => User)
-    @ManyToOne((type) => User)
+    @Field((type) => Restaurant)
+    @ManyToOne((type) => Restaurant)
     restaurant: Restaurant;
 
-    @Field((type) => User)
-    @ManyToOne((type) => User)
-    employee: Employee;
+    @Field((type) => Employee, {nullable: true})
+    @ManyToOne((type) => Employee)
+    employee?: Employee;
 
     @Field(() => Float)
     @Column()
     total: number;
 
     @Field()
-    @Column({ type: 'timestamptz' })
-    deliveredAt: Date
+    @Column({ type: 'timestamptz', nullable: true, })
+    deliveredAt?: Date
 
     @OneToMany((type) => OrderItem, (oItem) => oItem.order)
     items: OrderItem[];

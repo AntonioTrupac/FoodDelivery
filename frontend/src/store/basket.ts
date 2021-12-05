@@ -17,6 +17,7 @@ type BasketActions = {
     itemIncremented: (menuItemId: number) => void;
     itemSubtracted: (menuItemId: number) => void;
     itemRemoved: (menuItemId: number) => void;
+    basketCleared: () => void;
 }
 
 type BasketStore = BasketState & BasketActions;
@@ -70,6 +71,15 @@ export const useBasketStore = create<BasketStore>(set => ({
                             draft.items.splice(draft.items.findIndex(i => i.menuItemId === id), 1)
                         }
                     }
+                }
+            )
+        )
+    },
+    basketCleared() {
+        set(
+            produce(
+                (draft: BasketState) => {
+                    draft.items = [];
                 }
             )
         )

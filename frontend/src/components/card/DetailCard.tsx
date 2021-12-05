@@ -48,6 +48,7 @@ export const DetailCard: FC<DetailCardProps> = ({ menuItems, restaurant }) => {
                   </div>
                   <div className='text-2xl md:text-lg flex justify-between'>
                      <p>{item.price}$</p>
+                     {/* TODO: add item */}
                      <div>
                         <FontAwesomeIcon icon={faPlusSquare} />
                      </div>

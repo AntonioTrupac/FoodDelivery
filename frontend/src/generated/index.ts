@@ -13,6 +13,16 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  /** The javascript `Date` as string. Type represents date and time as the ISO Date string. */
+  DateTime: any;
+};
+
+
+export type Employee = {
+  __typename?: 'Employee';
+  id: Scalars['Int'];
+  firstName: Scalars['String'];
+  lastName: Scalars['String'];
 };
 
 export type Image = {
@@ -76,6 +86,7 @@ export type Mutation = {
   addImage: Image;
   addMenu: Menu;
   addMenuItems: MenuItem;
+  createOrder?: Maybe<Order>;
 };
 
 
@@ -113,6 +124,30 @@ export type MutationAddMenuArgs = {
 
 export type MutationAddMenuItemsArgs = {
   menuItemData: MenuItemInput;
+};
+
+
+export type MutationCreateOrderArgs = {
+  input: OrderInput;
+};
+
+export type Order = {
+  __typename?: 'Order';
+  id: Scalars['Int'];
+  customer: User;
+  restaurant: Restaurant;
+  employee?: Maybe<Employee>;
+  total: Scalars['Float'];
+  deliveredAt: Scalars['DateTime'];
+};
+
+export type OrderInput = {
+  items: Array<OrderInputItem>;
+};
+
+export type OrderInputItem = {
+  menuItemId: Scalars['Float'];
+  quantity: Scalars['Int'];
 };
 
 export type Query = {
@@ -255,6 +290,19 @@ export type MenuItemFieldsFragment = (
 export type TagFieldsFragment = (
   { __typename?: 'Tag' }
   & Pick<Tag, 'id' | 'tagName'>
+);
+
+export type CreateOrderMutationVariables = Exact<{
+  input: OrderInput;
+}>;
+
+
+export type CreateOrderMutation = (
+  { __typename?: 'Mutation' }
+  & { createOrder?: Maybe<(
+    { __typename?: 'Order' }
+    & Pick<Order, 'id' | 'total'>
+  )> }
 );
 
 export type GetRestaurantsQueryVariables = Exact<{ [key: string]: never; }>;
@@ -510,6 +558,40 @@ export function useGetCategoriesByTagIdLazyQuery(baseOptions?: ApolloReactHooks.
 export type GetCategoriesByTagIdQueryHookResult = ReturnType<typeof useGetCategoriesByTagIdQuery>;
 export type GetCategoriesByTagIdLazyQueryHookResult = ReturnType<typeof useGetCategoriesByTagIdLazyQuery>;
 export type GetCategoriesByTagIdQueryResult = ApolloReactCommon.QueryResult<GetCategoriesByTagIdQuery, GetCategoriesByTagIdQueryVariables>;
+export const CreateOrderDocument = gql`
+    mutation createOrder($input: OrderInput!) {
+  createOrder(input: $input) {
+    id
+    total
+  }
+}
+    `;
+export type CreateOrderMutationFn = ApolloReactCommon.MutationFunction<CreateOrderMutation, CreateOrderMutationVariables>;
+
+/**
+ * __useCreateOrderMutation__
+ *
+ * To run a mutation, you first call `useCreateOrderMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateOrderMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createOrderMutation, { data, loading, error }] = useCreateOrderMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useCreateOrderMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<CreateOrderMutation, CreateOrderMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return ApolloReactHooks.useMutation<CreateOrderMutation, CreateOrderMutationVariables>(CreateOrderDocument, options);
+      }
+export type CreateOrderMutationHookResult = ReturnType<typeof useCreateOrderMutation>;
+export type CreateOrderMutationResult = ApolloReactCommon.MutationResult<CreateOrderMutation>;
+export type CreateOrderMutationOptions = ApolloReactCommon.BaseMutationOptions<CreateOrderMutation, CreateOrderMutationVariables>;
 export const GetRestaurantsDocument = gql`
     query getRestaurants {
   getRestaurants {
