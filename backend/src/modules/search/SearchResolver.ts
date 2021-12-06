@@ -19,6 +19,7 @@ export class SearchResolver {
       JOIN menu m ON m."restaurantId" = r."id"
       JOIN tag t ON t."id" = m."tagId"
       WHERE t."tagName" ILIKE '%' || $1 || '%'`;
+      
       return await getConnection().manager.query(sql, [ search ]);
    }
 }
