@@ -1,5 +1,5 @@
 import { Arg, Query, Resolver } from 'type-graphql';
-import { getRepository, Repository } from 'typeorm';
+import { getConnection, getRepository, Like, Repository } from 'typeorm';
 import { Restaurant } from '../../entity/Restaurant';
 
 @Resolver()
@@ -12,9 +12,14 @@ export class SearchResolver {
    async search(
       @Arg('search', { defaultValue: '' }) search?: string
    ): Promise<Restaurant[]> {
-      return await this.restaurantRepository.find({
-         where: `"restaurantName" ILIKE '%${search}%' OR "tagName" ILIKE '%${search}%'`,
-         relations: ['menu', 'menu.tag'],
-      });
+      const sql = `
+      SELECT * FROM restaurant WHERE "restaurantName" ILIKE '%' || $1 || '%'
+      UNION
+      SELECT r.* FROM restaurant r
+      JOIN menu m ON m."restaurantId" = r."id"
+      JOIN tag t ON t."id" = m."tagId"
+      WHERE t."tagName" ILIKE '%' || $1 || '%'`;
+      
+      return await getConnection().manager.query(sql, [ search ]);
    }
 }

@@ -4,8 +4,10 @@ import {
    Column,
    BaseEntity,
    PrimaryColumn,
+   OneToMany,
 } from 'typeorm';
 import { Field, ID, ObjectType, Root } from 'type-graphql';
+import { Order } from './Order';
 
 @ObjectType()
 @Entity()
@@ -37,4 +39,7 @@ export class User extends BaseEntity {
 
    @Column('timestamp', { default: () => 'CURRENT_TIMESTAMP' })
    createdAt: string;
+
+   @OneToMany((type) => Order, (order) => order.customer)
+   orders: Order[];
 }

@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useCallback, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusSquare } from '@fortawesome/free-regular-svg-icons';
 
@@ -6,6 +6,7 @@ import { MenuItem, Restaurant, useGetMenuItemByIdQuery } from '../../generated';
 import { useModal } from '../../customHooks/useModal';
 import { Modal } from '../modal/Modal';
 import { RestaurantModalDetails } from '../RestaurantModalDetails';
+import { useBasketStore } from '../../store/basket';
 
 type DetailCardProps = {
    menuItems?: MenuItem[];
@@ -15,6 +16,7 @@ type DetailCardProps = {
 export const DetailCard: FC<DetailCardProps> = ({ menuItems, restaurant }) => {
    const [itemId, setItemId] = useState<number>();
    const { isShown, toggle } = useModal();
+   const { items, itemAdded, itemIncremented } = useBasketStore();
 
    const allItems = restaurant?.menu?.menuItems.map((item) => item);
 
@@ -46,6 +48,7 @@ export const DetailCard: FC<DetailCardProps> = ({ menuItems, restaurant }) => {
                   </div>
                   <div className='text-2xl md:text-lg flex justify-between'>
                      <p>{item.price}$</p>
+                     {/* TODO: add item */}
                      <div>
                         <FontAwesomeIcon icon={faPlusSquare} />
                      </div>

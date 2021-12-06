@@ -15,6 +15,8 @@ import { ImageResolver } from './modules/imageRes/ImageResolver';
 import { MenuResolver } from './modules/menu/MenuResolver';
 import { MenuItemResolver } from './modules/menuItem/MenuItemResolver';
 import { SearchResolver } from './modules/search/SearchResolver';
+import { OrderResolver } from './modules/order/OrderResolver';
+
 
 dotenv.config();
 const { PORT } = process.env;
@@ -32,6 +34,7 @@ const main = async () => {
          MenuResolver,
          MenuItemResolver,
          SearchResolver,
+         OrderResolver,
       ],
       authChecker: ({ context: { req } }) => {
          return !!req.session.userId;

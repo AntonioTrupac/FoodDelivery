@@ -3,11 +3,13 @@ import {
    BaseEntity,
    Column,
    Entity,
+   OneToMany,
    OneToOne,
    PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Image } from '../entity/Image';
 import { Menu } from './Menu';
+import { Order } from './Order';
 
 @ObjectType()
 @Entity()
@@ -59,4 +61,7 @@ export class Restaurant extends BaseEntity {
       cascade: ['insert', 'update', 'remove', 'soft-remove', 'recover'],
    })
    menu?: Menu;
+
+   @OneToMany((type) => Order, (order) => order.restaurant)
+   orders: Order[];
 }

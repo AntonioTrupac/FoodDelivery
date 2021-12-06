@@ -4,9 +4,11 @@ import {
    Column,
    Entity,
    ManyToOne,
+   OneToMany,
    PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Menu } from './Menu';
+import { OrderItem } from './OrderItem';
 import { Tag } from './Tags';
 
 @ObjectType()
@@ -46,4 +48,7 @@ export class MenuItem extends BaseEntity {
    @Field((type) => Tag, { nullable: true })
    @ManyToOne((type) => Tag, { nullable: true })
    tag: Tag;
+
+   @OneToMany((type) => OrderItem, (oItem) => oItem.menuItem)
+   items: OrderItem[];
 }
