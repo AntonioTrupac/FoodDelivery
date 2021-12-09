@@ -77,25 +77,28 @@ export const BasketDrawer: FC<BasketDrawerProps> = ({
             </div>
          ))}
 
-         <Button
-            disabled={items.length === 0}
-            onClick={() => {
-               orderMutation({
-                  variables: {
-                     input: {
-                        items: items.map((i) => {
-                           return {
-                              menuItemId: i.menuItemId,
-                              quantity: i.quantity,
-                           };
-                        }),
+         <div className='flex items-center justify-center'>
+            <Button
+               className='px-4 py-1.5 text-sm rounded-[0.75em] bg-[#FEAE67] transition duration-300 ease-in-out hover:bg-[#FFEEDE] hover:py-[4px] hover:border-[#FEAE67] hover:border-[2px] hover:text-[#000]'
+               disabled={items.length === 0}
+               onClick={() => {
+                  orderMutation({
+                     variables: {
+                        input: {
+                           items: items.map((i) => {
+                              return {
+                                 menuItemId: i.menuItemId,
+                                 quantity: i.quantity,
+                              };
+                           }),
+                        },
                      },
-                  },
-               });
-            }}
-         >
-            Order
-         </Button>
+                  });
+               }}
+            >
+               Order
+            </Button>
+         </div>
       </Drawer>
    );
 };
