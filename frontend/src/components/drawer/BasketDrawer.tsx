@@ -25,7 +25,7 @@ export const BasketDrawer: FC<BasketDrawerProps> = ({
    const { data } = orderMutationResult;
    const { createOrder } = data || {};
    const { id, total } = createOrder || {};
-   console.log(orderMutationResult);
+
    useEffect(() => {
       if (orderMutationResult.called && !orderMutationResult.loading) {
          if (id && total) {
@@ -50,6 +50,7 @@ export const BasketDrawer: FC<BasketDrawerProps> = ({
                <h2>
                   {i.quantity} * {i.name}
                </h2>
+
                <Button
                   onClick={() => {
                      itemIncremented(i.menuItemId);
@@ -57,6 +58,7 @@ export const BasketDrawer: FC<BasketDrawerProps> = ({
                >
                   +
                </Button>
+
                <Button
                   onClick={() => {
                      itemSubtracted(i.menuItemId);
@@ -64,6 +66,7 @@ export const BasketDrawer: FC<BasketDrawerProps> = ({
                >
                   -
                </Button>
+
                <Button
                   onClick={() => {
                      itemRemoved(i.menuItemId);
@@ -73,6 +76,7 @@ export const BasketDrawer: FC<BasketDrawerProps> = ({
                </Button>
             </div>
          ))}
+
          <Button
             disabled={items.length === 0}
             onClick={() => {

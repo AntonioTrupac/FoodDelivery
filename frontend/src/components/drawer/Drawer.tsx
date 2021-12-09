@@ -1,4 +1,6 @@
-import React, { Dispatch, FC, SetStateAction } from 'react';
+import { Dispatch, FC, SetStateAction } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 type DrawerProps = {
    isOpen: boolean;
@@ -22,7 +24,20 @@ export const Drawer: FC<DrawerProps> = (props) => {
          >
             <article className='relative w-screen max-w-lg pb-10 flex flex-col space-y-6 overflow-y-scroll h-full'>
                <header className='p-4 font-bold text-lg'>
-                  {props.headerText}
+                  <div className='flex items-center justify-between'>
+                     <p>{props.headerText}</p>
+
+                     <div className=''>
+                        <FontAwesomeIcon
+                           aria-label='Close'
+                           data-dissmis='modal'
+                           size='1x'
+                           icon={faTimes}
+                           onClick={() => props.setIsOpen(false)}
+                           className=' text-[#606060] border-none rounded-[2px] bg-none hover:text-[#FEAE67]'
+                        />
+                     </div>
+                  </div>
                </header>
                {props.children}
             </article>

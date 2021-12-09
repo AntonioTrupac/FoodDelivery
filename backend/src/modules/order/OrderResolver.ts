@@ -22,15 +22,21 @@ export class OrderResolver {
         console.log(payload);
         console.log(input);
         const customer = await User.findOne(payload?.userId);
+        
         const menuItems = await MenuItem.findByIds(input.items.map(i => i.menuItemId), {relations: ['menu', 'menu.restaurant']});
+        
         const restaurants = menuItems.map(mi => mi.menu.restaurantId);
+        
         const uniqueRestaurantIds: number[] = [];
         restaurants.map(r => {
             if (uniqueRestaurantIds.indexOf(r) < 0) uniqueRestaurantIds.push(r);
         })
+        
         if (customer && menuItems.length === input.items.length && uniqueRestaurantIds.length === 1) {
             const total = menuItems.map(m => m.price * input.items.find(i => i.menuItemId === m.id)!.quantity).reduce((a,b) => a+b,0);
+            
             const restaurant = await Restaurant.findOne(uniqueRestaurantIds[0]);
+            
             const order = await getConnection().manager.save(
                 Order.create({
                     customer,
@@ -47,6 +53,7 @@ export class OrderResolver {
                     order
                 });
             }));
+            
             if (items.length === input.items.length) 
                 return order;
             
