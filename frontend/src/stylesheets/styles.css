@@ -29,3 +29,31 @@ body {
 .input {
    @apply w-full  border-b-[1px] border-[#AFAEAE] mb-6 focus:outline-none;
 }
+
+.close {
+   position: absolute;
+   right: 20px;
+   top: 15px;
+   width: 20px;
+   height: 20px;
+   opacity: 0.5;
+}
+
+.close:hover {
+   opacity: 1;
+}
+.close:before,
+.close:after {
+   position: absolute;
+   left: 15px;
+   content: ' ';
+   height: 20px;
+   width: 2px;
+   background-color: #333;
+}
+.close:before {
+   transform: rotate(45deg);
+}
+.close:after {
+   transform: rotate(-45deg);
+}

@@ -27,33 +27,5 @@
       .navbar-button {
          @apply bg-[#FEAE67] transition duration-300 ease-in-out hover:bg-[#FFEEDE] hover:py-[4px] hover:border-[#FEAE67] hover:border-[2px] hover:text-[#000];
       }
-
-      .close {
-         position: absolute;
-         right: 20px;
-         top: 15px;
-         width: 20px;
-         height: 20px;
-         opacity: 0.5;
-      }
-
-      .close:hover {
-         opacity: 1;
-      }
-      .close:before,
-      .close:after {
-         position: absolute;
-         left: 15px;
-         content: ' ';
-         height: 20px;
-         width: 2px;
-         background-color: #333;
-      }
-      .close:before {
-         transform: rotate(45deg);
-      }
-      .close:after {
-         transform: rotate(-45deg);
-      }
    }
 }

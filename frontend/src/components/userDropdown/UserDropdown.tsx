@@ -33,13 +33,6 @@ export const UserDropdown: FC<UserDropdownProps> = ({ open, setOpen }) => {
       history.push('/editUserInfo');
    };
 
-   //    if (error) {
-   //       <div>{error.message}</div>;
-   //    }
-   //    if (loading) {
-   //       <div>Loading...</div>;
-   //    }
-
    useOnClickOutside(node, handleClickOutside);
 
    return (
