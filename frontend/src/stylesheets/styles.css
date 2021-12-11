@@ -9,6 +9,7 @@
 @import 'components/card/detailCard.css';
 @import 'components/userDropdown.css';
 @import 'components/editUser/editUserInfo.css';
+@import 'components/modalButton.css';
 
 @tailwind base;
 @tailwind components;
@@ -27,7 +28,7 @@ body {
 }
 
 .input {
-   @apply w-full  border-b-[1px] border-[#AFAEAE] mb-6 focus:outline-none;
+   @apply w-full border-b-[1px] border-[#AFAEAE] mb-6 focus:outline-none;
 }
 
 .close {

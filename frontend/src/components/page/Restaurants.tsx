@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from 'react';
 import { Card } from '../card/Card';
 
 import categories from '../dummydata/categories';
-import { Restaurant, useGetRestaurantsQuery } from '../../generated';
+import { Restaurant } from '../../generated';
 import { RootState } from '../../redux/store';
 import { useSelector } from 'react-redux';
 

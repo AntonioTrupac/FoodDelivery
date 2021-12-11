@@ -26,6 +26,20 @@ export const DetailCard: FC<DetailCardProps> = ({ menuItems, restaurant }) => {
       },
    });
 
+   const addItem = useCallback(
+      (menuItem: MenuItem) => {
+         if (!items.find((i) => i.menuItemId === menuItem.id)) {
+            itemAdded({
+               menuItemId: menuItem.id,
+               name: menuItem.name,
+            });
+         } else {
+            itemIncremented(menuItem.id);
+         }
+      },
+      [itemAdded, itemIncremented, items]
+   );
+
    const splitString = data?.getMenuItemById?.ingredients.split(' ');
 
    if (menuItems === undefined || menuItems === null) {
@@ -48,9 +62,18 @@ export const DetailCard: FC<DetailCardProps> = ({ menuItems, restaurant }) => {
                   </div>
                   <div className='text-2xl md:text-lg flex justify-between'>
                      <p>{item.price}$</p>
-                     {/* TODO: add item */}
-                     <div>
-                        <FontAwesomeIcon icon={faPlusSquare} />
+                     <div
+                        onClick={(event) => {
+                           event.stopPropagation();
+                           if (data?.getMenuItemById) {
+                              addItem(data?.getMenuItemById);
+                           }
+                        }}
+                     >
+                        <FontAwesomeIcon
+                           icon={faPlusSquare}
+                           className='hover:text-[#FEAE67] transition duration-300 ease-in-out'
+                        />
                      </div>
                   </div>
                </div>

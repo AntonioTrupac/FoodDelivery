@@ -1,9 +1,8 @@
 import { ApolloError } from '@apollo/client';
-import { faPlusSquare } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FC, useCallback } from 'react';
 import { GetMenuItemByIdQuery, MenuItem } from '../generated';
 import { useBasketStore } from '../store/basket';
+import { Button } from './button/Button';
 
 type RestaurantModalDetailsProps = {
    data: GetMenuItemByIdQuery | undefined;
@@ -58,15 +57,17 @@ export const RestaurantModalDetails: FC<RestaurantModalDetailsProps> = (
             <p>{props.data?.getMenuItemById?.tag?.tagName}</p>
          </div>
 
-         <div
-            className='text-2xl md:text-lg flex justify-between'
-            onClick={() => {
-               if (props.data?.getMenuItemById) {
-                  addItem(props.data?.getMenuItemById);
-               }
-            }}
-         >
-            <FontAwesomeIcon icon={faPlusSquare} />
+         <div className='flex items-center justify-center'>
+            <Button
+               className='modal-button'
+               onClick={() => {
+                  if (props.data?.getMenuItemById) {
+                     addItem(props.data?.getMenuItemById);
+                  }
+               }}
+            >
+               Add to basket
+            </Button>
          </div>
       </div>
    );

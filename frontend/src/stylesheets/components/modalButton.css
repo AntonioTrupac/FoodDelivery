@@ -1,0 +1,5 @@
+@layer components {
+    .modal-button {
+        @apply md:text-lg text-xl bg-[#FEAE67] text-[#FFFFFF] w-full max-w-[200px] py-1 mt-[25px] rounded-[40px] focus:ring-[3px] focus:py-[4px] focus:border-none focus:outline-none transition duration-300 ease-in-out hover:bg-[#FFEEDE] hover:py-[2px] hover:border-[#FEAE67] hover:border-[2px] hover:text-[#000];
+    }
+  }
