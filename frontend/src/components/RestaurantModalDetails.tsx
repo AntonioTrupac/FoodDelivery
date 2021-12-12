@@ -21,6 +21,7 @@ export const RestaurantModalDetails: FC<RestaurantModalDetailsProps> = (
             itemAdded({
                menuItemId: menuItem.id,
                name: menuItem.name,
+               price: menuItem.price,
             });
          } else {
             itemIncremented(menuItem.id);

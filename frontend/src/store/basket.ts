@@ -1,11 +1,12 @@
 import create from "zustand";
 import {produce} from "immer";
 
-type BasketItem = {
+export type BasketItem = {
     menuItemId: number;
     name: string;
     imageUrl?: string;
     quantity: number;
+    price: number;
 }
 
 type BasketState = {
@@ -13,11 +14,12 @@ type BasketState = {
 }
 
 type BasketActions = {
-    itemAdded: (item: Pick<BasketItem, 'menuItemId' | 'name' | 'imageUrl'>) => void;
+    itemAdded: (item: Pick<BasketItem, 'menuItemId' | 'name' | 'imageUrl' | 'price'>) => void;
     itemIncremented: (menuItemId: number) => void;
     itemSubtracted: (menuItemId: number) => void;
     itemRemoved: (menuItemId: number) => void;
     basketCleared: () => void;
+    itemTotal: () => void;
 }
 
 type BasketStore = BasketState & BasketActions;
@@ -83,5 +85,25 @@ export const useBasketStore = create<BasketStore>(set => ({
                 }
             )
         )
+    },
+    itemTotal() {
+        set(
+            produce(
+                (draft: BasketState) => {
+                    // const priceTotal = draft.items.find
+                    const total = draft.items.map(m => m.price * m.quantity).reduce((a,b) => a+b,0);
+                    
+                    if(total > 0) {
+                        console.log("TOTAL", total);
+                        return total;
+                        
+                    } else {
+                        return 0;
+                    }
+                }
+            )
+        )
+        
     }
+    
 }));

@@ -22,7 +22,7 @@ export const Drawer: FC<DrawerProps> = (props) => {
             className={`w-screen max-w-lg right-0 absolute bg-white h-full shadow-xl delay-400 duration-500 ease-in-out transition-all transform 
                ${props.isOpen ? 'translate-x-0' : 'translate-x-full'}`}
          >
-            <article className='relative w-screen max-w-lg pb-10 flex flex-col space-y-6 overflow-y-scroll h-full'>
+            <article className='relative w-screen max-w-lg pb-10 flex flex-col space-y-3 overflow-auto h-full'>
                <header className='p-4 font-bold text-lg'>
                   <div className='flex items-center justify-between'>
                      <p>{props.headerText}</p>
@@ -30,7 +30,6 @@ export const Drawer: FC<DrawerProps> = (props) => {
                      <div className=''>
                         <FontAwesomeIcon
                            aria-label='Close'
-                           data-dissmis='modal'
                            size='1x'
                            icon={faTimes}
                            onClick={() => props.setIsOpen(false)}

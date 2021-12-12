@@ -26,12 +26,28 @@ export const DetailCard: FC<DetailCardProps> = ({ menuItems, restaurant }) => {
       },
    });
 
-   const addItem = useCallback(
+   const addItemFromAllItems = useCallback(
+      (allItems: MenuItem) => {
+         if (!items.find((i) => i.menuItemId === allItems.id)) {
+            itemAdded({
+               menuItemId: allItems.id,
+               name: allItems.name,
+               price: allItems.price,
+            });
+         } else {
+            itemIncremented(allItems.id);
+         }
+      },
+      [itemAdded, itemIncremented, items]
+   );
+
+   const addItemFromSingleMenu = useCallback(
       (menuItem: MenuItem) => {
          if (!items.find((i) => i.menuItemId === menuItem.id)) {
             itemAdded({
                menuItemId: menuItem.id,
                name: menuItem.name,
+               price: menuItem.price,
             });
          } else {
             itemIncremented(menuItem.id);
@@ -65,8 +81,8 @@ export const DetailCard: FC<DetailCardProps> = ({ menuItems, restaurant }) => {
                      <div
                         onClick={(event) => {
                            event.stopPropagation();
-                           if (data?.getMenuItemById) {
-                              addItem(data?.getMenuItemById);
+                           if (item?.id) {
+                              addItemFromAllItems(item);
                            }
                         }}
                      >
@@ -116,8 +132,18 @@ export const DetailCard: FC<DetailCardProps> = ({ menuItems, restaurant }) => {
                   </div>
                   <div className='text-2xl md:text-lg flex justify-between'>
                      <p>{menuItem.price}$</p>
-                     <div>
-                        <FontAwesomeIcon icon={faPlusSquare} />
+                     <div
+                        onClick={(event) => {
+                           event.stopPropagation();
+                           if (menuItem.id) {
+                              addItemFromSingleMenu(menuItem);
+                           }
+                        }}
+                     >
+                        <FontAwesomeIcon
+                           icon={faPlusSquare}
+                           className='hover:text-[#FEAE67] transition duration-300 ease-in-out'
+                        />
                      </div>
                   </div>
                </div>
