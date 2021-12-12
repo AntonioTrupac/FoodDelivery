@@ -12,7 +12,7 @@ export const ItemCard = ({ item }: ItemCardProps) => {
    const { itemIncremented, itemRemoved, itemSubtracted } = useBasketStore();
 
    return (
-      <div className='border-[1px] w-[100%] border-gray-300 px-4 py-4 mx-4 shadow-lg rounded-lg'>
+      <div className='border-[1px] w-[100%] border-gray-300 px-4 py-4 mx-4 shadow-lg rounded-lg hover:border-gray-500 transition duration-300 ease-in-out'>
          <div className='flex justify-end'>
             <FontAwesomeIcon
                aria-label='Remove'
@@ -27,12 +27,14 @@ export const ItemCard = ({ item }: ItemCardProps) => {
 
          <div className='flex items-center'>
             <div className='flex'>
-               <p className='mr-2'>{item.name}</p>
+               <p className='mr-2 text-2xl font-light'>{item.name}</p>
             </div>
          </div>
 
          <div className='flex items-center'>
-            <p className='mr-2'>Number of items to order: </p>
+            <p className='mr-2 text-lg font-light'>
+               Number of items to order:{' '}
+            </p>
             <Button
                onClick={() => {
                   itemIncremented(item.menuItemId);
@@ -41,13 +43,13 @@ export const ItemCard = ({ item }: ItemCardProps) => {
             >
                <FontAwesomeIcon
                   aria-label='Add'
-                  size='1x'
+                  size='sm'
                   icon={faPlus}
                   className=' text-[#606060] hover:text-[#FEAE67] '
                />
             </Button>
 
-            <p className=''>{item.quantity}</p>
+            <p className='text-lg font-light'>{item.quantity}</p>
 
             <Button
                onClick={() => {
@@ -57,14 +59,14 @@ export const ItemCard = ({ item }: ItemCardProps) => {
             >
                <FontAwesomeIcon
                   aria-label='Add'
-                  size='1x'
+                  size='sm'
                   icon={faMinus}
                   className=' text-[#606060] hover:text-[#FEAE67] '
                />
             </Button>
          </div>
          <div>
-            <p>Price: {item.price}$</p>
+            <p className='text-lg font-light'>Price: {item.price}$</p>
          </div>
       </div>
    );

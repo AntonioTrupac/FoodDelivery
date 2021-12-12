@@ -15,18 +15,18 @@ export const BasketDrawer: FC<BasketDrawerProps> = ({
    isOpen,
    onClose,
 }: BasketDrawerProps) => {
-   const { items, basketCleared, itemTotal } = useBasketStore();
+   const { items, basketCleared } = useBasketStore();
+   const [totalPrice, setTotalPrice] = useState<number | undefined>(0);
 
    const [orderMutation, orderMutationResult] = useCreateOrderMutation();
    const { data } = orderMutationResult;
    const { createOrder } = data || {};
    const { id, total } = createOrder || {};
-   console.log(itemTotal, 'TOTALLL');
 
    useEffect(() => {
       if (orderMutationResult.called && !orderMutationResult.loading) {
          if (id && total) {
-            alert(`Order made: ${total}$`);
+            // alert(`Order made: ${total}$`); Should alert a person that an order has been made
             basketCleared();
          } else {
             alert(`Couldn't create order.`);
@@ -40,6 +40,16 @@ export const BasketDrawer: FC<BasketDrawerProps> = ({
       total,
    ]);
 
+   useEffect(() => {
+      if (items.length !== 0) {
+         const total = items
+            .map((m) => m.price * m.quantity)
+            .reduce((a, b) => a + b, 0);
+
+         setTotalPrice(total);
+      }
+   }, [items]);
+
    return (
       <Drawer isOpen={isOpen} setIsOpen={onClose} headerText='Cart items'>
          {items.map((i) => (
@@ -51,9 +61,11 @@ export const BasketDrawer: FC<BasketDrawerProps> = ({
             </div>
          ))}
 
-         {<div>Item Total: {itemTotal}</div>}
-
-         <div>Total price: 0</div>
+         {items.length !== 0 && (
+            <div className='px-4'>
+               <p className='text-xl font-light'>Total Price: {totalPrice}$</p>
+            </div>
+         )}
 
          {items.length !== 0 ? (
             <div className='flex items-center justify-center'>
@@ -68,7 +80,6 @@ export const BasketDrawer: FC<BasketDrawerProps> = ({
                                  return {
                                     menuItemId: i.menuItemId,
                                     quantity: i.quantity,
-                                    price: i.price,
                                  };
                               }),
                            },
@@ -80,7 +91,9 @@ export const BasketDrawer: FC<BasketDrawerProps> = ({
                </Button>
             </div>
          ) : (
-            <div>Basket is empty!</div>
+            <div className='flex justify-center'>
+               <p className='text-2xl font-light'>Basket is empty!</p>
+            </div>
          )}
       </Drawer>
    );

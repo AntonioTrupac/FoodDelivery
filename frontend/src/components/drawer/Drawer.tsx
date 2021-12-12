@@ -25,7 +25,7 @@ export const Drawer: FC<DrawerProps> = (props) => {
             <article className='relative w-screen max-w-lg pb-10 flex flex-col space-y-3 overflow-auto h-full'>
                <header className='p-4 font-bold text-lg'>
                   <div className='flex items-center justify-between'>
-                     <p>{props.headerText}</p>
+                     <p className='text-2xl font-medium'>{props.headerText}</p>
 
                      <div className=''>
                         <FontAwesomeIcon

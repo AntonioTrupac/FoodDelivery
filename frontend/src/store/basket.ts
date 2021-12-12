@@ -19,7 +19,6 @@ type BasketActions = {
     itemSubtracted: (menuItemId: number) => void;
     itemRemoved: (menuItemId: number) => void;
     basketCleared: () => void;
-    itemTotal: () => void;
 }
 
 type BasketStore = BasketState & BasketActions;
@@ -85,25 +84,5 @@ export const useBasketStore = create<BasketStore>(set => ({
                 }
             )
         )
-    },
-    itemTotal() {
-        set(
-            produce(
-                (draft: BasketState) => {
-                    // const priceTotal = draft.items.find
-                    const total = draft.items.map(m => m.price * m.quantity).reduce((a,b) => a+b,0);
-                    
-                    if(total > 0) {
-                        console.log("TOTAL", total);
-                        return total;
-                        
-                    } else {
-                        return 0;
-                    }
-                }
-            )
-        )
-        
     }
-    
 }));

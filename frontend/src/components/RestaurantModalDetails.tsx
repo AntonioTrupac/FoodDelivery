@@ -1,5 +1,5 @@
 import { ApolloError } from '@apollo/client';
-import { FC, useCallback } from 'react';
+import { FC, useCallback, useEffect } from 'react';
 import { GetMenuItemByIdQuery, MenuItem } from '../generated';
 import { useBasketStore } from '../store/basket';
 import { Button } from './button/Button';
