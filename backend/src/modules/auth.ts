@@ -7,7 +7,6 @@ export const createAccessToken = (user: User) => {
          userId: user.userId,
          firstName: user.firstName,
          lastName: user.lastName,
-         // tokenVersion: user.tokenVersion
       },
       process.env.ACCESS_TOKEN_SECRET!,
       { expiresIn: '7d' }

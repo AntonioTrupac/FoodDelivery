@@ -7,6 +7,7 @@ import { useModal } from '../../customHooks/useModal';
 import { Modal } from '../modal/Modal';
 import { RestaurantModalDetails } from '../RestaurantModalDetails';
 import { useBasketStore } from '../../store/basket';
+import { notificationStart } from '../util/notificationAlert';
 
 type DetailCardProps = {
    menuItems?: MenuItem[];
@@ -34,8 +35,10 @@ export const DetailCard: FC<DetailCardProps> = ({ menuItems, restaurant }) => {
                name: allItems.name,
                price: allItems.price,
             });
+            notificationStart();
          } else {
             itemIncremented(allItems.id);
+            notificationStart();
          }
       },
       [itemAdded, itemIncremented, items]
@@ -49,8 +52,10 @@ export const DetailCard: FC<DetailCardProps> = ({ menuItems, restaurant }) => {
                name: menuItem.name,
                price: menuItem.price,
             });
+            notificationStart();
          } else {
             itemIncremented(menuItem.id);
+            notificationStart();
          }
       },
       [itemAdded, itemIncremented, items]
@@ -106,6 +111,7 @@ export const DetailCard: FC<DetailCardProps> = ({ menuItems, restaurant }) => {
                   loading={loading}
                   error={error}
                   splitString={splitString}
+                  hideModal={toggle}
                />
             </Modal>
          </>
@@ -161,6 +167,7 @@ export const DetailCard: FC<DetailCardProps> = ({ menuItems, restaurant }) => {
                loading={loading}
                error={error}
                splitString={splitString}
+               hideModal={toggle}
             />
          </Modal>
       </>

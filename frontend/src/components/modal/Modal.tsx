@@ -16,15 +16,15 @@ export const Modal: FC<ModalProps> = (props) => {
       <>
          <div
             onClick={props.hide}
-            className='fixed w-[100%] h-[100%] top-0 left-0  bg-[#ffdfc1] z-40 bg-opacity-50 backdrop-filter backdrop-blur-[4px]'
+            className={`fixed w-[100%] h-[100%] top-0 left-0  bg-[#ffdfc1] z-40 bg-opacity-50 backdrop-filter backdrop-blur-[4px]`}
          />
-         <div className='flex justify-center items-center'>
+         <div className={`flex justify-center items-center`}>
             <div
                aria-modal
                aria-labelledby={props.headerText}
                tabIndex={-1}
                role='dialog'
-               className={props.className}
+               className={`${props.className}`}
             >
                <div className='z-40 flex flex-row-reverse mr-[20px]'>
                   <FontAwesomeIcon
@@ -32,7 +32,7 @@ export const Modal: FC<ModalProps> = (props) => {
                      data-dissmis='modal'
                      icon={faTimes}
                      onClick={props.hide}
-                     className='text-[20px] text-[#606060] border-none rounded-[2px] bg-none my-4 flex flex-col-reverse hover:text-[#FEAE67]'
+                     className='text-[20px] text-[#606060] border-none rounded-[2px] bg-none my-4 flex flex-col-reverse hover:text-[#FEAE67] transition duration-300 ease-in-out'
                   />
                </div>
 
