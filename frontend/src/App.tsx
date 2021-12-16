@@ -4,6 +4,9 @@ import {
    Route,
    Redirect,
 } from 'react-router-dom';
+import ReactNotification from 'react-notifications-component';
+import 'react-notifications-component/dist/theme.css';
+// import 'animate.css/animate.min.css';
 
 import { LandingPage } from './pages/LandingPage';
 import { PrivateRoutes } from './components/privateRoute';
@@ -13,7 +16,8 @@ function App() {
    const accessToken = getAccessToken();
 
    return (
-      <div>
+      <>
+         <ReactNotification />
          <Router>
             <Switch>
                {accessToken ? <Redirect from='/landing-page' to='/' /> : null}
@@ -23,7 +27,7 @@ function App() {
                <Redirect from='/' to='/landing-page' />
             </Switch>
          </Router>
-      </div>
+      </>
    );
 }
 

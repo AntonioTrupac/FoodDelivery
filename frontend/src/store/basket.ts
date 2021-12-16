@@ -1,11 +1,12 @@
 import create from "zustand";
 import {produce} from "immer";
 
-type BasketItem = {
+export type BasketItem = {
     menuItemId: number;
     name: string;
     imageUrl?: string;
     quantity: number;
+    price: number;
 }
 
 type BasketState = {
@@ -13,7 +14,7 @@ type BasketState = {
 }
 
 type BasketActions = {
-    itemAdded: (item: Pick<BasketItem, 'menuItemId' | 'name' | 'imageUrl'>) => void;
+    itemAdded: (item: Pick<BasketItem, 'menuItemId' | 'name' | 'imageUrl' | 'price'>) => void;
     itemIncremented: (menuItemId: number) => void;
     itemSubtracted: (menuItemId: number) => void;
     itemRemoved: (menuItemId: number) => void;

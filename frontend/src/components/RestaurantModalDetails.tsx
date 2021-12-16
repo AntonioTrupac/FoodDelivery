@@ -1,32 +1,44 @@
 import { ApolloError } from '@apollo/client';
-import { FC, useCallback } from 'react';
+import { FC, useCallback, useState } from 'react';
 import { GetMenuItemByIdQuery, MenuItem } from '../generated';
 import { useBasketStore } from '../store/basket';
 import { Button } from './button/Button';
+import { notificationStart } from './util/notificationAlert';
 
 type RestaurantModalDetailsProps = {
    data: GetMenuItemByIdQuery | undefined;
    loading?: boolean;
    error?: ApolloError | undefined;
    splitString: string[] | undefined;
+   hideModal: () => void;
 };
 
-export const RestaurantModalDetails: FC<RestaurantModalDetailsProps> = (
-   props
-) => {
+export const RestaurantModalDetails: FC<RestaurantModalDetailsProps> = ({
+   hideModal,
+   ...props
+}) => {
+   const [disabled, setDisabled] = useState<boolean>(false);
    const { items, itemAdded, itemIncremented } = useBasketStore();
+
    const addItem = useCallback(
       (menuItem: MenuItem) => {
          if (!items.find((i) => i.menuItemId === menuItem.id)) {
             itemAdded({
                menuItemId: menuItem.id,
                name: menuItem.name,
+               price: menuItem.price,
             });
+            setDisabled(true);
+            hideModal();
+            notificationStart();
          } else {
             itemIncremented(menuItem.id);
+            setDisabled(true);
+            hideModal();
+            notificationStart();
          }
       },
-      [itemAdded, itemIncremented, items]
+      [hideModal, itemAdded, itemIncremented, items]
    );
 
    return (
@@ -59,12 +71,16 @@ export const RestaurantModalDetails: FC<RestaurantModalDetailsProps> = (
 
          <div className='flex items-center justify-center'>
             <Button
-               className='modal-button'
+               className={`modal-button ${
+                  disabled &&
+                  'bg-gray-300 focus:outline-none focus:ring-0 focus-visible:outline-none hover:border-none hover:bg-gray-300 hover:text-white hover:py-1'
+               }`}
                onClick={() => {
                   if (props.data?.getMenuItemById) {
                      addItem(props.data?.getMenuItemById);
                   }
                }}
+               disabled={disabled}
             >
                Add to basket
             </Button>
