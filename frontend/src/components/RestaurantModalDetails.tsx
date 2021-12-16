@@ -30,13 +30,12 @@ export const RestaurantModalDetails: FC<RestaurantModalDetailsProps> = ({
             });
             setDisabled(true);
             hideModal();
-            notificationStart();
          } else {
             itemIncremented(menuItem.id);
             setDisabled(true);
             hideModal();
-            notificationStart();
          }
+         notificationStart();
       },
       [hideModal, itemAdded, itemIncremented, items]
    );
