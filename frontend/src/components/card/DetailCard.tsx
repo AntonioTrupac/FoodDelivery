@@ -35,11 +35,10 @@ export const DetailCard: FC<DetailCardProps> = ({ menuItems, restaurant }) => {
                name: allItems.name,
                price: allItems.price,
             });
-            notificationStart();
          } else {
             itemIncremented(allItems.id);
-            notificationStart();
          }
+         notificationStart();
       },
       [itemAdded, itemIncremented, items]
    );
@@ -52,11 +51,10 @@ export const DetailCard: FC<DetailCardProps> = ({ menuItems, restaurant }) => {
                name: menuItem.name,
                price: menuItem.price,
             });
-            notificationStart();
          } else {
             itemIncremented(menuItem.id);
-            notificationStart();
          }
+         notificationStart();
       },
       [itemAdded, itemIncremented, items]
    );
