@@ -1,7 +1,8 @@
 import { Length, IsEmail } from 'class-validator';
 import { Field, InputType } from 'type-graphql';
-import { IsEmailAlreadyExist } from '../registerValidation/isEmailAlreadyExist';
+import { ArrayMinSize } from "class-validator";
 
+import { IsEmailAlreadyExist } from '../registerValidation/isEmailAlreadyExist';
 import { PasswordMixin } from '../../shared/PasswordInput';
 // validation
 @InputType()
@@ -21,4 +22,22 @@ export class RegisterInput extends PasswordMixin(class {}) {
 
    @Field()
    phoneNumber: string;
+
+   @Field()
+   @ArrayMinSize(1)
+   address: AddressInput[];
+}
+
+@InputType()
+export class AddressInput {
+   @Field()
+   @Length(1,255)
+   city: string;
+
+   @Field()
+   @Length(1, 255)
+   streetAdress: string;
+
+   @Field()
+   houseNumber: number;
 }

@@ -5,9 +5,12 @@ import {
    BaseEntity,
    PrimaryColumn,
    OneToMany,
+   ManyToMany,
+   ManyToOne,
 } from 'typeorm';
 import { Field, ID, ObjectType, Root } from 'type-graphql';
 import { Order } from './Order';
+import { Address } from './Address';
 
 @ObjectType()
 @Entity()
@@ -15,7 +18,7 @@ export class User extends BaseEntity {
    @Field(() => ID)
    @PrimaryGeneratedColumn()
    @PrimaryColumn()
-   userId: number;
+   id: number;
 
    @Field()
    @Column('text', { nullable: true, unique: true })
@@ -42,4 +45,7 @@ export class User extends BaseEntity {
 
    @OneToMany((type) => Order, (order) => order.customer)
    orders: Order[];
+
+   @ManyToOne((type) => Address, (address) => address.user)
+   address: Address[];
 }

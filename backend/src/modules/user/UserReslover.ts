@@ -98,7 +98,7 @@ export class UserReslover {
       @Arg('id', () => Int) id: number,
       @Arg('input', () => UpdateUserInput) input: UpdateUserInput
    ): Promise<User | null | undefined> {
-      const updatedUser = await User.update({ userId: id }, input);
+      const updatedUser = await User.update({ id }, input);
 
       if (!updatedUser) {
          return null;
