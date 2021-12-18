@@ -4,7 +4,7 @@ import { sign } from 'jsonwebtoken';
 export const createAccessToken = (user: User) => {
    return sign(
       {
-         userId: user.userId,
+         userId: user.id,
          firstName: user.firstName,
          lastName: user.lastName,
       },

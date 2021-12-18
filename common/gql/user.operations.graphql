@@ -10,6 +10,7 @@ mutation Register(
   $email: String!
   $phoneNumber: String!
   $password: String!
+  $address: AddressInput!
 ) {
   register(
     data: {
@@ -19,8 +20,9 @@ mutation Register(
       phoneNumber: $phoneNumber
       password: $password
     }
+    address: $address
   ) {
-    userId
+    id
     firstName
     lastName
     email
@@ -52,6 +54,6 @@ fragment UserFields on User {
   email
   firstName
   lastName
-  userId
+  id
   phoneNumber
 }

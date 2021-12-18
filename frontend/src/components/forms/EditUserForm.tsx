@@ -9,7 +9,7 @@ import { editUserValidation } from '../../validation';
 import { ValidationError } from '../validationError/ValidationError';
 
 type EditUserFormProps = {
-   data: Values & { userId: string };
+   data: Values & { id: string };
 };
 
 type Values = {
@@ -21,7 +21,7 @@ type Values = {
 
 export const EditUserForm: FC<EditUserFormProps> = ({ data }) => {
    const history = useHistory();
-   const id = Number(data.userId);
+   const id = Number(data.id);
 
    const [updateUserMutation, { loading, error }] = useUpdateUserMutation();
 

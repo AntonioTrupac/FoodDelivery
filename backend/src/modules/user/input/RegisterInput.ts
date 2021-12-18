@@ -22,22 +22,18 @@ export class RegisterInput extends PasswordMixin(class {}) {
 
    @Field()
    phoneNumber: string;
-
-   @Field()
-   @ArrayMinSize(1)
-   address: AddressInput[];
 }
 
 @InputType()
 export class AddressInput {
    @Field()
    @Length(1,255)
-   city: string;
+   city?: string;
 
    @Field()
    @Length(1, 255)
-   streetAdress: string;
+   streetAddress?: string;
 
    @Field()
-   houseNumber: number;
+   houseNumber?: number;
 }

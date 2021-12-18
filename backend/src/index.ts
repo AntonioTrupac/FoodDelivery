@@ -16,6 +16,7 @@ import { MenuResolver } from './modules/menu/MenuResolver';
 import { MenuItemResolver } from './modules/menuItem/MenuItemResolver';
 import { SearchResolver } from './modules/search/SearchResolver';
 import { OrderResolver } from './modules/order/OrderResolver';
+import { AddressResolver } from './modules/address/AddressResolver';
 
 
 dotenv.config();
@@ -35,6 +36,7 @@ const main = async () => {
          MenuItemResolver,
          SearchResolver,
          OrderResolver,
+         AddressResolver
       ],
       authChecker: ({ context: { req } }) => {
          return !!req.session.userId;

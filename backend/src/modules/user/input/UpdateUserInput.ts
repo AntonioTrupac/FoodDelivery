@@ -1,7 +1,5 @@
-import { IsEmail, Length } from 'class-validator';
+import { Length } from 'class-validator';
 import { Field, InputType } from 'type-graphql';
-import { IsEmailAlreadyExist } from '../registerValidation/isEmailAlreadyExist';
-
 @InputType()
 export class UpdateUserInput {
    @Field((type) => String, { nullable: true })
@@ -17,4 +15,13 @@ export class UpdateUserInput {
 
    @Field((type) => String, { nullable: true })
    phoneNumber?: string;
-}
+
+   @Field((type) => String, { nullable: true })
+   city?: string;
+
+   @Field((type) => String, { nullable: true })
+   streetAddress?: string;
+
+   @Field((type) => String, { nullable: true })
+   houseNumber?: number;
+};

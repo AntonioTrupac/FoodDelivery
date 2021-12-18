@@ -7,6 +7,7 @@ import {
    OneToMany,
    ManyToMany,
    ManyToOne,
+   JoinColumn,
 } from 'typeorm';
 import { Field, ID, ObjectType, Root } from 'type-graphql';
 import { Order } from './Order';
@@ -22,7 +23,7 @@ export class User extends BaseEntity {
 
    @Field()
    @Column('text', { nullable: true, unique: true })
-   email: string;
+   email?: string;
 
    //no field cus we dont want user to know the password or query for the password
    @Column({ nullable: true, length: 128 })
@@ -30,15 +31,15 @@ export class User extends BaseEntity {
 
    @Field()
    @Column({ nullable: true, length: 200 })
-   firstName: string;
+   firstName?: string;
 
    @Field()
    @Column({ nullable: true, length: 200 })
-   lastName: string;
+   lastName?: string;
 
    @Field()
    @Column({ nullable: true })
-   phoneNumber: string;
+   phoneNumber?: string;
 
    @Column('timestamp', { default: () => 'CURRENT_TIMESTAMP' })
    createdAt: string;
@@ -46,6 +47,6 @@ export class User extends BaseEntity {
    @OneToMany((type) => Order, (order) => order.customer)
    orders: Order[];
 
-   @ManyToOne((type) => Address, (address) => address.user)
+   @OneToMany((type) => Address, (address) => address.user, {primary: true}) 
    address: Address[];
 }

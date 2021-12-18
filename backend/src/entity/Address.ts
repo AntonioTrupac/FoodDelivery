@@ -3,8 +3,8 @@ import {
    BaseEntity,
    Column,
    Entity,
-   OneToMany,
-   PrimaryColumn,
+   JoinColumn,
+   ManyToOne,
    PrimaryGeneratedColumn,
 } from 'typeorm';
 import { User } from "./User";
@@ -13,7 +13,6 @@ import { User } from "./User";
 export class Address extends BaseEntity {
    @Field(() => ID)
    @PrimaryGeneratedColumn()
-   @PrimaryColumn()
    id: number;
 
    @Field({ nullable: true })
@@ -28,6 +27,7 @@ export class Address extends BaseEntity {
    @Column({ nullable: true })
    houseNumber: number;
 
-   @OneToMany((type) => User, (user) => user.address)
+   @ManyToOne((type) => User, (user) => user.address)
    user: User;
+   
 }

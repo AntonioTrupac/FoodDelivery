@@ -3,7 +3,12 @@ import { Form, Formik, FormikProps, FormikValues } from 'formik';
 
 import { CustomInput } from '../../components/input/CustomInput';
 import { Button } from '../../components/button/Button';
-import { RegisterInput, useRegisterMutation } from '../../generated';
+import {
+   AddressInput,
+   Exact,
+   RegisterInput,
+   useRegisterMutation,
+} from '../../generated';
 import { registerValidationSchema } from '../../validation';
 import { ValidationError } from '../../components/validationError/ValidationError';
 
@@ -18,6 +23,9 @@ type Values = {
    phoneNumber: string;
    email: string;
    password: string;
+   city: string;
+   streetAddress: string;
+   houseNumber: string;
 };
 
 const initialValues = {
@@ -26,13 +34,27 @@ const initialValues = {
    phoneNumber: '',
    email: '',
    password: '',
+   city: '',
+   streetAddress: '',
+   houseNumber: '',
 };
+
+type Input =
+   | Exact<{
+        firstName: string;
+        lastName: string;
+        email: string;
+        phoneNumber: string;
+        password: string;
+        address: AddressInput;
+     }>
+   | undefined;
 
 export const Register: FC<RegisterProps> = (props) => {
    const [register] = useRegisterMutation();
 
    const userInfo = useCallback(
-      (data: RegisterInput) => {
+      (data: Input) => {
          register({
             variables: data,
          })
@@ -54,15 +76,34 @@ export const Register: FC<RegisterProps> = (props) => {
       (submittedValues: FormikValues) => {
          if (submittedValues) {
             console.log('%c \nREGISTERING USER\n', 'color: red');
-            const { firstName, lastName, email, password, phoneNumber } =
-               submittedValues;
-            const data: RegisterInput = {
+            const {
                firstName,
                lastName,
                email,
                password,
                phoneNumber,
+               city,
+               streetAddress,
+               houseNumber,
+            } = submittedValues;
+
+            const houseNum = parseInt(houseNumber);
+
+            const address: AddressInput = {
+               city,
+               streetAddress,
+               houseNumber: houseNum,
             };
+
+            const data = {
+               firstName,
+               lastName,
+               email,
+               password,
+               phoneNumber,
+               address,
+            };
+
             userInfo(data);
          }
       },
@@ -146,6 +187,60 @@ export const Register: FC<RegisterProps> = (props) => {
 
                         <ValidationError
                            fieldName='phoneNumber'
+                           component='span'
+                           className='mt-0 absolute top-7 text-[12px] left-0 text-red-500'
+                        />
+                     </div>
+
+                     <div className='w-full relative'>
+                        <CustomInput
+                           name='city'
+                           type='text'
+                           placeholder='City'
+                           autoComplete='off'
+                           value={propsFormik.values.city}
+                           className='input'
+                           onChange={propsFormik.handleChange}
+                        />
+
+                        <ValidationError
+                           fieldName='city'
+                           component='span'
+                           className='mt-0 absolute top-7 text-[12px] left-0 text-red-500'
+                        />
+                     </div>
+
+                     <div className='w-full relative'>
+                        <CustomInput
+                           name='streetAddress'
+                           type='text'
+                           placeholder='Street Address'
+                           autoComplete='off'
+                           value={propsFormik.values.streetAddress}
+                           className='input'
+                           onChange={propsFormik.handleChange}
+                        />
+
+                        <ValidationError
+                           fieldName='streetAddress'
+                           component='span'
+                           className='mt-0 absolute top-7 text-[12px] left-0 text-red-500'
+                        />
+                     </div>
+
+                     <div className='w-full relative'>
+                        <CustomInput
+                           name='houseNumber'
+                           type='text'
+                           placeholder='House Number'
+                           autoComplete='off'
+                           value={propsFormik.values.houseNumber}
+                           className='input'
+                           onChange={propsFormik.handleChange}
+                        />
+
+                        <ValidationError
+                           fieldName='houseNumber'
                            component='span'
                            className='mt-0 absolute top-7 text-[12px] left-0 text-red-500'
                         />

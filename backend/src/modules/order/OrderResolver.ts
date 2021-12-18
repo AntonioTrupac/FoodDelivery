@@ -1,7 +1,6 @@
 import e from "express";
 import { Arg, Ctx, Mutation, Resolver, UseMiddleware } from "type-graphql";
 import { getConnection } from "typeorm";
-import { inspect } from "util";
 import { MenuItem } from "../../entity/MenuItem";
 import { Order } from "../../entity/Order";
 import { OrderItem } from "../../entity/OrderItem";
