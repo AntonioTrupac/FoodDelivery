@@ -1,9 +1,8 @@
 import { FC } from 'react';
-import { useModal } from '../customHooks/useModal';
-import { Modal } from '../components/modal/Modal';
+import { NavLink } from 'react-router-dom';
+
 import logo from '../images/LOGO.png';
 import pozadina from '../images/pozadina.jpg';
-import { Form } from '../components/forms/Form';
 
 const bgImageStyle = {
    width: '100%',
@@ -15,8 +14,6 @@ const bgImageStyle = {
 };
 
 export const LandingPage: FC = () => {
-   const { isShown, toggle } = useModal();
-
    return (
       <>
          <div className='landing__container' style={bgImageStyle}>
@@ -26,9 +23,9 @@ export const LandingPage: FC = () => {
                </div>
 
                <div className='button__container'>
-                  <button className='landing__button' onClick={toggle}>
+                  <NavLink to='/' className='landing__button'>
                      get started
-                  </button>
+                  </NavLink>
                </div>
             </div>
 
@@ -39,15 +36,6 @@ export const LandingPage: FC = () => {
                </p>
             </div>
          </div>
-
-         <Modal
-            className='absolute top-[120px] mx-5 z-50 bg-[#ffffff] h-auto rounded-[20px]'
-            isShown={isShown}
-            hide={toggle}
-            headerText={'Login'}
-         >
-            <Form />
-         </Modal>
       </>
    );
 };

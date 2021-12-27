@@ -35,9 +35,9 @@ export const Login: FC<LoginProps> = (props) => {
          })
             .then((res) => {
                if (res && res.data && res.data.login?.accessToken) {
-                  console.log('LOGIN RESPONSE', res.data);
                   setAccessToken(res.data.login?.accessToken);
                   history.push('/');
+                  window.location.reload();
                }
             })
             .catch((err) => {
@@ -50,7 +50,6 @@ export const Login: FC<LoginProps> = (props) => {
    const saveData = useCallback(
       (submittedValues: FormikValues) => {
          if (submittedValues) {
-            console.log('%c \nLOGGING USER IN\n', 'color: red');
             const { email, password } = submittedValues;
             const data: MutationLoginArgs = {
                email,

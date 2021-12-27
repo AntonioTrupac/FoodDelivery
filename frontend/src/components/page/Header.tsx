@@ -1,7 +1,6 @@
 import { FC, useState } from 'react';
-import { BasketDrawer } from '../drawer/BasketDrawer';
 
-import { Drawer } from '../drawer/Drawer';
+import { BasketDrawer } from '../drawer/BasketDrawer';
 import { Navbar } from './Navbar';
 
 export const Header: FC = () => {

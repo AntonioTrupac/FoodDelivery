@@ -5,6 +5,7 @@ import { useBasketStore } from '../../store/basket';
 import { Button } from '../button/Button';
 import { Drawer } from './Drawer';
 import { ItemCard } from '../card/ItemCard';
+import { notificationOrdered } from '../util/notificationAlert';
 
 type BasketDrawerProps = {
    isOpen: boolean;
@@ -19,17 +20,14 @@ export const BasketDrawer: FC<BasketDrawerProps> = ({
    const [totalPrice, setTotalPrice] = useState<number | undefined>(0);
 
    const [orderMutation, orderMutationResult] = useCreateOrderMutation();
-   const { data } = orderMutationResult;
+   const { data, error, loading } = orderMutationResult;
    const { createOrder } = data || {};
    const { id, total } = createOrder || {};
 
    useEffect(() => {
       if (orderMutationResult.called && !orderMutationResult.loading) {
          if (id && total) {
-            // alert(`Order made: ${total}$`); Should alert a person that an order has been made
             basketCleared();
-         } else {
-            alert(`Couldn't create order.`);
          }
       }
    }, [
@@ -49,6 +47,10 @@ export const BasketDrawer: FC<BasketDrawerProps> = ({
          setTotalPrice(total);
       }
    }, [items]);
+
+   if (error) {
+      return <div>{error.message}</div>;
+   }
 
    return (
       <Drawer isOpen={isOpen} setIsOpen={onClose} headerText='Cart items'>
@@ -84,7 +86,12 @@ export const BasketDrawer: FC<BasketDrawerProps> = ({
                               }),
                            },
                         },
-                     });
+                     })
+                        .then(() => {
+                           onClose();
+                           notificationOrdered();
+                        })
+                        .catch((err) => console.error(err));
                   }}
                >
                   Order

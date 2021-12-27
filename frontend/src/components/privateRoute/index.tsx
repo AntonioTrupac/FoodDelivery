@@ -1,5 +1,6 @@
 import { FC, useEffect } from 'react';
 import { useMeQuery } from '../../generated';
+import { Route } from 'react-router';
 
 import { EditUserInfo } from '../../pages/EditUserInfo';
 import { Home } from '../../pages/Home';
@@ -23,13 +24,10 @@ export const PrivateRoutes: FC = () => {
    return (
       <>
          <Header />
-         <PrivateRoute path='/' component={Home} exact />
-         <PrivateRoute
-            path='/restaurant/:id'
-            component={RestaurantDetails}
-            exact
-         />
-         <PrivateRoute path='/editUserInfo' component={EditUserInfo} exact />
+
+         <Route path='/' component={Home} exact />
+         <Route path='/restaurant/:id' component={RestaurantDetails} exact />
+         <Route path='/editUserInfo' component={EditUserInfo} exact />
       </>
    );
 };

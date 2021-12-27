@@ -15,3 +15,19 @@ export const notificationStart = () => {
         },
      });
 }
+
+export const notificationOrdered = () => {
+   store.addNotification({
+      title: 'Order Submitted!',
+      message: 'U have submited your order!',
+      type: 'success',
+      insert: 'top',
+      container: 'bottom-right',
+      animationIn: ['animate__animated', 'animate__fadeIn'],
+      animationOut: ['animate__animated', 'animate__fadeOut'],
+      dismiss: {
+         duration: 2000,
+         onScreen: true,
+      },
+   });
+}

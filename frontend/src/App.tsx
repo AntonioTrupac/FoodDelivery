@@ -19,7 +19,7 @@ function App() {
          <ReactNotification />
          <Router>
             <Switch>
-               {accessToken ? <Redirect from='/landing-page' to='/' /> : null}
+               {/* {accessToken ? <Redirect from='/landing-page' to='/' /> : null} */}
                <Route exact path='/landing-page' component={LandingPage} />
                <PrivateRoutes />
 

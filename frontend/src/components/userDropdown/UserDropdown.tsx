@@ -20,7 +20,6 @@ export const UserDropdown: FC<UserDropdownProps> = ({ open, setOpen }) => {
       history.push('/landing-page');
    };
 
-   // TODO: vidi
    const handleClickInside = () => {
       setOpen(!open);
    };
