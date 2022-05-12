@@ -125,12 +125,9 @@ export class UserReslover {
          houseNumber,
       }  
 
-      // await Address.update(addressFields, {id})
-
       await User.update({ id }, userFields);
 
       await getConnection().createQueryBuilder().update(Address).set(addressFields).where("userId = :id", { id }).execute();
-      // console.log("UPDATED USER", updatedUser)
 
       // if (!updatedUser) {
       //    return null;

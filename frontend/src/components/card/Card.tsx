@@ -9,7 +9,7 @@ type CardProps = {
    id: number;
    name?: string;
    rating?: string;
-   photo?: Maybe<string>;
+   photo: Maybe<string>;
    duration?: string;
    restaurantCategory?: string;
 };
@@ -23,6 +23,7 @@ export const Card: FC<CardProps> = ({
    name,
 }) => {
    const history = useHistory();
+
    const handleClick = () => {
       history.push(`/restaurant/${id}`);
    };
@@ -31,9 +32,8 @@ export const Card: FC<CardProps> = ({
       <section className='restaurant-card' onClick={handleClick}>
          <div className='restaurant-card__image'>
             <div className='dark' />
-            {photo && (
-               <img src={photo} alt={name} className='restaurant-image' />
-            )}
+
+            <img src={photo as string} alt={name} className='restaurant-image' />
 
             <div className='restaurant-desc'>
                <h3>{name}</h3>

@@ -6,7 +6,6 @@ import { Button } from '../../components/button/Button';
 import {
    AddressInput,
    Exact,
-   RegisterInput,
    useRegisterMutation,
 } from '../../generated';
 import { registerValidationSchema } from '../../validation';

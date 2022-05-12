@@ -2,11 +2,11 @@ import { FC } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import logo from '../images/LOGO.png';
-import pozadina from '../images/pozadina.jpg';
+import background from '../images/pozadina.jpg';
 
 const bgImageStyle = {
    width: '100%',
-   backgroundImage: `url(${pozadina})`,
+   backgroundImage: `url(${background})`,
    backgroundPosition: 'center center',
    backgroundRepeat: 'no-repeat',
    backgroundSize: 'cover',

@@ -11,12 +11,11 @@ import {
 import logo from '../../images/LOGO.png';
 import { UserDropdown } from '../userDropdown/UserDropdown';
 import { useSearchQuery } from '../../generated';
-import { setSearchRestaurant } from '../../redux/slice/searchSlice';
-import { useAppDispatch } from '../../redux/hooks';
 import { getAccessToken } from '../../accessToken';
 import { useModal } from '../../customHooks/useModal';
-import { Form } from '../../components/forms/Form';
-import { Modal } from '../../components/modal/Modal';
+import { Form } from '../forms/Form';
+import { Modal } from '../modal/Modal';
+import { useSearch } from "../../store/search";
 
 type NavbarProps = {
    setIsOpen: Dispatch<SetStateAction<boolean>>;
@@ -29,8 +28,7 @@ export const Navbar: FC<NavbarProps> = (props) => {
    const history = useHistory();
    const homeRoute = history.location.pathname === '/';
    const accessToken = getAccessToken();
-
-   const dispatch = useAppDispatch();
+   const { setRestaurantPayload } = useSearch()
 
    const { data } = useSearchQuery({
       variables: {
@@ -44,9 +42,11 @@ export const Navbar: FC<NavbarProps> = (props) => {
 
    useEffect(() => {
       if (data) {
-         dispatch(setSearchRestaurant(data));
+         setRestaurantPayload(data)
       }
-   }, [dispatch, data]);
+   }, [data, setRestaurantPayload]);
+
+
 
    const onClose = (e: any) => {
       e.preventDefault();

@@ -3,30 +3,26 @@ import { Card } from '../card/Card';
 
 import categories from '../dummydata/categories';
 import { Restaurant } from '../../generated';
-import { RootState } from '../../redux/store';
-import { useSelector } from 'react-redux';
+import {useSearch} from "../../store/search";
 
 export const Restaurants: FC = () => {
-   const restaurantSearch = useSelector(
-      (state: RootState) => state.setSearchRestaurant.restaurant
-   );
+   const { search } = useSearch()
 
-   const restaurantData = restaurantSearch;
    const [categoryName, setCategoryName] = useState<string>('All');
    const [filteredRestaurants, setFilteredRestaurants] =
-      useState<any>(restaurantData);
+      useState<any>(search);
 
    useEffect(() => {
       if (categoryName !== 'All') {
-         const filteredData = restaurantSearch?.filter(
+         const filteredData = search?.filter(
             (restaurant) => restaurant.menu?.tag?.tagName === categoryName
          );
 
          setFilteredRestaurants(filteredData);
       } else {
-         setFilteredRestaurants(restaurantSearch);
+         setFilteredRestaurants(search);
       }
-   }, [categoryName, restaurantSearch]);
+   }, [categoryName, search]);
 
    const handleClick = (categoryName: string) => {
       setCategoryName(categoryName);
@@ -78,6 +74,7 @@ export const Restaurants: FC = () => {
                      );
                   })}
                </div>
+
                {filteredRestaurants?.length === 0 && (
                   <div className='flex justify-center text-2xl items-center w-full'>
                      No restaurants!

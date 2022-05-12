@@ -6,6 +6,5 @@ export const setAccessToken = (token: string) => {
 };
 
 export const getAccessToken = () => {
-   const token = window.localStorage.getItem('jwt');
-   return token;
+   return window.localStorage.getItem('jwt');
 };
