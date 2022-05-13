@@ -1,4 +1,4 @@
-import { FC, useRef } from 'react';
+import {Dispatch, FC, SetStateAction, useRef} from 'react';
 import { useHistory } from 'react-router';
 
 import useOnClickOutside from '../../customHooks/useClickOutside';
@@ -6,13 +6,12 @@ import { useSessionStore } from '../../store/session';
 
 type UserDropdownProps = {
    open: boolean;
-   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+   setOpen: Dispatch<SetStateAction<boolean>>;
 };
 
 export const UserDropdown: FC<UserDropdownProps> = ({ open, setOpen }) => {
    const history = useHistory();
    const node = useRef<any>(null);
-
    const { email, firstName, lastName, phoneNumber } = useSessionStore();
 
    const logOut = () => {

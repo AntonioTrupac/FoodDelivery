@@ -10,7 +10,7 @@ export const Restaurants: FC = () => {
 
    const [categoryName, setCategoryName] = useState<string>('All');
    const [filteredRestaurants, setFilteredRestaurants] =
-      useState<any>(search);
+      useState<Restaurant[]>(search);
 
    useEffect(() => {
       if (categoryName !== 'All') {
@@ -32,6 +32,7 @@ export const Restaurants: FC = () => {
       <>
          <div className='restaurant-image'>
             <div className='restaurant-container'>
+               {/* TODO: SEPARATE COMPONENT */}
                <div className='category-container'>
                   {categories.map((category) => {
                      return (
@@ -52,6 +53,7 @@ export const Restaurants: FC = () => {
 
                <div className='card-container mt-10 justify-center text-center'>
                   {filteredRestaurants?.map((restaurant: Restaurant) => {
+                     // TODO: pass a restaurant object to card component
                      const {
                         id,
                         restaurantName,

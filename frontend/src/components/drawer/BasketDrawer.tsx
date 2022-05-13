@@ -52,6 +52,10 @@ export const BasketDrawer: FC<BasketDrawerProps> = ({
       return <div>{error.message}</div>;
    }
 
+   if (loading) {
+      return <div>Loading...</div>
+   }
+
    return (
       <Drawer isOpen={isOpen} setIsOpen={onClose} headerText='Cart items'>
          {items.map((i) => (

@@ -101,6 +101,7 @@ export const Navbar: FC<NavbarProps> = (props) => {
                </span>
             )}
 
+            
             {!accessToken && (
                <button
                   className='bg-[#FEAE67] text-white focus:outline-none focus-visible:outline-none focus:ring-2 rounded-[40px] px-4 py-1 text-base md:px-3 md:py-1.5 md:text-sm capitalize font-light'
@@ -113,6 +114,7 @@ export const Navbar: FC<NavbarProps> = (props) => {
             {open && accessToken && (
                <UserDropdown open={open} setOpen={setOpen} />
             )}
+
 
             <Modal
                className='absolute top-[120px] mx-5 z-50 bg-[#ffffff] h-auto rounded-[20px]'
