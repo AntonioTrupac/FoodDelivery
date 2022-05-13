@@ -11,11 +11,13 @@ import { User } from '../../entity/User';
 import { isAuth } from '../../middleware/isAuth';
 import { Logger } from '../../middleware/Logger';
 import bcrypt from 'bcryptjs';
-import { RegisterInput } from './input/RegisterInput';
+import { AddressInput, RegisterInput } from './input/RegisterInput';
 import { MyContext } from '../../types/MyContext';
 import { createAccessToken } from '../auth';
 import { LoginResponse } from './objectType/LoginResponse';
 import { UpdateUserInput } from './input/UpdateUserInput';
+import { getConnection } from 'typeorm';
+import { Address } from '../../entity/Address';
 
 @Resolver(User)
 export class UserReslover {
@@ -45,7 +47,8 @@ export class UserReslover {
    @Mutation(() => User)
    async register(
       @Arg('data')
-      { firstName, lastName, email, password, phoneNumber }: RegisterInput
+      { firstName, lastName, email, password, phoneNumber }: RegisterInput,
+      @Arg('address') { city, streetAddress, houseNumber} : AddressInput
    ): Promise<User> {
       const hashedPassword = await bcrypt.hash(password, 12);
 
@@ -56,6 +59,16 @@ export class UserReslover {
          password: hashedPassword,
          phoneNumber,
       }).save();
+
+      await getConnection().manager.save(
+         Address.create({
+            city, 
+            streetAddress, 
+            houseNumber,
+            user
+         } as any )
+      );  
+
       console.log(user);
       return user;
    }
@@ -96,15 +109,31 @@ export class UserReslover {
    @Mutation(() => User)
    async updateUser(
       @Arg('id', () => Int) id: number,
-      @Arg('input', () => UpdateUserInput) input: UpdateUserInput
+      @Arg('input', () => UpdateUserInput) {firstName, lastName, email, phoneNumber, city, streetAddress, houseNumber}: UpdateUserInput
    ): Promise<User | null | undefined> {
-      const updatedUser = await User.update({ userId: id }, input);
 
-      if (!updatedUser) {
-         return null;
-      }
+      const userFields = {
+         firstName,
+         lastName,
+         email,
+         phoneNumber,
+      };
 
-      const findUser = User.findOne(id);
+      const addressFields = {
+         city,
+         streetAddress,
+         houseNumber,
+      }  
+
+      await User.update({ id }, userFields);
+
+      await getConnection().createQueryBuilder().update(Address).set(addressFields).where("userId = :id", { id }).execute();
+
+      // if (!updatedUser) {
+      //    return null;
+      // }
+
+      const findUser = await User.findOne(id);
 
       if (!findUser) {
          throw new Error('No user found!');

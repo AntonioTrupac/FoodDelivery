@@ -11,20 +11,24 @@ import {
 import logo from '../../images/LOGO.png';
 import { UserDropdown } from '../userDropdown/UserDropdown';
 import { useSearchQuery } from '../../generated';
-import { setSearchRestaurant } from '../../redux/slice/searchSlice';
-import { useAppDispatch } from '../../redux/hooks';
+import { getAccessToken } from '../../accessToken';
+import { useModal } from '../../customHooks/useModal';
+import { Form } from '../forms/Form';
+import { Modal } from '../modal/Modal';
+import { useSearch } from "../../store/search";
 
 type NavbarProps = {
    setIsOpen: Dispatch<SetStateAction<boolean>>;
 };
 
 export const Navbar: FC<NavbarProps> = (props) => {
+   const { isShown, toggle } = useModal();
    const [search, setSearch] = useState<string>('');
    const [open, setOpen] = useState<boolean>(false);
    const history = useHistory();
    const homeRoute = history.location.pathname === '/';
-
-   const dispatch = useAppDispatch();
+   const accessToken = getAccessToken();
+   const { setRestaurantPayload } = useSearch()
 
    const { data } = useSearchQuery({
       variables: {
@@ -38,9 +42,11 @@ export const Navbar: FC<NavbarProps> = (props) => {
 
    useEffect(() => {
       if (data) {
-         dispatch(setSearchRestaurant(data));
+         setRestaurantPayload(data)
       }
-   }, [dispatch, data]);
+   }, [data, setRestaurantPayload]);
+
+
 
    const onClose = (e: any) => {
       e.preventDefault();
@@ -76,7 +82,7 @@ export const Navbar: FC<NavbarProps> = (props) => {
             </div>
          )}
 
-         <div className='right-container ml-4 md:pl-3'>
+         <div className='right-container ml-4 md:pl-3 justify-center items-center'>
             {!homeRoute && (
                <span
                   className='mr-4 text-[#FEAE67]'
@@ -86,11 +92,38 @@ export const Navbar: FC<NavbarProps> = (props) => {
                </span>
             )}
 
-            <span className='user-cog-container' onClick={() => setOpen(!open)}>
-               <FontAwesomeIcon icon={faUserCog} className='user-cog' />
-            </span>
+            {accessToken && (
+               <span
+                  className='user-cog-container'
+                  onClick={() => setOpen(!open)}
+               >
+                  <FontAwesomeIcon icon={faUserCog} className='user-cog' />
+               </span>
+            )}
 
-            {open && <UserDropdown open={open} setOpen={setOpen} />}
+            
+            {!accessToken && (
+               <button
+                  className='bg-[#FEAE67] text-white focus:outline-none focus-visible:outline-none focus:ring-2 rounded-[40px] px-4 py-1 text-base md:px-3 md:py-1.5 md:text-sm capitalize font-light'
+                  onClick={toggle}
+               >
+                  Sign up
+               </button>
+            )}
+
+            {open && accessToken && (
+               <UserDropdown open={open} setOpen={setOpen} />
+            )}
+
+
+            <Modal
+               className='absolute top-[120px] mx-5 z-50 bg-[#ffffff] h-auto rounded-[20px]'
+               isShown={isShown}
+               hide={toggle}
+               headerText={'Login'}
+            >
+               <Form />
+            </Modal>
          </div>
       </nav>
    );

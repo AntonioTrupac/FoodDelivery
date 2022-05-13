@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { DetailCard } from '../components/card/DetailCard';
 import { CategoryFilter } from '../components/filter/CategoryFilter';
 import { Restaurant, useGetRestaurantByIdQuery } from '../generated';
+import { RestaurantInfo } from "../components/RestaurantInfo";
 
 type Params = {
    id?: string;
@@ -42,7 +43,7 @@ export const RestaurantDetails: FC = () => {
    };
 
    const showAll = (e: React.MouseEvent<HTMLParagraphElement, MouseEvent>) => {
-      const all = e.currentTarget.textContent;
+      let all = e.currentTarget.textContent;
 
       if (all === 'All') {
          const allRestaurants = restaurantData?.menu?.menuItems.map(
@@ -56,25 +57,12 @@ export const RestaurantDetails: FC = () => {
    return (
       <div className='detail__container'>
          <div className='imageContainer'>
-            {/* FIXME: add images that are bigger than the current card images */}
-            {/* {restaurant?.image?.url && (
-               <img
-                  src={restaurant?.image?.url}
-                  alt={restaurant?.restaurantName}
-               />
-            )} */}
-            <div className='imageContainer__left'>
-               <h1>{restaurant?.restaurantName}</h1>
-
-               <div className='paragraphContainer'>
-                  <p>
-                     The average delivery time is: {restaurant?.deliveryTime}
-                  </p>
-
-                  <div className='dot'>&nbsp;&nbsp;•&nbsp;&nbsp;</div>
-                  <p>{restaurant?.restaurantRating}</p>
-               </div>
-            </div>
+            {/* FIXME: add images that are bigger than the current card images, add image component to the right of the info */}
+            <RestaurantInfo
+                name={restaurant?.restaurantName}
+                deliveryTime={restaurant?.deliveryTime}
+                rating={restaurant?.restaurantRating}
+            />
          </div>
 
          <div className='content-container flex xl:flex-col xl:justify-center xl:items-center mt-12'>
@@ -85,10 +73,8 @@ export const RestaurantDetails: FC = () => {
             />
 
             {restaurant?.menu && (
-               <div className='flex flex-col text-2xl'>
-                  <div className='card-wrapper xl:ml-0 ml-6'>
-                     <DetailCard menuItems={item} restaurant={restaurant} />
-                  </div>
+               <div className='flex flex-col text-2xl card-wrapper xl:ml-0 ml-6'>
+                     <DetailCard menuItems={item} restaurant={restaurant} />ja bum
                </div>
             )}
          </div>

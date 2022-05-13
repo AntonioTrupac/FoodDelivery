@@ -17,6 +17,12 @@ export type Scalars = {
   DateTime: any;
 };
 
+export type AddressInput = {
+  city: Scalars['String'];
+  streetAddress: Scalars['String'];
+  houseNumber: Scalars['Float'];
+};
+
 
 export type Employee = {
   __typename?: 'Employee';
@@ -96,6 +102,7 @@ export type MutationAddRestaurantArgs = {
 
 
 export type MutationRegisterArgs = {
+  address: AddressInput;
   data: RegisterInput;
 };
 
@@ -244,7 +251,7 @@ export type UpdateUserInput = {
 
 export type User = {
   __typename?: 'User';
-  userId: Scalars['ID'];
+  id: Scalars['ID'];
   email: Scalars['String'];
   firstName: Scalars['String'];
   lastName: Scalars['String'];
@@ -381,6 +388,7 @@ export type RegisterMutationVariables = Exact<{
   email: Scalars['String'];
   phoneNumber: Scalars['String'];
   password: Scalars['String'];
+  address: AddressInput;
 }>;
 
 
@@ -388,7 +396,7 @@ export type RegisterMutation = (
   { __typename?: 'Mutation' }
   & { register: (
     { __typename?: 'User' }
-    & Pick<User, 'userId' | 'firstName' | 'lastName' | 'email' | 'phoneNumber'>
+    & Pick<User, 'id' | 'firstName' | 'lastName' | 'email' | 'phoneNumber'>
   ) }
 );
 
@@ -430,7 +438,7 @@ export type UsersQuery = (
 
 export type UserFieldsFragment = (
   { __typename?: 'User' }
-  & Pick<User, 'email' | 'firstName' | 'lastName' | 'userId' | 'phoneNumber'>
+  & Pick<User, 'email' | 'firstName' | 'lastName' | 'id' | 'phoneNumber'>
 );
 
 export const TagFieldsFragmentDoc = gql`
@@ -483,7 +491,7 @@ export const UserFieldsFragmentDoc = gql`
   email
   firstName
   lastName
-  userId
+  id
   phoneNumber
 }
     `;
@@ -731,11 +739,12 @@ export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = ApolloReactCommon.MutationResult<LoginMutation>;
 export type LoginMutationOptions = ApolloReactCommon.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
 export const RegisterDocument = gql`
-    mutation Register($firstName: String!, $lastName: String!, $email: String!, $phoneNumber: String!, $password: String!) {
+    mutation Register($firstName: String!, $lastName: String!, $email: String!, $phoneNumber: String!, $password: String!, $address: AddressInput!) {
   register(
     data: {firstName: $firstName, lastName: $lastName, email: $email, phoneNumber: $phoneNumber, password: $password}
+    address: $address
   ) {
-    userId
+    id
     firstName
     lastName
     email
@@ -763,6 +772,7 @@ export type RegisterMutationFn = ApolloReactCommon.MutationFunction<RegisterMuta
  *      email: // value for 'email'
  *      phoneNumber: // value for 'phoneNumber'
  *      password: // value for 'password'
+ *      address: // value for 'address'
  *   },
  * });
  */

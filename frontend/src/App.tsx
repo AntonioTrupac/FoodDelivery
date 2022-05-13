@@ -9,17 +9,14 @@ import 'react-notifications-component/dist/theme.css';
 
 import { LandingPage } from './pages/LandingPage';
 import { PrivateRoutes } from './components/privateRoute';
-import { getAccessToken } from './accessToken';
 
 function App() {
-   const accessToken = getAccessToken();
 
    return (
       <>
          <ReactNotification />
          <Router>
             <Switch>
-               {accessToken ? <Redirect from='/landing-page' to='/' /> : null}
                <Route exact path='/landing-page' component={LandingPage} />
                <PrivateRoutes />
 

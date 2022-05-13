@@ -3,17 +3,17 @@ import {
    BaseEntity,
    Column,
    Entity,
-   PrimaryColumn,
+   JoinColumn,
+   ManyToOne,
    PrimaryGeneratedColumn,
 } from 'typeorm';
-import {} from 'class-validator';
+import { User } from "./User";
 @ObjectType()
 @Entity()
 export class Address extends BaseEntity {
    @Field(() => ID)
    @PrimaryGeneratedColumn()
-   @PrimaryColumn()
-   addressId: number;
+   id: number;
 
    @Field({ nullable: true })
    @Column({ nullable: true })
@@ -27,7 +27,7 @@ export class Address extends BaseEntity {
    @Column({ nullable: true })
    houseNumber: number;
 
-   @Field()
-   @Column()
-   areaCode: number;
+   @ManyToOne((type) => User, (user) => user.address)
+   user: User;
+   
 }

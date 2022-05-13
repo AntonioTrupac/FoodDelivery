@@ -4,7 +4,7 @@ type Session = {
    email: string;
    firstName: string;
    lastName: string;
-   userId: string;
+   id: string;
    phoneNumber: string;
 };
 
@@ -12,7 +12,7 @@ export const useSessionStore = create((set) => ({
    email: '',
    firstName: '',
    lastName: '',
-   userId: '',
+   id: '',
    phoneNumber: '',
    sessionUpdated: (payload: Session) => set(payload),
 }));
