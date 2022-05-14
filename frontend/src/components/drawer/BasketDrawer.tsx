@@ -6,6 +6,7 @@ import { Button } from '../button/Button';
 import { Drawer } from './Drawer';
 import { ItemCard } from '../card/ItemCard';
 import { notificationOrdered } from '../util/notificationAlert';
+import { ItemCardLoader } from '../contentLoader/ItemCardLoader';
 
 type BasketDrawerProps = {
    isOpen: boolean;
@@ -20,7 +21,7 @@ export const BasketDrawer: FC<BasketDrawerProps> = ({
    const [totalPrice, setTotalPrice] = useState<number | undefined>(0);
 
    const [orderMutation, orderMutationResult] = useCreateOrderMutation();
-   const { data, error, loading } = orderMutationResult;
+   const { data, loading } = orderMutationResult;
    const { createOrder } = data || {};
    const { id, total } = createOrder || {};
 
@@ -48,22 +49,18 @@ export const BasketDrawer: FC<BasketDrawerProps> = ({
       }
    }, [items]);
 
-   if (error) {
-      return <div>{error.message}</div>;
-   }
-
-   if (loading) {
-      return <div>Loading...</div>
-   }
-
    return (
       <Drawer isOpen={isOpen} setIsOpen={onClose} headerText='Cart items'>
-         {items.map((i) => (
+         {items.map((item) => (
             <div
-               key={i.menuItemId}
+               key={item.menuItemId}
                className='flex flex-column justify-center max-w-[100%] items-center'
             >
-               <ItemCard item={i} />
+               {loading ? (
+                  <ItemCardLoader speed={2} height={138} width={480} />
+               ) : (
+                  <ItemCard item={item} />
+               )}
             </div>
          ))}
 

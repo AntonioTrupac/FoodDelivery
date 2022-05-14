@@ -1,5 +1,5 @@
 import create from "zustand";
-import {produce} from "immer";
+import { produce } from "immer";
 
 export type BasketItem = {
     menuItemId: number;
@@ -54,7 +54,6 @@ export const useBasketStore = create<BasketStore>(set => ({
             produce(
                 (draft: BasketState) => {
                     const targetIndex = draft.items.findIndex(i => i.menuItemId === id);
-                    console.log(targetIndex)
                     if (targetIndex >= 0) draft.items.splice(targetIndex, 1);
                 }
             )
