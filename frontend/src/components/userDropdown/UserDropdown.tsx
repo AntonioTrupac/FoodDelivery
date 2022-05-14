@@ -1,7 +1,5 @@
-import {Dispatch, FC, SetStateAction, useRef} from 'react';
+import { Dispatch, FC, SetStateAction, useRef } from 'react';
 import { useHistory } from 'react-router';
-
-import useOnClickOutside from '../../customHooks/useClickOutside';
 import { useSessionStore } from '../../store/session';
 
 type UserDropdownProps = {
@@ -9,7 +7,7 @@ type UserDropdownProps = {
    setOpen: Dispatch<SetStateAction<boolean>>;
 };
 
-export const UserDropdown: FC<UserDropdownProps> = ({ open, setOpen }) => {
+export const UserDropdown: FC<UserDropdownProps> = ({ setOpen }) => {
    const history = useHistory();
    const node = useRef<any>(null);
    const { email, firstName, lastName, phoneNumber } = useSessionStore();
@@ -20,18 +18,13 @@ export const UserDropdown: FC<UserDropdownProps> = ({ open, setOpen }) => {
    };
 
    const handleClickInside = () => {
-      setOpen(!open);
-   };
-
-   const handleClickOutside = () => {
-      setOpen(!open);
+      setOpen(false);
    };
 
    const handleRoute = () => {
+      setOpen(false);
       history.push('/editUserInfo');
    };
-
-   useOnClickOutside(node, handleClickOutside);
 
    return (
       <div ref={node} className='dropdown bg-[#FFEEDE] absolute rounded p-4'>

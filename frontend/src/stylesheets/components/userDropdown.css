@@ -2,10 +2,10 @@
    .dropdown {
       top: 65px;
       width: 300px;
-      transform: translateX(-45%);
       padding-top: 0;
       overflow: hidden;
       z-index: 1;
+      right:0;
 
       @media screen and (max-width: 1120px) {
          margin-right: 20px;
